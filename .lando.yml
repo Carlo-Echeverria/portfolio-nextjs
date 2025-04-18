@@ -1,0 +1,14 @@
+name: portfolio-nextjs
+
+services:
+  nextjs:
+    type: node:20
+    command: npm run dev
+    ports:
+      - "3000:3000"
+
+tooling:
+  npm:
+    service: nextjs
+  npx:
+    service: nextjs
