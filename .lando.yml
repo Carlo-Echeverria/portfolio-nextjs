@@ -5,7 +5,8 @@ services:
     type: node:20
     command: npm run dev
     ports:
-      - "3000:3000"
+      - "3001:3001"
+      - "9000:9000"
 
 tooling:
   npm:

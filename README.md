@@ -39,3 +39,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 stack:
 node v20.19.0
 npm 10.8.2
+
+endpoints:
+/jsonapi/node/profile
+/jsonapi/node/project
+/jsonapi/node/education
+/jsonapi/taxonomy_term/tech_stacks
+/jsonapi/taxonomy_term/skills
+/jsonapi/taxonomy_term/project_types
+/jsonapi/taxonomy_term/roles
+/jsonapi/file/file
