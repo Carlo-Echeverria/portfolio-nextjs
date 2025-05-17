@@ -1,11 +1,15 @@
+import { Project } from "@/types/project";
+import { Skill } from "@/types/skill";
+import { Education } from "@/types/education";
+
 export interface Profile {
-  id?: string;
+  id: string;
   type?: 'node--profile';
-  attributes: {
+  attributes?: {
     title: string;
-    langcode?: string,
+    langcode: string,
     drupal_internal__nid: number;
-    status?: string;
+    status: string;
     body: {
       value: string;
       summary?: string;
@@ -16,35 +20,21 @@ export interface Profile {
   };
   relationships: {
     field_skills: {
-      data: {
-        meta: {
-          drupal_internal__target_id: number;
-        };
-      }[];
+      data: Skill[];
     };
     field_education: {
-      data: {
-        meta: {
-          drupal_internal__target_id: number;
-        };
-      } | {};
+      data: Education;
     };
     field_photo: {
+      // alt: string;
+      url: string;
+    };
+    field_cv: {
+      filename: string;
       url: string
     };
-    field_photo2: {
-      data: {
-        meta: {
-          drupal_internal__target_id: number;
-        }
-      } | {};
-    };
     field_projects: {
-      data: {
-        meta: {
-          drupal_internal__target_id: number;
-        };
-      }[];
+      data: Project[];
     };
   };
 }

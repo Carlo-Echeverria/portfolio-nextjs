@@ -1,27 +1,54 @@
+import { normalizeProfile } from "@/normalizers/profileNormalizer";
 import { Profile } from '@/types/profile';
-import { getFile } from '@/services/fileService';
+import { getFile, getImage } from '@/services/fileService';
+import { getProjects } from '@/services/projectService';
+import { getEducation } from '@/services/educationService';
+import { getSkills } from '@/services/skillService';
 
-export const getProfile = async () => {
+export const getProfile = async (id: number): Promise<Profile> => {
   try {
-    
-    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/profile?filter[nid]=3`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/profile?filter[nid]=${id}`,
+      { next: { revalidate: 0 } }
+    );
+
     if (!response.ok) throw new Error(`Error fetching profile`);
     let data = await response.json();
-
     data = data.data[0];
 
-    console.log(data);
-    
-    const nodeId = data.attributes.drupal_internal__nid
-    const photo = await getFile(5);
-    
-    let dataProfile: Profile = {
+    const nodeId = data.attributes.drupal_internal__nid;
+    const photoID = data.relationships.field_photo.data.meta.drupal_internal__target_id;
+    const cvID = data.relationships.field_cv.data.meta.drupal_internal__target_id;
+    const educationID = data.relationships.field_education.data.meta.drupal_internal__target_id;
+
+    const photo = await getImage(photoID);
+    const cv = await getFile(cvID);
+
+    // Projects
+    const projectIds = data.relationships.field_projects.data.map(
+      (item: { id: string }) => item.id
+    );
+    let projects = await getProjects(projectIds);
+
+    // Education
+    let education = await getEducation(educationID);
+
+    // Skills
+    const skillIds = data.relationships.field_projects.data.map(
+      (item: { id: string }) => item.id
+    );
+    let skills = await getSkills(skillIds);
+
+    const dataProfile : Profile = {
+      id: data.id,
       attributes: {
         title: data.attributes.title,
+        langcode: data.attributes.langcode,
+        status: data.attributes.status,
         drupal_internal__nid: nodeId,
         body: {
-          value: data.attributes.body.value,
-          summary: data.attributes.body.summary,
+          value: data.attributes.body?.value,
+          summary: data.attributes.body?.summary,
         },
         field_email: data.attributes.field_email,
         field_phone: data.attributes.field_phone,
@@ -29,27 +56,27 @@ export const getProfile = async () => {
       },
       relationships: {
         field_skills: {
-          data: data.relationships.field_skills.data
+          data: skills,
         },
         field_education: {
-          data: data.relationships.field_education.data
-        },
+          data: education,
+        }, 
         field_photo: {
-          url: ("url" in photo) ? `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${photo.url}` : ''
+          url: (photo as { url: string }).url,
         },
-        field_photo2: {
-          data: data.relationships.field_photo.data
+        field_cv: {
+          filename: (cv as { filename: string }).filename,
+          url: (cv as { url: string }).url,
         },
         field_projects: {
-          data: data.relationships.field_projects.data
+          data: projects, // ahora es el detalle de cada proyecto
         },
-      }
-    }
+      },
+    };
 
-    
-    return dataProfile;
+    return normalizeProfile(dataProfile);
   } catch (error) {
     console.error(`Error fetching profile:`, error);
-    return {};
+    return normalizeProfile({});
   }
 };

@@ -1,6 +1,6 @@
 export interface Education {
   id: string;
-  type: 'node--education';
+  type?: 'node--education';
   attributes: {
     title: string;
     langcode: string,

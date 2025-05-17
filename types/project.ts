@@ -1,6 +1,6 @@
 export interface Project {
   id: string;
-  type: 'node--project';
+  type?: 'node--project';
   attributes: {
     title: string;
     langcode: string,
@@ -15,7 +15,7 @@ export interface Project {
     field_is_current: boolean;
     field_taks: string[] | [];
   };
-  relationships: {
+  relationships?: {
     field_gallery: {
       data: {
         meta: {

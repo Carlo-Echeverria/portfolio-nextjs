@@ -1,6 +1,6 @@
 export interface Skill {
   id: string;
-  type: 'taxonomy_term--skills';
+  type?: 'taxonomy_term--skills';
   attributes: {
     name: string;
     langcode: string,
