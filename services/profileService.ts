@@ -12,7 +12,7 @@ export const getProfile = async (id: number): Promise<Profile> => {
       { next: { revalidate: 0 } }
     );
 
-    if (!response.ok) throw new Error(`Error fetching profile`);
+    if (!response.ok) throw new Error(`Error fetching profile 1`);
     let data = await response.json();
     data = data.data[0];
 
@@ -21,24 +21,15 @@ export const getProfile = async (id: number): Promise<Profile> => {
     const cvID = data.relationships.field_cv.data.id;
     const educationID = data.relationships.field_education.data.meta.drupal_internal__target_id;
 
-    const photo = await getImages([photoID]);
-    
-    const cv = await getFiles([cvID]);
-
     // Projects
     const projectIds = data.relationships.field_projects.data.map(
       (item: { id: string }) => item.id
     );
-    let projects = await getProjects(projectIds);
-
-    // Education
-    let education = await getEducation(educationID);
 
     // Skills
     const skillIds = data.relationships.field_skills.data.map(
       (item: { id: string }) => item.id
     );
-    let skills = await getSkills(skillIds);
 
     const dataProfile : Profile = {
       id: data.id,
@@ -57,26 +48,26 @@ export const getProfile = async (id: number): Promise<Profile> => {
       },
       relationships: {
         field_skills: {
-          data: skills,
+          data: await getSkills(skillIds),
         },
         field_education: {
-          data: education,
+          data: await getEducation(educationID),
         }, 
         field_photo: {
-          data: photo
+          data: await getImages([photoID])
         },
         field_cv: {
-          data: cv
+          data: await getFiles([cvID])
         },
         field_projects: {
-          data: projects, // ahora es el detalle de cada proyecto
+          data: await getProjects(projectIds), // ahora es el detalle de cada proyecto
         },
       },
     };
     
     return normalizeProfile(dataProfile);
   } catch (error) {
-    console.error(`Error fetching profile:`, error);
+    console.error(`Error fetching profile 2:`, error);
     return normalizeProfile({});
   }
 };

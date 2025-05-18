@@ -28,29 +28,24 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
         const galleryIds = project?.relationships.field_gallery.data.map(
           (image: { id: string }) => image.id
         );
-        const gallery = await getImages(galleryIds);
         
         // Thumbnail
         const thumbnailsId = (project?.relationships.field_thumbnail?.data as ImageType)?.id || "";
-        const thumbnail = await getImages([thumbnailsId]);
 
         // Tech Satcks
         const techStacksIds = project?.relationships.field_tech_stacks.data.map(
           (stack: { id: string }) => stack.id
         );
-        const techStacks = await getTechStacks(techStacksIds);
 
         // Roles
         const rolesIds = project?.relationships.field_roles.data.map(
           (stack: { id: string }) => stack.id
         );
-        const roles = await getRoles(rolesIds);
 
         // Project Types
         const projectTypesIds = project?.relationships.field_project_types.data.map(
           (type: { id: string }) => type.id
         );
-        const projectTypes = await getProjectTypes(projectTypesIds);
 
         const dataProject: Project = {
           id: project.id,
@@ -70,19 +65,19 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
           },
           relationships: {
             field_gallery: {
-              data: gallery,
+              data: await getImages(galleryIds),
             },
             field_thumbnail: {
-              data: thumbnail,
+              data: await getImages([thumbnailsId]),
             },
             field_tech_stacks: {
-              data: techStacks
+              data: await getTechStacks(techStacksIds)
             },
             field_roles: {
-              data: roles
+              data: await getRoles(rolesIds)
             },
             field_project_types: {
-              data: projectTypes
+              data: await getProjectTypes(projectTypesIds)
             }
           },
         };

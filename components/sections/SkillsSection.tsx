@@ -5,64 +5,69 @@ import { Server, Database, Cloud, Wrench, Layout, CheckCircle2 } from "lucide-re
 import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Skill } from "@/types/skill"
+import type { Skill } from "@/types/skill"
+import { sanitizeHtml } from "@/lib/utils"
 
-export function SkillsSection({ skills } : { skills: Skill[] }) {
-  // Datos estáticos de habilidades técnicas
-  const technicalSkills = {
-    frontend: [
-      { name: "React", level: 85, years: 4 },
-      { name: "JavaScript", level: 90, years: 7 },
-      { name: "TypeScript", level: 75, years: 3 },
-      { name: "HTML/CSS", level: 85, years: 7 },
-      { name: "Tailwind CSS", level: 80, years: 2 },
-      { name: "Next.js", level: 75, years: 2 },
-    ],
-    backend: [
-      { name: "Drupal", level: 95, years: 7 },
-      { name: "PHP", level: 90, years: 7 },
-      { name: "Node.js", level: 70, years: 3 },
-      { name: "Express", level: 65, years: 3 },
-      { name: "GraphQL", level: 60, years: 2 },
-    ],
-    database: [
-      { name: "MySQL", level: 80, years: 6 },
-      { name: "PostgreSQL", level: 75, years: 4 },
-      { name: "MongoDB", level: 65, years: 3 },
-    ],
-    devops: [
-      { name: "Docker", level: 75, years: 3 },
-      { name: "CI/CD", level: 80, years: 4 },
-      { name: "Acquia Cloud", level: 85, years: 3 },
-      { name: "Pantheon", level: 80, years: 2 },
-      { name: "AWS", level: 60, years: 2 },
-    ],
-    tools: [
-      { name: "Git", level: 85, years: 7 },
-      { name: "JIRA", level: 80, years: 5 },
-      { name: "Figma", level: 70, years: 3 },
-      { name: "VS Code", level: 90, years: 6 },
-    ],
+export function SkillsSection({ skills }: { skills: Skill[] }) {
+ 
+  // Procesar los datos del skillProfile para llenar las estructuras
+  const processedTechnicalSkills: Record<string, any[]> = {
+    frontend: [],
+    backend: [],
+    database: [],
+    devops: [],
+    tools: [],
   }
 
-  // Datos estáticos de habilidades blandas
-  const softSkills = [
-    { name: "Trabajo en equipo", level: 90 },
-    { name: "Comunicación", level: 85 },
-    { name: "Resolución de problemas", level: 95 },
-    { name: "Gestión del tiempo", level: 80 },
-    { name: "Adaptabilidad", level: 90 },
-    { name: "Aprendizaje continuo", level: 95 },
-  ]
+  const processedSoftSkills: any[] = []
+  const processedMethodologies: any[] = []
 
-  // Datos estáticos de metodologías y procesos
-  const methodologies = [
-    { name: "Scrum", level: 85 },
-    { name: "Kanban", level: 80 },
-    { name: "TDD", level: 75 },
-    { name: "CI/CD", level: 85 },
-    { name: "Gitflow", level: 90 },
-  ]
+  // Procesar cada habilidad del skillProfile
+  skills.forEach((skill) => {
+    const skillType = skill.relationships.field_skill_types.data[0]?.attributes.name
+    const skillData = {
+      name: skill.attributes.name,
+      level: skill.attributes.field_level || 0,
+      years: skill.attributes.field_years || null,
+      // Usamos una forma más segura de acceder a description
+      description: skill.attributes.description || "",
+    }
+
+    // Clasificar según el tipo de habilidad
+    if (skillType === "Technical") {
+      // Obtener la categoría de la habilidad técnica
+      const category = skill.relationships.field_skill_categories.data[0]?.attributes.name.toLowerCase()
+
+      // Mapear la categoría a las claves de processedTechnicalSkills
+      let mappedCategory = ""
+      if (category === "frontend") mappedCategory = "frontend"
+      else if (category === "backend") mappedCategory = "backend"
+      else if (category === "database") mappedCategory = "database"
+      else if (category === "devops") mappedCategory = "devops"
+      else if (category === "tools") mappedCategory = "tools"
+      else mappedCategory = "frontend" // Por defecto si no hay categoría
+
+      // Añadir a la categoría correspondiente
+      if (processedTechnicalSkills[mappedCategory]) {
+        processedTechnicalSkills[mappedCategory].push(skillData)
+      }
+    } else if (skillType === "Soft") {
+      processedSoftSkills.push(skillData)
+    } else if (skillType === "Methodology") {
+      processedMethodologies.push(skillData)
+    }
+  })
+
+  // Datos de habilidades técnicas procesados
+  const technicalSkills = processedTechnicalSkills
+
+  // Datos de habilidades blandas procesados
+  const softSkills = processedSoftSkills
+
+  console.log(softSkills);
+
+  // Datos de metodologías y procesos procesados
+  const methodologies = processedMethodologies
 
   // Iconos para categorías
   const categoryIcons = {
@@ -125,7 +130,10 @@ export function SkillsSection({ skills } : { skills: Skill[] }) {
                           <div className="w-full max-w-md">
                             {Object.entries(technicalSkills).map(([category, skills], index) => {
                               // Calcular el nivel promedio de habilidades en esta categoría
-                              const avgLevel = skills.reduce((sum, skill) => sum + skill.level, 0) / skills.length
+                              const avgLevel =
+                                skills.length > 0
+                                  ? skills.reduce((sum, skill) => sum + skill.level, 0) / skills.length
+                                  : 0
 
                               return (
                                 <div key={category} className="mb-4">
@@ -160,24 +168,28 @@ export function SkillsSection({ skills } : { skills: Skill[] }) {
                       <div className="space-y-6">
                         {/* Mostrar las habilidades con mayor nivel de cada categoría */}
                         {Object.entries(technicalSkills).flatMap(([category, skills]) =>
-                          skills
-                            .sort((a, b) => b.level - a.level)
-                            .slice(0, 1)
-                            .map((skill, idx) => (
-                              <div key={`${category}-${idx}`}>
-                                <div className="flex justify-between mb-1">
-                                  <div className="flex items-center gap-2">
-                                    {categoryIcons[category as keyof typeof categoryIcons]}
-                                    <span className="font-medium">{skill.name}</span>
+                          skills.length > 0
+                            ? skills
+                                .sort((a, b) => b.level - a.level)
+                                .slice(0, 1)
+                                .map((skill, idx) => (
+                                  <div key={`${category}-${idx}`}>
+                                    <div className="flex justify-between mb-1">
+                                      <div className="flex items-center gap-2">
+                                        {categoryIcons[category as keyof typeof categoryIcons]}
+                                        <span className="font-medium">{skill.name}</span>
+                                      </div>
+                                      <span className="text-muted-foreground">{skill.level}%</span>
+                                    </div>
+                                    <Progress value={skill.level} className="h-3" />
+                                    {skill.years && (
+                                      <p className="text-xs text-muted-foreground mt-1">
+                                        {skill.years} {skill.years === 1 ? "año" : "años"} de experiencia
+                                      </p>
+                                    )}
                                   </div>
-                                  <span className="text-muted-foreground">{skill.level}%</span>
-                                </div>
-                                <Progress value={skill.level} className="h-3" />
-                                <p className="text-xs text-muted-foreground mt-1">
-                                  {skill.years} {skill.years === 1 ? "año" : "años"} de experiencia
-                                </p>
-                              </div>
-                            )),
+                                ))
+                            : [],
                         )}
                       </div>
                     </CardContent>
@@ -187,43 +199,47 @@ export function SkillsSection({ skills } : { skills: Skill[] }) {
 
               {/* Categorías de habilidades técnicas */}
               <div className="mt-12 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {Object.entries(technicalSkills).map(([category, skills], categoryIndex) => (
-                  <motion.div
-                    key={category}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <Card>
-                      <CardContent className="p-6">
-                        <div className="flex items-center gap-2 mb-4">
-                          {categoryIcons[category as keyof typeof categoryIcons]}
-                          <h3 className="text-xl font-semibold capitalize">{category}</h3>
-                        </div>
-                        <div className="space-y-4">
-                          {skills.map((skill, idx) => (
-                            <div key={idx}>
-                              <div className="flex justify-between mb-1">
-                                <span className="font-medium">{skill.name}</span>
-                                <span className="text-muted-foreground">{skill.level}%</span>
+                {Object.entries(technicalSkills).map(([category, skills], categoryIndex) => {
+                  if (skills.length === 0) return null
+
+                  return (
+                    <motion.div
+                      key={category}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <Card>
+                        <CardContent className="p-6">
+                          <div className="flex items-center gap-2 mb-4">
+                            {categoryIcons[category as keyof typeof categoryIcons]}
+                            <h3 className="text-xl font-semibold capitalize">{category}</h3>
+                          </div>
+                          <div className="space-y-4">
+                            {skills.map((skill, idx) => (
+                              <div key={idx}>
+                                <div className="flex justify-between mb-1">
+                                  <span className="font-medium">{skill.name}</span>
+                                  <span className="text-muted-foreground">{skill.level}%</span>
+                                </div>
+                                <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+                                  <motion.div
+                                    className="h-full bg-primary"
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: `${skill.level}%` }}
+                                    transition={{ duration: 1, delay: 0.2 + idx * 0.1 }}
+                                    viewport={{ once: true }}
+                                  />
+                                </div>
                               </div>
-                              <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
-                                <motion.div
-                                  className="h-full bg-primary"
-                                  initial={{ width: 0 }}
-                                  whileInView={{ width: `${skill.level}%` }}
-                                  transition={{ duration: 1, delay: 0.2 + idx * 0.1 }}
-                                  viewport={{ once: true }}
-                                />
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  )
+                })}
               </div>
             </TabsContent>
 
@@ -276,44 +292,18 @@ export function SkillsSection({ skills } : { skills: Skill[] }) {
                     <CardContent className="p-6">
                       <h3 className="text-xl font-semibold mb-6">Fortalezas Clave</h3>
                       <ul className="space-y-4">
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
-                          <div>
-                            <h4 className="font-medium">Resolución de problemas</h4>
-                            <p className="text-muted-foreground">
-                              Capacidad para analizar situaciones complejas y encontrar soluciones eficientes.
-                            </p>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
-                          <div>
-                            <h4 className="font-medium">Aprendizaje continuo</h4>
-                            <p className="text-muted-foreground">
-                              Pasión por aprender nuevas tecnologías y mantenerme actualizado en un campo en constante
-                              evolución.
-                            </p>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
-                          <div>
-                            <h4 className="font-medium">Adaptabilidad</h4>
-                            <p className="text-muted-foreground">
-                              Flexibilidad para adaptarme a nuevos entornos, equipos y tecnologías rápidamente.
-                            </p>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
-                          <div>
-                            <h4 className="font-medium">Trabajo en equipo</h4>
-                            <p className="text-muted-foreground">
-                              Habilidad para colaborar efectivamente, compartir conocimientos y contribuir al éxito del
-                              equipo.
-                            </p>
-                          </div>
-                        </li>
+                        {softSkills
+                          .sort((a, b) => b.level - a.level)
+                          .slice(0, 4)
+                          .map((skill, idx) => (
+                            <li key={idx} className="flex items-start gap-3">
+                              <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
+                              <div>
+                                <h4 className="font-medium">{skill.name}</h4>
+                                <div className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: sanitizeHtml(skill.description.value) }}></div>
+                              </div>
+                            </li>
+                          ))}
                       </ul>
                     </CardContent>
                   </Card>

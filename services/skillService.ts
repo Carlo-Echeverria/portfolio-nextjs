@@ -1,5 +1,7 @@
 import { normalizeSkill } from "@/normalizers/skillNormalizer";
 import { Skill } from '@/types/skill';
+import { getSkillTypes } from "@/services/skillTypeService";
+import { getSkillCategories } from "./skillCategoryService";
 
 export const getSkills = async (skillIds: string[]): Promise<Skill[]> => {
   if (!skillIds || skillIds.length === 0) return [];
@@ -18,21 +20,42 @@ export const getSkills = async (skillIds: string[]): Promise<Skill[]> => {
 
     const data = await response.json();
     
-    const skills : Skill[] = []
+    const skills: Skill[] = await Promise.all(
+      data.data.map( async (skill: Skill)=> {
+        // Skill Types
+        const skillTypesIds = skill?.relationships.field_skill_types.data.map(
+          (type: { id: string }) => type.id
+        );
 
-    data.data.map((skill: Skill)=> {
-      const dataSkill : Skill = {
-        id: skill.id,
-        attributes: {
-          name: skill.attributes.name,
-          drupal_internal__tid: skill.attributes.drupal_internal__tid,
-          langcode: skill.attributes.langcode,
-          status: skill.attributes.status,
-          description: skill.attributes.description,
-        }
-      };
-      skills.push(normalizeSkill(dataSkill));
-    })
+        // Skill Categories
+        const skillCategoriesIds = skill?.relationships.field_skill_categories.data.map(
+          (category: { id: string }) => category.id
+        );
+
+        const dataSkill : Skill = {
+          id: skill.id,
+          attributes: {
+            name: skill.attributes.name,
+            drupal_internal__tid: skill.attributes.drupal_internal__tid,
+            langcode: skill.attributes.langcode,
+            status: skill.attributes.status,
+            description: skill.attributes.description,
+            field_level: skill.attributes.field_level,
+            field_years: skill.attributes.field_years,
+          },
+          relationships: {
+            field_skill_types: {
+              data: await getSkillTypes(skillTypesIds)
+            },
+            field_skill_categories: {
+              data: await getSkillCategories(skillCategoriesIds)
+            }
+          }
+        };
+
+        return dataSkill;
+      })
+    )
 
     return skills;
   } catch (error) {

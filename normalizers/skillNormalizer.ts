@@ -10,6 +10,16 @@ export function normalizeSkill(data: any): Skill {
       drupal_internal__tid: data.attributes?.drupal_internal__tid ?? 0,
       status: String(data.attributes?.status ?? ""),
       description: String(data.attributes?.description ?? ""),
+      field_level: data.attributes.field_level ?? 0,
+      field_years: data.attributes.field_years ?? 0,
+    },
+    relationships: {
+      field_skill_types: {
+        data: data.relationships?.field_skill_types?.data ?? [],
+      },
+      field_skill_categories: {
+        data: data.relationships?.field_skill_categories?.data ?? [],
+      }
     }
   };
 }
