@@ -1,7 +1,4 @@
 import { Profile } from "@/types/profile";
-import { normalizeProject } from "@/normalizers/projectNormalizer";
-import { normalizeEducation } from "@/normalizers/educationNormalizer";
-
 export function normalizeProfile(data: any): Profile {
   return {
     id: data.id ?? "",
@@ -21,22 +18,19 @@ export function normalizeProfile(data: any): Profile {
     },
     relationships: {
       field_skills: {
-        data: data.relationships?.field_skills?.data ?? [],
+        data: data.relationships?.field_skills?.data,
       },
       field_education: {
-        data: data.relationships?.field_education?.data
-          ? normalizeEducation(data.relationships.field_education.data)
-          : {},
+        data: data.relationships?.field_education?.data,
       },
       field_photo: {
-        url: data.relationships?.field_photo?.url ?? "",
+        data: data.relationships?.field_photo?.data,
       },
       field_cv: {
-        filename: data.relationships?.field_cv?.filename ?? "",
-        url: data.relationships?.field_cv?.url ?? "",
+        data: data.relationships?.field_cv?.data,
       },
       field_projects: {
-        data: (data.relationships?.field_projects?.data ?? []).map(normalizeProject),
+        data: data.relationships?.field_projects?.data,
       },
     },
   };

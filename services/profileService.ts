@@ -1,6 +1,6 @@
 import { normalizeProfile } from "@/normalizers/profileNormalizer";
 import { Profile } from '@/types/profile';
-import { getFile, getImage } from '@/services/fileService';
+import { getFiles, getImages } from '@/services/fileService';
 import { getProjects } from '@/services/projectService';
 import { getEducation } from '@/services/educationService';
 import { getSkills } from '@/services/skillService';
@@ -17,12 +17,13 @@ export const getProfile = async (id: number): Promise<Profile> => {
     data = data.data[0];
 
     const nodeId = data.attributes.drupal_internal__nid;
-    const photoID = data.relationships.field_photo.data.meta.drupal_internal__target_id;
-    const cvID = data.relationships.field_cv.data.meta.drupal_internal__target_id;
+    const photoID = data.relationships.field_photo.data.id;
+    const cvID = data.relationships.field_cv.data.id;
     const educationID = data.relationships.field_education.data.meta.drupal_internal__target_id;
 
-    const photo = await getImage(photoID);
-    const cv = await getFile(cvID);
+    const photo = await getImages([photoID]);
+    
+    const cv = await getFiles([cvID]);
 
     // Projects
     const projectIds = data.relationships.field_projects.data.map(
@@ -34,7 +35,7 @@ export const getProfile = async (id: number): Promise<Profile> => {
     let education = await getEducation(educationID);
 
     // Skills
-    const skillIds = data.relationships.field_projects.data.map(
+    const skillIds = data.relationships.field_skills.data.map(
       (item: { id: string }) => item.id
     );
     let skills = await getSkills(skillIds);
@@ -62,18 +63,17 @@ export const getProfile = async (id: number): Promise<Profile> => {
           data: education,
         }, 
         field_photo: {
-          url: (photo as { url: string }).url,
+          data: photo
         },
         field_cv: {
-          filename: (cv as { filename: string }).filename,
-          url: (cv as { url: string }).url,
+          data: cv
         },
         field_projects: {
           data: projects, // ahora es el detalle de cada proyecto
         },
       },
     };
-
+    
     return normalizeProfile(dataProfile);
   } catch (error) {
     console.error(`Error fetching profile:`, error);

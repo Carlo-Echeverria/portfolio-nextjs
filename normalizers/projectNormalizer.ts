@@ -1,6 +1,7 @@
 import { Project } from "@/types/project";
 
 export function normalizeProject(data: any): Project {
+  
   return {
     id: data.attributes?.id ?? "",
     type: "node--project",

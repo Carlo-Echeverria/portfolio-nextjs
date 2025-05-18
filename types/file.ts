@@ -1,9 +1,19 @@
 export interface File {
+  id: string,
   filename: string;
-  url: string
+    attributes: {
+    uri: {
+      url: string
+    }
+  }
 }
 
 export interface Image {
+  id: string,
   alt: string;
-  url: string
+  attributes: {
+    uri: {
+      url: string
+    }
+  }
 }

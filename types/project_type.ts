@@ -1,6 +1,6 @@
 export interface ProjectType {
   id: string;
-  type: 'taxonomy_term--project_types';
+  type?: 'taxonomy_term--project_types';
   attributes: {
     name: string;
     langcode: string,

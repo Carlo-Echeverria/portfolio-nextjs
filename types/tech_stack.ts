@@ -1,6 +1,6 @@
 export interface TechStack {
   id: string;
-  type: 'taxonomy_term--tech_stacks';
+  type?: 'taxonomy_term--tech_stacks';
   attributes: {
     name: string;
     langcode: string,

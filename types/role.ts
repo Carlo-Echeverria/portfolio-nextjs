@@ -1,6 +1,6 @@
 export interface Role {
   id: string;
-  type: 'taxonomy_term--roles';
+  type?: 'taxonomy_term--roles';
   attributes: {
     name: string;
     langcode: string,

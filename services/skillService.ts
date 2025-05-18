@@ -1,6 +1,7 @@
+import { normalizeSkill } from "@/normalizers/skillNormalizer";
 import { Skill } from '@/types/skill';
 
-export const getSkills = async (skillIds: string[]) => {
+export const getSkills = async (skillIds: string[]): Promise<Skill[]> => {
   if (!skillIds || skillIds.length === 0) return [];
 
   try {
@@ -20,7 +21,7 @@ export const getSkills = async (skillIds: string[]) => {
     const skills : Skill[] = []
 
     data.data.map((skill: Skill)=> {
-      const dataSkill = {
+      const dataSkill : Skill = {
         id: skill.id,
         attributes: {
           name: skill.attributes.name,
@@ -30,7 +31,7 @@ export const getSkills = async (skillIds: string[]) => {
           description: skill.attributes.description,
         }
       };
-      skills.push(dataSkill);
+      skills.push(normalizeSkill(dataSkill));
     })
 
     return skills;

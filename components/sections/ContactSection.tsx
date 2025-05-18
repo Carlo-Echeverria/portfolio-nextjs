@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import { Profile } from "@/types/profile"
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres" }),
@@ -19,11 +20,7 @@ const formSchema = z.object({
   message: z.string().min(10, { message: "El mensaje debe tener al menos 10 caracteres" }),
 })
 
-interface ContactSectionProps {
-  profile: any
-}
-
-export function ContactSection({ profile }: ContactSectionProps) {
+export function ContactSection({ profile }: { profile : Profile }) {
   const { toast } = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const email = profile?.attributes?.field_email || "contacto@ejemplo.com"

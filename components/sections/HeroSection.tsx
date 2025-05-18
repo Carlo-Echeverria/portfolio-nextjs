@@ -6,17 +6,21 @@ import Link from "next/link"
 import { ArrowRight, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { sanitizeHtml } from "@/lib/utils"
+import { Profile } from "@/types/profile";
+import { File, Image as ImageType } from "@/types/file";
 
-interface HeroSectionProps {
-  profile: any
-}
-
-export function HeroSection({ profile }: HeroSectionProps) {
+export function HeroSection({ profile }: { profile: Profile }) {
   const name = profile?.attributes?.title || "Juan Pérez"
   const title = profile?.attributes?.field_title || "Desarrollador Full-Stack"
-  const photoUrl = profile?.relationships?.field_photo?.url || "/placeholder.svg?height=200&width=200"
   const bio = profile?.attributes?.body?.value || ""
-  const cvUrl = profile?.relationships?.field_cv?.url || "/placeholder.svg?height=200&width=200"
+
+  const photoUrl = Array.isArray(profile?.relationships?.field_photo?.data) && profile.relationships.field_photo.data.length > 0
+    ? (profile.relationships.field_photo.data[0] as ImageType).attributes.uri.url
+    : "/placeholder.svg?height=200&width=200";
+  
+  const cvUrl = Array.isArray(profile?.relationships?.field_cv?.data) && profile.relationships.field_cv.data.length > 0
+    ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
+    : "/placeholder.svg?height=200&width=200";
 
   return (
     <section id="home" className="relative min-h-screen w-full">

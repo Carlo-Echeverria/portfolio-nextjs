@@ -25,8 +25,8 @@ export default async function Home() {
       <main>
         <HeroSection profile={profile} />
         <AboutSection profile={profile} />
-        <ProjectsSection projects={projects} />
-        <SkillsSection profile={skills} />
+        <ProjectsSection projectsProps={projects} />
+        <SkillsSection skills={skills} />
         <BlogSection />
         <ContactSection profile={profile} />
       </main>

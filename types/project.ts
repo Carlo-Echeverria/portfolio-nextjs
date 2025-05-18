@@ -1,3 +1,8 @@
+import { Image } from "@/types/file";
+import { TechStack } from '@/types/tech_stack';
+import { Role } from '@/types/role';
+import { ProjectType } from '@/types/project_type';
+
 export interface Project {
   id: string;
   type?: 'node--project';
@@ -15,41 +20,21 @@ export interface Project {
     field_is_current: boolean;
     field_taks: string[] | [];
   };
-  relationships?: {
+  relationships: {
     field_gallery: {
-      data: {
-        meta: {
-          drupal_internal__target_id: number;
-        };
-      }[];
+      data: Image[];
     };
     field_project_types: {
-      data: {
-        meta: {
-          drupal_internal__target_id: number;
-        };
-      }[];
+      data: ProjectType[];
     };
     field_roles: {
-      data: {
-        meta: {
-          drupal_internal__target_id: number;
-        };
-      }[];
+      data: Role[];
     };
     field_tech_stacks: {
-      data: {
-        meta: {
-          drupal_internal__target_id: number;
-        };
-      }[];
+      data: TechStack[];
     };
     field_thumbnail: {
-      data: {
-        meta: {
-          drupal_internal__target_id: number;
-        }
-      } | {};
+      data: Image | {};
     };
   };
 }

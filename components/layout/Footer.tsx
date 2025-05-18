@@ -1,11 +1,8 @@
 import Link from "next/link"
 import { Github, Linkedin, Twitter } from "lucide-react"
+import { Profile } from "@/types/profile"
 
-interface FooterProps {
-  profile: any
-}
-
-export function Footer({ profile }: FooterProps) {
+export function Footer({ profile }: { profile: Profile }) {
   const email = profile?.attributes?.field_email || "contacto@ejemplo.com"
   const currentYear = new Date().getFullYear()
 

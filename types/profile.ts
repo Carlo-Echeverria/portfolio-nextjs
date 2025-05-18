@@ -1,6 +1,7 @@
 import { Project } from "@/types/project";
 import { Skill } from "@/types/skill";
 import { Education } from "@/types/education";
+import { File, Image } from "./file";
 
 export interface Profile {
   id: string;
@@ -26,12 +27,10 @@ export interface Profile {
       data: Education;
     };
     field_photo: {
-      // alt: string;
-      url: string;
+      data: Image | {}
     };
     field_cv: {
-      filename: string;
-      url: string
+      data: File | {}
     };
     field_projects: {
       data: Project[];

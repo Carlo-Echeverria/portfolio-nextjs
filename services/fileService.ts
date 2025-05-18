@@ -1,43 +1,75 @@
+import { normalizeFile, normalizeImage } from "@/normalizers/fileNormalizer";
 import { File, Image } from '@/types/file';
 
-export const getFile = async (fileId: number) => {
+export const getFiles = async (filesId: string[]): Promise<File[]> => {
+  if (!filesId || filesId.length === 0) {
+    return [];
+  }
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?filter[fid]=${fileId}`)
+    const queryParams = new URLSearchParams();
+    queryParams.append('filter[id][operator]', 'IN');
+    filesId.forEach(id => queryParams.append('filter[id][value][]', id));
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`)
     if (!response.ok) throw new Error(`Error fetching file`);
     let data = await response.json();
 
-    data = data.data[0];
+    const files : File[] = []
 
-    let dataFile: File = {
-      filename: data.attributes.filename,
-      url: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${data.attributes.uri.url}`,
-    }
+    data.data.map((file: File) => {
+      let dataFile: File = {
+        id: file.id,
+        filename: file.filename,
+        attributes: {
+          uri: {
+            url: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${file.attributes.uri.url}`,
+          }
+        }
+      }
+      files.push(normalizeFile(dataFile));
+    });
 
-    return dataFile;
+    return files;
 
   } catch (error) {
     console.error(`Error fetching file:`, error);
-    return {};
+    return [];
   }
 }
 
-export const getImage = async (imageId: number) => {
+export const getImages = async (imagesId: string[]) : Promise<Image[]> => {
+  if (!imagesId || imagesId.length === 0) {
+    return [];
+  }
+
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?filter[fid]=${imageId}`)
-    if (!response.ok) throw new Error(`Error fetching image`);
+    const queryParams = new URLSearchParams();
+    queryParams.append('filter[id][operator]', 'IN');
+    imagesId.forEach(id => queryParams.append('filter[id][value][]', id));
+    
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`)
+    if (!response.ok) throw new Error(`Error fetching images`);
+    
     let data = await response.json();
 
-    data = data.data[0];
+    const images : Image[] = []
 
-    let dataImage: Image = {
-      alt: data.attributes.alt,
-      url: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${data.attributes.uri.url}`,
-    }
+    data.data.map((image: Image)=> {
+      const dataImage : Image = {
+        id: image.id,
+        alt: image.alt,
+        attributes: {
+          uri: {
+            url: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${image.attributes.uri.url}`,
+          }
+        }
+      };
+      images.push(normalizeImage(dataImage));
+    })
 
-    return dataImage;
+    return images;
 
   } catch (error) {
-    console.error(`Error fetching image:`, error);
-    return {};
+    console.error(`Error fetching images:`, error);
+    return [];
   }
 }
