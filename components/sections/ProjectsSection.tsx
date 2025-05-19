@@ -265,7 +265,7 @@ export function ProjectsSection({ projectsProps }: { projectsProps: Project[] })
                     </div>
 
                     {/* Enlaces */}
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 flex-wrap">
                       <Dialog>
                         <DialogTrigger asChild>
                           <Button
