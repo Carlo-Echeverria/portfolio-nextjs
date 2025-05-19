@@ -97,7 +97,7 @@ export function SkillsSection({ skills }: { skills: Skill[] }) {
           </div>
 
           <Tabs defaultValue="technical" className="w-full">
-            <TabsList className="w-full flex justify-center mb-8 h-auto p-1 bg-muted/50">
+            <TabsList className="w-full flex flex-wrap justify-center mb-8 h-auto p-1 bg-muted/50">
               <TabsTrigger value="technical" className="flex-grow">
                 Habilidades Técnicas
               </TabsTrigger>
