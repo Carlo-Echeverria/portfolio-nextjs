@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Project } from "@/types/project"
-import { ProjectCard } from "@/components/ProjectCard"
+import { ProjectCard } from "@/components/projects/ProjectCard"
 
 interface ProjectsListProps {
   projects: Project[]

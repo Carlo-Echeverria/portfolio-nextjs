@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Project } from "@/types/project"
-import { ProjectsList } from "@/components/ProjectsList"
+import { ProjectsList } from "@/components/projects/ProjectsList"
 
 export function ProjectsSection({ projectsProps }: { projectsProps: Project[] }) {
   return (
