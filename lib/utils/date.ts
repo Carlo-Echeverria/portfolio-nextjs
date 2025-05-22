@@ -1,21 +1,21 @@
 const months = {
-  '01': 'enero',
-  '02': 'febrero',
-  '03': 'marzo',
-  '04': 'abril',
-  '05': 'mayo',
-  '06': 'junio',
-  '07': 'julio',
-  '08': 'agosto',
-  '09': 'septiembre',
-  '10': 'octubre',
-  '11': 'noviembre',
-  '12': 'diciembre'
+  '01': 'Enero',
+  '02': 'Febrero',
+  '03': 'Marzo',
+  '04': 'Abril',
+  '05': 'Mayo',
+  '06': 'Junio',
+  '07': 'Julio',
+  '08': 'Agosto',
+  '09': 'Septiembre',
+  '10': 'Octubre',
+  '11': 'Noviembre',
+  '12': 'Diciembre'
 }
 
 export const formatDate = (dateString: string | null | undefined): string => {
   if (!dateString) return ""
-  
+
   try {
     // Esperamos un formato ISO: "YYYY-MM-DD"
     const [year, month] = dateString.split('-')

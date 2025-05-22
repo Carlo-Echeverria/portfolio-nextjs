@@ -5,14 +5,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { sanitizeHtml } from "@/lib/utils"
+// import { sanitizeHtml } from "@/lib/utils"
 import { Profile } from "@/types/profile";
 import { File, Image as ImageType } from "@/types/file";
 
 export function HeroSection({ profile }: { profile: Profile }) {
   const name = profile?.attributes?.title || "Juan Pérez"
   const title = profile?.attributes?.field_title || "Desarrollador Full-Stack"
-  const bio = profile?.attributes?.body?.value || ""
+  // const bio = profile?.attributes?.body?.value || ""
 
   const photoUrl = Array.isArray(profile?.relationships?.field_photo?.data) && profile.relationships.field_photo.data.length > 0
     ? (profile.relationships.field_photo.data[0] as ImageType).attributes.uri.url
@@ -65,7 +65,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
             <p className="text-xl text-muted-foreground">{title}</p>
             <div className="h-[1px] w-12 bg-primary/50"></div>
           </motion.div>
-          {bio && (
+          {/* {bio && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
               className="mb-10 max-w-2xl text-xl text-muted-foreground"
               dangerouslySetInnerHTML={{ __html: sanitizeHtml(bio) }}
             />
-          )}
+          )} */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

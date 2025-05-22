@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Project } from "@/types/project"
-import { Image as ImageType } from "@/types/file"
+import { Image as ImageData } from "@/types/file"
 import { formatDate } from "@/lib/utils/date"
 
 interface ProjectCardProps {
@@ -22,8 +22,9 @@ export function ProjectCard({ project, index, onProjectSelect }: ProjectCardProp
   const techStacks = project.relationships.field_tech_stacks.data.map((tech) => tech.attributes.name)
   const roles = project.relationships.field_roles.data.map((role) => role.attributes.name)
   const tasks = project.attributes.field_taks || []
-  const thumbnailData = project.relationships.field_thumbnail.data as ImageType
-  const thumbnailUrl = thumbnailData?.attributes?.uri?.url || "/placeholder.svg"
+  
+  const thumbnailData = project.relationships.field_thumbnail.data as unknown as ImageData[]
+  const thumbnailUrl = thumbnailData[0]?.attributes?.uri?.url || "/placeholder.svg"
   const galleryUrls = project.relationships.field_gallery.data.map((image) => image.attributes.uri.url)
 
   return (
@@ -125,8 +126,7 @@ export function ProjectCard({ project, index, onProjectSelect }: ProjectCardProp
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Calendar className="h-4 w-4" />
                 <span>
-                  {formatDate(project.attributes.field_start_date)} -{" "}
-                  {project.attributes.field_is_current ? "Presente" : formatDate(project.attributes.field_end_date)}
+                  {formatDate(project.attributes.field_start_date)} - {project.attributes.field_is_current ? "Presente" : formatDate(project.attributes.field_end_date)}
                 </span>
               </div>
 
