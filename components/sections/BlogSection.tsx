@@ -7,6 +7,7 @@ import { ArrowRight, Calendar, Clock } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { formatDate } from "@/lib/utils/date"
 
 export function BlogSection() {
   // Artículos de ejemplo (reemplazar con datos reales de la API)
@@ -50,16 +51,6 @@ export function BlogSection() {
       featured: false,
     },
   ]
-
-  // Formatear fecha
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString("es-ES", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-  }
 
   return (
     <section id="blog" className="py-24 bg-muted/30">
@@ -114,7 +105,7 @@ export function BlogSection() {
                         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
                           <div className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
-                            <span>{formatDate(article.date)}</span>
+                            {/* <span>{formatDate(article.date)}</span> */}
                           </div>
                           <div className="flex items-center gap-1">
                             <Clock className="h-4 w-4" />

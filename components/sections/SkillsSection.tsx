@@ -64,8 +64,6 @@ export function SkillsSection({ skills }: { skills: Skill[] }) {
   // Datos de habilidades blandas procesados
   const softSkills = processedSoftSkills
 
-  console.log(softSkills);
-
   // Datos de metodologías y procesos procesados
   const methodologies = processedMethodologies
 

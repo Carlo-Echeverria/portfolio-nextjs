@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Project } from "@/types/project"
 import { Image as ImageType } from "@/types/file"
+import { formatDate } from "@/lib/utils/date"
 
 interface ProjectCardProps {
   project: Project
@@ -18,13 +19,6 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index, onProjectSelect }: ProjectCardProps) {
-  // Formatear fecha
-  const formatDate = (dateString: string | null) => {
-    if (!dateString) return ""
-    const date = new Date(dateString)
-    return date.toLocaleDateString("es-ES", { year: "numeric", month: "long" })
-  }
-
   const techStacks = project.relationships.field_tech_stacks.data.map((tech) => tech.attributes.name)
   const roles = project.relationships.field_roles.data.map((role) => role.attributes.name)
   const tasks = project.attributes.field_taks || []
@@ -86,10 +80,10 @@ export function ProjectCard({ project, index, onProjectSelect }: ProjectCardProp
                     {/* Fecha */}
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar className="h-4 w-4" />
-                      <span>
+                      {/* <span>
                         {formatDate(project.attributes.field_start_date)} -{" "}
-                        {project.attributes.field_is_current ? "Presente" : formatDate(project.attributes.field_end_date || "")}
-                      </span>
+                        {project.attributes.field_is_current ? "Presente" : formatDate(project.attributes.field_end_date)}
+                      </span> */}
                     </div>
 
                     {/* Descripción */}
@@ -175,7 +169,7 @@ export function ProjectCard({ project, index, onProjectSelect }: ProjectCardProp
 
           {/* Fecha */}
           <div className="mt-auto text-sm text-muted-foreground mb-4">
-            {formatDate(project.attributes.field_start_date)} - {project.attributes.field_is_current ? "Presente" : formatDate(project.attributes.field_end_date || "")}
+            {formatDate(project.attributes.field_start_date)} - {project.attributes.field_is_current ? "Presente" : formatDate(project.attributes.field_end_date)}
           </div>
 
           {/* Enlaces */}
