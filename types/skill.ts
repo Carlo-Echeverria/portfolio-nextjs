@@ -9,7 +9,9 @@ export interface Skill {
     langcode: string,
     drupal_internal__tid: number;
     status: string;
-    description: string;
+    description: {
+      value: string;
+    };
     field_level: number;
     field_years: number;
   };
