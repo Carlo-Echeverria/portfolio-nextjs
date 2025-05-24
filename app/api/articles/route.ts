@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getArticles } from '@/lib/api/articles-service';
 
+export const revalidate = 259200;
+
 export async function GET() {
   try {
     const articles = await getArticles();

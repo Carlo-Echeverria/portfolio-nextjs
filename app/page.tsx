@@ -1,3 +1,4 @@
+
 import { Header } from "@/components/layout/Header"
 import { MobileMenu } from "@/components/layout/MobileMenu"
 import { Footer } from "@/components/layout/Footer"
@@ -10,6 +11,8 @@ import { ContactSection } from "@/components/sections/ContactSection"
 import { getProfile } from "@/services/profileService"
 import { Project } from "@/types/project";
 import { Skill } from "@/types/skill"
+
+export const revalidate = 86400;
 
 export default async function Home() {
   // Obtener datos del perfil

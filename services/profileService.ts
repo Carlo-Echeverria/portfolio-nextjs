@@ -7,10 +7,7 @@ import { getSkills } from '@/services/skillService';
 
 export const getProfile = async (id: number): Promise<Profile> => {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/profile?filter[nid]=${id}`,
-      { next: { revalidate: 120 } }
-    );
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/profile?filter[nid]=${id}`);
 
     if (!response.ok) throw new Error(`Error fetching profile`);
     let data = await response.json();

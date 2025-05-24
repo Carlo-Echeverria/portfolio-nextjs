@@ -15,7 +15,7 @@ export function BlogSection() {
       try {
         setLoading(true);
         const response = await fetch('/api/articles');
-        
+      
         if (!response.ok) {
           throw new Error('Error fetching articles');
         }
