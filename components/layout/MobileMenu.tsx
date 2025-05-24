@@ -1,11 +1,12 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"
 import { useStore } from "@/lib/store"
 import { NavLink } from "./NavLink"
 
 export function MobileMenu() {
-  const { menuOpen } = useStore()
+  const { menuOpen, closeMenu } = useStore()
 
   return (
     <AnimatePresence>
@@ -22,7 +23,13 @@ export function MobileMenu() {
             <NavLink href="about" label="Sobre Mí" />
             <NavLink href="projects" label="Proyectos" />
             <NavLink href="skills" label="Habilidades" />
-            <NavLink href="blog" label="Blog" />
+            <Link 
+              href="/blog" 
+              className="relative px-1 py-2 text-foreground/80 transition-colors hover:text-foreground"
+              onClick={closeMenu}
+            >
+              Blog
+            </Link>
             <NavLink href="contact" label="Contacto" />
           </nav>
         </motion.div>

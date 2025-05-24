@@ -40,7 +40,9 @@ export function Header() {
           <NavLink href="about" label="Sobre Mí" />
           <NavLink href="projects" label="Proyectos" />
           <NavLink href="skills" label="Habilidades" />
-          <NavLink href="blog" label="Blog" />
+          <Link href="/blog" className="relative px-1 py-2 text-foreground/80 transition-colors hover:text-foreground">
+            Blog
+          </Link>
           <NavLink href="contact" label="Contacto" />
         </nav>
 

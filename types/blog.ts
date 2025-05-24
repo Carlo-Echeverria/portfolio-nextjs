@@ -1,12 +1,17 @@
 export interface Article {
-  id: string;
+  id: number;
   title: string;
-  excerpt: string;
-  date: string;
-  readingTime: number;
-  image: string;
+  description: string;
+  readable_publish_date: string;
+  slug: string;
   url: string;
-  categories: string[];
-  tags: string[];
-  featured: boolean;
-} 
+  published_timestamp: string;
+  cover_image: string | null;
+  social_image: string;
+  created_at: string;
+  edited_at: string | null;
+  published_at: string;
+  last_comment_at: string;
+  reading_time_minutes: number;
+  tag_list: string[];
+};

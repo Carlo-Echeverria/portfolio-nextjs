@@ -12,7 +12,7 @@ export const getProfile = async (id: number): Promise<Profile> => {
       { next: { revalidate: 0 } }
     );
 
-    if (!response.ok) throw new Error(`Error fetching profile 1`);
+    if (!response.ok) throw new Error(`Error fetching profile`);
     let data = await response.json();
     data = data.data[0];
 
@@ -67,7 +67,7 @@ export const getProfile = async (id: number): Promise<Profile> => {
     
     return normalizeProfile(dataProfile);
   } catch (error) {
-    console.error(`Error fetching profile 2:`, error);
+    console.error(`Error fetching profile:`, error);
     return normalizeProfile({});
   }
 };

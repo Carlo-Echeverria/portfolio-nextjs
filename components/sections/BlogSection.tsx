@@ -1,51 +1,61 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { BlogList } from "@/components/blog/BlogList"
 import { Article } from "@/types/blog"
 
 export function BlogSection() {
-  // Artículos de ejemplo (reemplazar con datos reales de la API)
-  const articles: Article[] = [
-    {
-      id: "1",
-      title: "Cómo mejorar el rendimiento de tu aplicación React",
-      excerpt:
-        "Aprende técnicas avanzadas para optimizar el rendimiento de tus aplicaciones React y proporcionar una mejor experiencia de usuario.",
-      date: "2023-05-15",
-      readingTime: 8,
-      image: "/placeholder.svg?height=300&width=500",
-      url: "#",
-      categories: ["React", "Performance"],
-      tags: ["frontend", "optimización", "javascript"],
-      featured: true,
-    },
-    {
-      id: "2",
-      title: "Introducción a TypeScript para desarrolladores JavaScript",
-      excerpt:
-        "Descubre cómo TypeScript puede mejorar tu flujo de trabajo y ayudarte a escribir código más robusto y mantenible.",
-      date: "2023-04-20",
-      readingTime: 6,
-      image: "/placeholder.svg?height=300&width=500",
-      url: "#",
-      categories: ["TypeScript", "JavaScript"],
-      tags: ["frontend", "tipado", "desarrollo"],
-      featured: false,
-    },
-    {
-      id: "3",
-      title: "Construyendo APIs RESTful con Node.js y Express",
-      excerpt: "Una guía paso a paso para crear APIs RESTful escalables y seguras utilizando Node.js y Express.",
-      date: "2023-03-10",
-      readingTime: 10,
-      image: "/placeholder.svg?height=300&width=500",
-      url: "#",
-      categories: ["Node.js", "API"],
-      tags: ["backend", "javascript", "express"],
-      featured: false,
-    },
-  ]
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/articles');
+        
+        if (!response.ok) {
+          throw new Error('Error fetching articles');
+        }
+        
+        const Articles: Article[] = await response.json();
+        
+        // Convertir del formato de la API al formato de la UI
+        const formattedArticles: Article[] = Articles.map(article => ({
+          id: article.id,
+          title: article.title,
+          description: article.description,
+          readable_publish_date: article.readable_publish_date,
+          slug: article.slug,
+          url: article.url,
+          published_timestamp: article.published_timestamp,
+          cover_image: article.cover_image || null,
+          social_image: article.social_image,
+          created_at: article.created_at,
+          edited_at: article.edited_at,
+          published_at: article.published_at,
+          last_comment_at: article.last_comment_at,
+          reading_time_minutes: article.reading_time_minutes,
+          tag_list: article.tag_list,
+        }));
+        
+        
+        setArticles(formattedArticles);
+      } catch (err) {
+        console.error('Error fetching articles:', err);
+        setError('Failed to load articles');
+        
+        // Usar artículos de ejemplo en caso de error
+        setArticles([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchArticles();
+  }, []);
 
   return (
     <section id="blog" className="py-24 bg-muted/30">
@@ -65,7 +75,18 @@ export function BlogSection() {
             </p>
           </div>
 
-          <BlogList articles={articles} viewAllUrl="/blog" />
+          {loading ? (
+            <div className="text-center py-10">
+              <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+              <p className="mt-4 text-muted-foreground">Cargando artículos...</p>
+                      </div>
+          ) : error ? (
+            <div className="text-center py-10">
+              <p className="text-red-500">{error}</p>
+                        </div>
+          ) : (
+            <BlogList articles={articles} viewAllUrl="/blog" limit={6} />
+          )}
         </motion.div>
       </div>
     </section>

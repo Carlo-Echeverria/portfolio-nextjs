@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Github, Linkedin, Twitter } from "lucide-react"
 import { Profile } from "@/types/profile"
 
-export function Footer({ profile }: { profile: Profile }) {
+export function Footer({ profile }: { profile?: Profile }) {
   const email = profile?.attributes?.field_email || "contacto@ejemplo.com"
   const currentYear = new Date().getFullYear()
 
