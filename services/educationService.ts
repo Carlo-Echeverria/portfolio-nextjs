@@ -5,7 +5,11 @@ export const getEducation = async (id: number): Promise<Education> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/education?filter[nid]=${id}`,
-      { next: { revalidate: 0 } }
+      {
+        headers: {
+          'Content-Type': 'application/vnd.api+json',
+        },
+      }
     );
 
     if (!response.ok) throw new Error(`Error fetching education`);

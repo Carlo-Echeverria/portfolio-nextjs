@@ -14,7 +14,11 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
     projectIds.forEach(id => queryParams.append('filter[id][value][]', id));
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/project?${queryParams.toString()}`
+      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/project?${queryParams.toString()}`, {
+        headers: {
+          'Content-Type': 'application/vnd.api+json',
+        },
+      }
     );
     if (!response.ok) {
       throw new Error('Error fetching projects');
@@ -68,7 +72,7 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
               data: await getImages(galleryIds),
             },
             field_thumbnail: {
-              data: await getImages([thumbnailsId]),
+              data: (await getImages([thumbnailsId]))[0],
             },
             field_tech_stacks: {
               data: await getTechStacks(techStacksIds)

@@ -10,7 +10,11 @@ export const getRoles = async (roleIds: string[]): Promise<Role[]> => {
     roleIds.forEach(id => queryParams.append('filter[id][value][]', id));
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/taxonomy_term/roles?${queryParams.toString()}`
+      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/taxonomy_term/roles?${queryParams.toString()}`, {
+        headers: {
+          'Content-Type': 'application/vnd.api+json',
+        },
+      }
     );
     if (!response.ok) {
       throw new Error('Error fetching roles');

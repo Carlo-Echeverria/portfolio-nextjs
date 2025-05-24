@@ -9,7 +9,11 @@ export const getFiles = async (filesId: string[]): Promise<File[]> => {
     const queryParams = new URLSearchParams();
     queryParams.append('filter[id][operator]', 'IN');
     filesId.forEach(id => queryParams.append('filter[id][value][]', id));
-    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`, {
+      headers: {
+        'Content-Type': 'application/vnd.api+json',
+      },
+    })
     if (!response.ok) throw new Error(`Error fetching file`);
     let data = await response.json();
 
@@ -46,7 +50,11 @@ export const getImages = async (imagesId: string[]) : Promise<Image[]> => {
     queryParams.append('filter[id][operator]', 'IN');
     imagesId.forEach(id => queryParams.append('filter[id][value][]', id));
     
-    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`, {
+      headers: {
+        'Content-Type': 'application/vnd.api+json',
+      },
+    })
     if (!response.ok) throw new Error(`Error fetching images`);
     
     let data = await response.json();
