@@ -9,7 +9,7 @@ export const getProfile = async (id: number): Promise<Profile> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/profile?filter[nid]=${id}`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 120 } }
     );
 
     if (!response.ok) throw new Error(`Error fetching profile`);
