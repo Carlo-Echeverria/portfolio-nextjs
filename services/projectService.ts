@@ -72,7 +72,7 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
               data: await getImages(galleryIds),
             },
             field_thumbnail: {
-              data: (await getImages([thumbnailsId]))[0],
+              data: await getImages([thumbnailsId]),
             },
             field_tech_stacks: {
               data: await getTechStacks(techStacksIds)

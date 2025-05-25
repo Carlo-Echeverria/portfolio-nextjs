@@ -34,7 +34,7 @@ export interface Project {
       data: TechStack[];
     };
     field_thumbnail: {
-      data: Image;
+      data: Image | {};
     };
   };
 }
