@@ -1,5 +1,6 @@
 import { normalizeRole } from "@/normalizers/roleNormalizer";
 import { Role } from '@/types/role';
+import { getAuthenticatedHeaders } from '@/services/authService';
 
 export const getRoles = async (roleIds: string[]): Promise<Role[]> => {
   if (!roleIds || roleIds.length === 0) return [];
@@ -9,11 +10,10 @@ export const getRoles = async (roleIds: string[]): Promise<Role[]> => {
     queryParams.append('filter[id][operator]', 'IN');
     roleIds.forEach(id => queryParams.append('filter[id][value][]', id));
 
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/taxonomy_term/roles?${queryParams.toString()}`, {
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
+        headers,
       }
     );
     if (!response.ok) {

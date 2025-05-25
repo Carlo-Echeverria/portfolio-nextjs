@@ -2,6 +2,7 @@ import { normalizeSkill } from "@/normalizers/skillNormalizer";
 import { Skill } from '@/types/skill';
 import { getSkillTypes } from "@/services/skillTypeService";
 import { getSkillCategories } from "./skillCategoryService";
+import { getAuthenticatedHeaders } from '@/services/authService';
 
 export const getSkills = async (skillIds: string[]): Promise<Skill[]> => {
   if (!skillIds || skillIds.length === 0) return [];
@@ -11,11 +12,10 @@ export const getSkills = async (skillIds: string[]): Promise<Skill[]> => {
     queryParams.append('filter[id][operator]', 'IN');
     skillIds.forEach(id => queryParams.append('filter[id][value][]', id));
 
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/taxonomy_term/skills?${queryParams.toString()}`, {
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
+        headers,
       }
     );
     if (!response.ok) {

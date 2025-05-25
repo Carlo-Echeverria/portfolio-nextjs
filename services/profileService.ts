@@ -4,13 +4,13 @@ import { getFiles, getImages } from '@/services/fileService';
 import { getProjects } from '@/services/projectService';
 import { getEducation } from '@/services/educationService';
 import { getSkills } from '@/services/skillService';
+import { getAuthenticatedHeaders } from '@/services/authService';
 
 export const getProfile = async (id: number): Promise<Profile> => {
   try {
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/profile?filter[nid]=${id}`, {
-      headers: {
-        'Content-Type': 'application/vnd.api+json',
-      },
+      headers,
     });
 
     if (!response.ok) throw new Error(`Error fetching profile`);

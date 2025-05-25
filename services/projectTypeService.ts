@@ -1,19 +1,19 @@
 import { normalizeProjectType } from "@/normalizers/projectTypeNormalizer";
 import { ProjectType } from '@/types/project_type';
+import { getAuthenticatedHeaders } from '@/services/authService';
 
-export const getProjectTypes = async (projectTypesIds: string[]): Promise<ProjectType[]> => {
-  if (!projectTypesIds || projectTypesIds.length === 0) return [];
+export const getProjectTypes = async (projectTypeIds: string[]): Promise<ProjectType[]> => {
+  if (!projectTypeIds || projectTypeIds.length === 0) return [];
 
   try {
     const queryParams = new URLSearchParams();
     queryParams.append('filter[id][operator]', 'IN');
-    projectTypesIds.forEach(id => queryParams.append('filter[id][value][]', id));
+    projectTypeIds.forEach(id => queryParams.append('filter[id][value][]', id));
 
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/taxonomy_term/project_types?${queryParams.toString()}`, {
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
+        headers,
       }
     );
     if (!response.ok) {

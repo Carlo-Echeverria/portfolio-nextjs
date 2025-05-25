@@ -1,14 +1,14 @@
 import { normalizeEducation } from "@/normalizers/educationNormalizer";
 import { Education } from '@/types/education';
+import { getAuthenticatedHeaders } from '@/services/authService';
 
 export const getEducation = async (id: number): Promise<Education> => {
   try {
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/education?filter[nid]=${id}`,
       {
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
+        headers,
       }
     );
 

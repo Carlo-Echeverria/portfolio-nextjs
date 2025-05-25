@@ -1,5 +1,6 @@
 import { normalizeTechSatck } from "@/normalizers/techStackNormalizer";
 import { TechStack } from '@/types/tech_stack';
+import { getAuthenticatedHeaders } from '@/services/authService';
 
 export const getTechStacks = async (techStackIds: string[]): Promise<TechStack[]> => {
   if (!techStackIds || techStackIds.length === 0) return [];
@@ -9,11 +10,10 @@ export const getTechStacks = async (techStackIds: string[]): Promise<TechStack[]
     queryParams.append('filter[id][operator]', 'IN');
     techStackIds.forEach(id => queryParams.append('filter[id][value][]', id));
 
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/taxonomy_term/tech_stacks?${queryParams.toString()}`, {
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
+        headers,
       }
     );
     if (!response.ok) {

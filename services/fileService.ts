@@ -1,5 +1,6 @@
 import { normalizeFile, normalizeImage } from "@/normalizers/fileNormalizer";
 import { File, Image } from '@/types/file';
+import { getAuthenticatedHeaders } from '@/services/authService';
 
 export const getFiles = async (filesId: string[]): Promise<File[]> => {
   if (!filesId || filesId.length === 0) {
@@ -9,10 +10,9 @@ export const getFiles = async (filesId: string[]): Promise<File[]> => {
     const queryParams = new URLSearchParams();
     queryParams.append('filter[id][operator]', 'IN');
     filesId.forEach(id => queryParams.append('filter[id][value][]', id));
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`, {
-      headers: {
-        'Content-Type': 'application/vnd.api+json',
-      },
+      headers,
     })
     if (!response.ok) throw new Error(`Error fetching file`);
     let data = await response.json();
@@ -50,10 +50,9 @@ export const getImages = async (imagesId: string[]) : Promise<Image[]> => {
     queryParams.append('filter[id][operator]', 'IN');
     imagesId.forEach(id => queryParams.append('filter[id][value][]', id));
     
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`, {
-      headers: {
-        'Content-Type': 'application/vnd.api+json',
-      },
+      headers,
     })
     if (!response.ok) throw new Error(`Error fetching images`);
     

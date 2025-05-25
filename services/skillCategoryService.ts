@@ -1,19 +1,19 @@
 import { normalizeSkillCategory } from "@/normalizers/skillCategoryNormalizer";
 import { SkillCategory } from '@/types/skillCategory';
+import { getAuthenticatedHeaders } from '@/services/authService';
 
-export const getSkillCategories = async (skillCategoriesIds: string[]): Promise<SkillCategory[]> => {
-  if (!skillCategoriesIds || skillCategoriesIds.length === 0) return [];
+export const getSkillCategories = async (skillCategoryIds: string[]): Promise<SkillCategory[]> => {
+  if (!skillCategoryIds || skillCategoryIds.length === 0) return [];
 
   try {
     const queryParams = new URLSearchParams();
     queryParams.append('filter[id][operator]', 'IN');
-    skillCategoriesIds.forEach(id => queryParams.append('filter[id][value][]', id));
+    skillCategoryIds.forEach(id => queryParams.append('filter[id][value][]', id));
 
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/taxonomy_term/skill_categories?${queryParams.toString()}`, {
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
+        headers,
       }
     );
     if (!response.ok) {

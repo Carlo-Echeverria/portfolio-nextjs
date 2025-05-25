@@ -4,6 +4,7 @@ import { getImages } from '@/services/fileService';
 import { getTechStacks } from '@/services/techStackService';
 import { getRoles } from '@/services/roleService';
 import { getProjectTypes } from '@/services/projectTypeService';
+import { getAuthenticatedHeaders } from '@/services/authService';
 
 export const getProjects = async (projectIds: string[]): Promise<Project[]>  => {
   if (!projectIds || projectIds.length === 0) return [];
@@ -13,11 +14,10 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
     queryParams.append('filter[id][operator]', 'IN');
     projectIds.forEach(id => queryParams.append('filter[id][value][]', id));
 
+    const headers = await getAuthenticatedHeaders();
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/project?${queryParams.toString()}`, {
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
+        headers,
       }
     );
     if (!response.ok) {
