@@ -135,7 +135,8 @@ export default function BlogPage() {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center justify-center gap-4 px-2">
+                  {/* Botón Anterior */}
                   <Button
                     variant="outline"
                     size="sm"
@@ -147,20 +148,27 @@ export default function BlogPage() {
                     Anterior
                   </Button>
 
-                  <div className="flex items-center gap-2">
+                  {/* Números de página: scrollable y ocultos en xs */}
+                  <div className="hidden sm:flex items-center gap-2 overflow-x-auto whitespace-nowrap px-1 no-scrollbar">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                       <Button
                         key={page}
                         variant={currentPage === page ? "default" : "outline"}
                         size="sm"
                         onClick={() => goToPage(page)}
-                        className="w-10 h-10"
+                        className="min-w-[2.5rem] h-10 flex-shrink-0"
                       >
                         {page}
                       </Button>
                     ))}
                   </div>
 
+                  {/* En xs, solo muestro el número actual */}
+                  <div className="flex sm:hidden items-center text-sm font-medium">
+                    {currentPage} / {totalPages}
+                  </div>
+
+                  {/* Botón Siguiente */}
                   <Button
                     variant="outline"
                     size="sm"
@@ -173,6 +181,7 @@ export default function BlogPage() {
                   </Button>
                 </div>
               )}
+
 
               {/* Page Info */}
               <div className="text-center mt-8 text-sm text-muted-foreground">
