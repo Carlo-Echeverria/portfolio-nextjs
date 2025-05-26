@@ -158,29 +158,53 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 <span>{article.reading_time_minutes} min de lectura</span>
               </div>
             </div>
-          </div>
 
-          {/* Article Content Notice */}
-          <div className="prose prose-gray dark:prose-invert max-w-none mb-8">
-            <div className="border border-border rounded-lg p-6 bg-muted/30">
-              <h3 className="text-lg font-semibold mb-3">Contenido del artículo</h3>
-              <p className="text-muted-foreground mb-4">
-                Este artículo fue originalmente publicado en DEV.to. Para ver el contenido completo,
-                haz clic en el botón de abajo para ser redirigido al artículo original.
-              </p>
-              <Button asChild>
+            {/* Link to original article */}
+            <div className="mb-8">
+              <Button asChild variant="outline" size="sm">
                 <Link
                   href={article.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
                 >
-                  Leer artículo completo
+                  Ver en DEV.to
                   <ExternalLink className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
           </div>
+
+          {/* Article Content */}
+          {article.body_html ? (
+            <div className="prose prose-gray dark:prose-invert max-w-none mb-8">
+              <div 
+                dangerouslySetInnerHTML={{ __html: article.body_html }}
+                className="article-content"
+              />
+            </div>
+          ) : (
+            <div className="prose prose-gray dark:prose-invert max-w-none mb-8">
+              <div className="border border-border rounded-lg p-6 bg-muted/30">
+                <h3 className="text-lg font-semibold mb-3">Contenido del artículo</h3>
+                <p className="text-muted-foreground mb-4">
+                  El contenido completo de este artículo no está disponible localmente. 
+                  Para ver el contenido completo, haz clic en el botón de abajo para ser redirigido al artículo original.
+                </p>
+                <Button asChild>
+                  <Link
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    Leer artículo completo
+                    <ExternalLink className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          )}
 
           {/* Call to Action */}
           <div className="border-t border-border pt-8">

@@ -92,3 +92,126 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Estilos específicos para el contenido de artículos de DEV.to */
+@layer components {
+  .article-content {
+    @apply leading-relaxed;
+  }
+
+  .article-content h1,
+  .article-content h2,
+  .article-content h3,
+  .article-content h4,
+  .article-content h5,
+  .article-content h6 {
+    @apply font-bold mt-8 mb-4 text-foreground;
+  }
+
+  .article-content h1 {
+    @apply text-3xl;
+  }
+
+  .article-content h2 {
+    @apply text-2xl;
+  }
+
+  .article-content h3 {
+    @apply text-xl;
+  }
+
+  .article-content h4 {
+    @apply text-lg;
+  }
+
+  .article-content p {
+    @apply mb-4 text-foreground;
+  }
+
+  .article-content a {
+    @apply text-primary hover:underline;
+  }
+
+  .article-content ul,
+  .article-content ol {
+    @apply mb-4 ml-6;
+  }
+
+  .article-content ul {
+    @apply list-disc;
+  }
+
+  .article-content ol {
+    @apply list-decimal;
+  }
+
+  .article-content li {
+    @apply mb-2;
+  }
+
+  .article-content blockquote {
+    @apply border-l-4 border-primary pl-4 my-4 italic text-muted-foreground;
+  }
+
+  .article-content pre {
+    @apply bg-muted p-4 rounded-lg overflow-x-auto mb-4;
+  }
+
+  .article-content code {
+    @apply bg-muted px-2 py-1 rounded text-sm font-mono;
+  }
+
+  .article-content pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .article-content img {
+    @apply max-w-full h-auto rounded-lg my-4;
+  }
+
+  .article-content table {
+    @apply w-full border-collapse border border-border mb-4;
+  }
+
+  .article-content th,
+  .article-content td {
+    @apply border border-border px-4 py-2 text-left;
+  }
+
+  .article-content th {
+    @apply bg-muted font-semibold;
+  }
+
+  .article-content hr {
+    @apply border-t border-border my-8;
+  }
+
+  /* Estilos específicos para elementos de DEV.to */
+  .article-content .highlight {
+    @apply bg-muted p-4 rounded-lg mb-4;
+  }
+
+  .article-content .ltag__link {
+    @apply block border border-border rounded-lg p-4 mb-4 hover:bg-muted/50 transition-colors;
+  }
+
+  .article-content .ltag__link__link {
+    @apply text-primary hover:underline;
+  }
+
+  .article-content .ltag__link__pic {
+    @apply w-16 h-16 rounded-lg object-cover;
+  }
+
+  .article-content .ltag__link__title {
+    @apply font-semibold text-foreground;
+  }
+
+  .article-content .ltag__link__description {
+    @apply text-muted-foreground text-sm;
+  }
+
+  .article-content .ltag__link__servicename {
+    @apply text-xs text-muted-foreground uppercase;
+  }
+}

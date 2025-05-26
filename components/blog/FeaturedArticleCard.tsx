@@ -55,7 +55,7 @@ export function FeaturedArticleCard({ article }: FeaturedArticleCardProps) {
             </div>
             <div className="mt-auto">
               <Button asChild variant="default" className="gap-2">
-                <Link href={article.url}>
+                <Link href={`/blog/${article.slug}`}>
                   Leer artículo
                   <ArrowRight className="h-4 w-4" />
                 </Link>

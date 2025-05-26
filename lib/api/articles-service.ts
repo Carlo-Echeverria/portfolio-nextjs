@@ -14,6 +14,34 @@ export async function fetchDevToArticles(username : string): Promise<Article[]> 
   }
 }
 
+// Obtener artículo completo por ID de DEV.to (incluyendo body_html)
+export async function fetchDevToArticleById(id: number): Promise<Article | null> {
+  try {
+    const response = await fetch(`https://dev.to/api/articles/${id}`);
+    if (!response.ok) {
+      console.error(`Error fetching article ${id}: ${response.status}`);
+      return null;
+    }
+    const data = await response.json() as Article;
+    return data;
+  } catch (error) {
+    console.error(`Error fetching article ${id} from DEV.to:`, error);
+    return null;
+  }
+}
+
+// Función auxiliar para procesar las etiquetas
+function processTagList(tags: any): string[] {
+  if (Array.isArray(tags)) {
+    return tags;
+  }
+  if (typeof tags === 'string') {
+    // Si es una cadena separada por comas, dividirla
+    return tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+  }
+  return [];
+}
+
 // Guardar artículos de DEV.to en Supabase
 export async function syncArticlesFromDev(username : string): Promise<number> {
   try {
@@ -29,23 +57,38 @@ export async function syncArticlesFromDev(username : string): Promise<number> {
         .single();
       if (findError && findError.code !== 'PGRST116') throw findError;
 
-      // Preparar los datos del artículox
+      // Obtener el contenido completo del artículo
+      const fullArticle = await fetchDevToArticleById(article.id);
+      if (!fullArticle) {
+        console.warn(`Could not fetch full content for article ${article.id}`);
+        continue;
+      }
+
+      console.log('Full article data:', {
+        id: fullArticle.id,
+        title: fullArticle.title,
+        tag_list: fullArticle.tag_list,
+        tag_list_type: typeof fullArticle.tag_list
+      });
+
+      // Preparar los datos del artículo con el contenido completo
       const articleData: Article = {
-        id: article.id,
-        title: article.title,
-        description: article.description,
-        readable_publish_date: article.readable_publish_date,
-        slug: article.slug,
-        url: article.url,
-        published_timestamp: article.published_timestamp,
-        cover_image: article.cover_image,
-        social_image: article.social_image,
-        created_at: article.created_at,
-        edited_at: article.edited_at,
-        published_at: article.published_at,
-        last_comment_at: article.last_comment_at,
-        reading_time_minutes: article.reading_time_minutes,
-        tag_list: article.tag_list
+        id: fullArticle.id,
+        title: fullArticle.title,
+        description: fullArticle.description,
+        readable_publish_date: fullArticle.readable_publish_date,
+        slug: fullArticle.slug,
+        url: fullArticle.url,
+        published_timestamp: fullArticle.published_timestamp,
+        cover_image: fullArticle.cover_image,
+        social_image: fullArticle.social_image,
+        created_at: fullArticle.created_at,
+        edited_at: fullArticle.edited_at,
+        published_at: fullArticle.published_at,
+        last_comment_at: fullArticle.last_comment_at,
+        reading_time_minutes: fullArticle.reading_time_minutes,
+        tag_list: processTagList(fullArticle.tag_list), // Procesar las etiquetas correctamente
+        body_html: fullArticle.body_html // Incluir el contenido HTML
       };
       
       let savedArticle;

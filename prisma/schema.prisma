@@ -24,4 +24,5 @@ model articles {
   last_comment_at       DateTime  @db.Timestamptz(6)
   reading_time_minutes  Int
   tag_list              String[]
+  body_html             String?
 }
