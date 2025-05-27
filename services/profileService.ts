@@ -11,6 +11,9 @@ export const getProfile = async (id: number): Promise<Profile> => {
     const headers = await getAuthenticatedHeaders();
     const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/profile?filter[nid]=${id}`, {
       headers,
+      next: {
+        revalidate: parseInt(process.env.NEXT_PUBLIC_REVALIDATE_APP || '0'),
+      },
     });
 
     if (!response.ok) throw new Error(`Error fetching profile`);

@@ -18,6 +18,9 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/project?${queryParams.toString()}`, {
         headers,
+        next: {
+          revalidate: parseInt(process.env.NEXT_PUBLIC_REVALIDATE_APP || '0'),
+        },
       }
     );
     if (!response.ok) {

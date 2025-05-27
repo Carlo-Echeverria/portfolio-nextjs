@@ -14,6 +14,9 @@ export const getRoles = async (roleIds: string[]): Promise<Role[]> => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/taxonomy_term/roles?${queryParams.toString()}`, {
         headers,
+        next: {
+          revalidate: parseInt(process.env.NEXT_PUBLIC_REVALIDATE_APP || '0'),
+        },
       }
     );
     if (!response.ok) {

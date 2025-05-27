@@ -9,6 +9,9 @@ export const getEducation = async (id: number): Promise<Education> => {
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/education?filter[nid]=${id}`,
       {
         headers,
+        next: {
+          revalidate: parseInt(process.env.NEXT_PUBLIC_REVALIDATE_APP || '0'),
+        },
       }
     );
 

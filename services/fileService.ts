@@ -13,6 +13,9 @@ export const getFiles = async (filesId: string[]): Promise<File[]> => {
     const headers = await getAuthenticatedHeaders();
     const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`, {
       headers,
+      next: {
+        revalidate: parseInt(process.env.NEXT_PUBLIC_REVALIDATE_APP || '0'),
+      },
     })
     if (!response.ok) throw new Error(`Error fetching file`);
     let data = await response.json();
@@ -53,6 +56,9 @@ export const getImages = async (imagesId: string[]) : Promise<Image[]> => {
     const headers = await getAuthenticatedHeaders();
     const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/file/file?${queryParams.toString()}`, {
       headers,
+      next: {
+        revalidate: parseInt(process.env.NEXT_PUBLIC_REVALIDATE_APP || '0'),
+      },
     })
     if (!response.ok) throw new Error(`Error fetching images`);
     
