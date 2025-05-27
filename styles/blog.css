@@ -1,0 +1,15 @@
+.article-content p,
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6,
+.article-content span,
+.article-content li,
+.article-content a,
+.article-content strong,
+.article-content em,
+.article-content img {
+  margin-bottom: 1rem;
+}

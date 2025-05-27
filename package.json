@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start -p 9000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync:articles": "node scripts/sync-articles.js",
+    "sync:articles:cron": "node scripts/sync-articles.js cron",
+    "sync:test": "npm run sync:articles"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",

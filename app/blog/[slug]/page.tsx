@@ -13,6 +13,7 @@ import { MobileMenu } from "@/components/layout/MobileMenu"
 import { Footer } from "@/components/layout/Footer"
 import { Article } from "@/types/blog"
 import { formatDate } from "@/lib/utils/date"
+import "@/styles/blog.css"
 
 interface BlogPostPageProps {
   params: {
