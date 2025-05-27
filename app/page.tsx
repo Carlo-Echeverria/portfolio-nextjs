@@ -12,7 +12,7 @@ import { getProfile } from "@/services/profileService"
 import { Project } from "@/types/project";
 import { Skill } from "@/types/skill"
 
-// export const revalidate = 86400;
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_APP || '0');
 
 export default async function Home() {
   // Obtener datos del perfil
