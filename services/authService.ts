@@ -23,9 +23,9 @@ export const generateDrupalToken = async (): Promise<string> => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/token`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({
+      body: new URLSearchParams({
         grant_type: 'password',
         client_id: process.env.NEXT_PUBLIC_DRUPAL_CLIENT_ID || 'f-EFnkxkGc3jsQ9cKWqI-aDUe_ckSsPmIhXM7V_JDh8',
         client_secret: process.env.NEXT_PUBLIC_DRUPAL_CLIENT_SECRET || 'portfolio-decoupled',
