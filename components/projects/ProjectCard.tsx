@@ -27,6 +27,8 @@ export function ProjectCard({ project, index, onProjectSelect }: ProjectCardProp
   const thumbnailUrl = thumbnailData[0]?.attributes?.uri?.url || "/placeholder.svg"
   const galleryUrls = project.relationships.field_gallery.data.map((image) => image.attributes.uri.url)
 
+  const projectTypes = project.relationships.field_project_types.data.map((type) => type.attributes.name)
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -62,6 +64,17 @@ export function ProjectCard({ project, index, onProjectSelect }: ProjectCardProp
             <p className="mb-4 text-muted-foreground line-clamp-3">
               {project.attributes.body?.summary}
             </p>
+
+            {/* Proyectos */}
+            {projectTypes.length > 0 && (
+              <div className="mb-6 flex flex-wrap gap-2">
+                {projectTypes.map((type, idx) => (
+                  <Badge key={idx} variant="outline">
+                    {type}
+                  </Badge>
+                ))}
+              </div>
+            )}
 
             {/* Tecnologías */}
             {techStacks.length > 0 && (
@@ -138,6 +151,23 @@ export function ProjectCard({ project, index, onProjectSelect }: ProjectCardProp
                     __html: project.attributes.body.value,
                   }}
                 />
+              )}
+
+              {/* Proyectos */}
+              {projectTypes.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-medium flex items-center gap-2 mb-2">
+                    <Tag className="h-4 w-4" />
+                    Tipo de proyecto
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {projectTypes.map((type, idx) => (
+                      <Badge key={idx} variant="outline">
+                        {type}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
               )}
 
               {/* Tecnologías */}
