@@ -7,7 +7,7 @@ export function Footer({ profile }: { profile?: Profile }) {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-muted/30 py-12">
+    <footer className="bg-muted/30 py-12 mt-12">
       <div className="container">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div>

@@ -44,7 +44,7 @@ export default function AdminBlogPage() {
   }
 
   return (
-    <div className="container py-10">
+    <div className="container px-4 md:px-6 py-24">
       <h1 className="text-3xl font-bold mb-6">Administración del Blog</h1>
 
       <div className="grid gap-6 md:grid-cols-2">

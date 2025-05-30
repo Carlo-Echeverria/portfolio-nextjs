@@ -11,7 +11,7 @@ import { NavLink } from "./NavLink"
 export function Header() {
   const { theme, setTheme } = useTheme()
   const { menuOpen, toggleMenu } = useStore()
-  const [scrolled, setScrolled] = useState(false)
+  const [ scrolled, setScrolled ] = useState(false)
 
   // Detectar scroll para cambiar el estilo del header
   useEffect(() => {
