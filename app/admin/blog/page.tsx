@@ -1,16 +1,19 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { ReloadIcon, CheckIcon, Cross2Icon } from "@radix-ui/react-icons"
+import { ReloadIcon, CheckIcon, Cross2Icon, ExitIcon, PersonIcon } from "@radix-ui/react-icons"
 
 export default function AdminBlogPage() {
+  const router = useRouter()
   const [username, setUsername] = useState(process.env.DEVTO_USERNAME)
   const [syncStatus, setSyncStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [syncResult, setSyncResult] = useState<{ message: string; count?: number } | null>(null)
+  const [loggingOut, setLoggingOut] = useState(false)
 
   async function handleSync() {
     try {
@@ -43,9 +46,60 @@ export default function AdminBlogPage() {
     }
   }
 
+  async function handleLogout() {
+    try {
+      setLoggingOut(true)
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+      })
+
+      if (response.ok) {
+        router.push('/user/login')
+      } else {
+        console.error('Error en logout')
+      }
+    } catch (error) {
+      console.error('Error en logout:', error)
+    } finally {
+      setLoggingOut(false)
+    }
+  }
+
   return (
-    <div className="container px-4 md:px-6 py-24">
-      <h1 className="text-3xl font-bold mb-6">Administración del Blog</h1>
+    <div className="container py-10">
+      {/* Header con información del usuario */}
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-3xl font-bold">Administración del Blog</h1>
+          <p className="text-muted-foreground mt-1">Panel de control para gestionar artículos</p>
+        </div>
+        
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <PersonIcon className="h-4 w-4" />
+            <span>Admin User</span>
+          </div>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleLogout}
+            disabled={loggingOut}
+          >
+            {loggingOut ? (
+              <>
+                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                Cerrando...
+              </>
+            ) : (
+              <>
+                <ExitIcon className="mr-2 h-4 w-4" />
+                Cerrar Sesión
+              </>
+            )}
+          </Button>
+        </div>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
@@ -123,6 +177,14 @@ export default function AdminBlogPage() {
                 className="w-full"
               >
                 Ver todos los artículos (JSON)
+              </Button>
+              
+              <Button
+                variant="outline"
+                onClick={() => router.push('/blog')}
+                className="w-full"
+              >
+                Ver blog público
               </Button>
             </div>
           </CardContent>
