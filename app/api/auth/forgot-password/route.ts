@@ -65,15 +65,15 @@ export async function POST(request: NextRequest) {
 
     // Enviar email de recuperación
     try {
-      const resendApiKey = process.env.NEXT_PUBLIC_RESEND_API_KEY;
+      const resendApiKey = process.env.RESEND_API_KEY;
       if (!resendApiKey) {
-        console.error('NEXT_PUBLIC_RESEND_API_KEY no está configurada');
+        console.error('RESEND_API_KEY no está configurada');
         // Loguear para desarrollo pero no fallar
         console.log('🔑 Reset token para', email, ':', resetToken)
         console.log('🔗 URL de reset: /user/reset-password?token=' + resetToken)
       } else {
         const resend = new Resend(resendApiKey);
-        const fromEmail = process.env.NEXT_PUBLIC_FROM_EMAIL || 'noreply@tudominio.com';
+        const fromEmail = process.env.FROM_EMAIL || 'noreply@tudominio.com';
         
         // Construir URL de reset
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 

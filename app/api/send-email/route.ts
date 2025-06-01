@@ -15,9 +15,9 @@ const contactSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     // Validar la API key de Resend
-    const resendApiKey = process.env.NEXT_PUBLIC_RESEND_API_KEY;
+    const resendApiKey = process.env.RESEND_API_KEY;
     if (!resendApiKey) {
-      console.error('NEXT_PUBLIC_RESEND_API_KEY no está configurada');
+      console.error('RESEND_API_KEY no está configurada');
       return NextResponse.json(
         { success: false, error: "Configuración de email no válida" }, 
         { status: 500 }
@@ -44,8 +44,8 @@ export async function POST(request: NextRequest) {
     const { name, email, message, subject, sendAutoReply } = validationResult.data;
 
     // Configuración de emails
-    const fromEmail = process.env.NEXT_PUBLIC_FROM_EMAIL || 'noreply@tudominio.com';
-    const toEmail = process.env.NEXT_PUBLIC_TO_EMAIL || 'tu@email.com';
+    const fromEmail = process.env.FROM_EMAIL || 'noreply@tudominio.com';
+    const toEmail = process.env.TO_EMAIL || 'tu@email.com';
 
     // Email principal al propietario del sitio
     const contactEmailHtml = generateContactEmail({ name, email, subject, message });
