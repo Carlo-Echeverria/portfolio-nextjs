@@ -19,9 +19,9 @@ export function HeroSection({ profile }: { profile: Profile }) {
     ? (profile.relationships.field_photo.data[0] as ImageType).attributes.uri.url
     : "/placeholder.svg?height=200&width=200";
   
-  const cvUrl = Array.isArray(profile?.relationships?.field_cv?.data) && profile.relationships.field_cv.data.length > 0
-    ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
-    : "/placeholder.svg?height=200&width=200";
+  // const cvUrl = Array.isArray(profile?.relationships?.field_cv?.data) && profile.relationships.field_cv.data.length > 0
+  //   ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
+  //   : "/placeholder.svg?height=200&width=200";
 
   const cvUrlS3 = 'https://jefckqhxjmggckaqzono.supabase.co/storage/v1/object/public/portfolio//CV%20Carlo%20Echeverria.pdf'
 
