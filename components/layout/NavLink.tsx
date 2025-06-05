@@ -35,7 +35,7 @@ export function NavLink({ href, label }: NavLinkProps) {
 
   return (
     <Link
-      href={`#${href}`}
+      href={`${href}`}
       className={`relative px-1 py-2 text-foreground/80 transition-colors hover:text-foreground ${
         isActive ? "text-foreground" : ""
       }`}

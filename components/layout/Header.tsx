@@ -36,14 +36,13 @@ export function Header() {
 
         {/* Navegación de escritorio */}
         <nav className="hidden items-center gap-6 md:flex">
-          <NavLink href="home" label="Inicio" />
-          <NavLink href="about" label="Sobre Mí" />
-          <NavLink href="projects" label="Proyectos" />
-          <NavLink href="skills" label="Habilidades" />
-          <Link href="/blog" className="relative px-1 py-2 text-foreground/80 transition-colors hover:text-foreground">
-            Blog
-          </Link>
-          <NavLink href="contact" label="Contacto" />
+          <NavLink href="/" label="Inicio" />
+          <NavLink href="/#about" label="Sobre Mí" />
+          <NavLink href="/#projects" label="Proyectos" />
+          <NavLink href="/#skills" label="Habilidades" />
+          <NavLink href="/#blog" label="Habilidades" />
+          <NavLink href="/blog" label="Blog" />
+          <NavLink href="/#contact" label="Contacto" />
         </nav>
 
         <div className="flex items-center gap-2">

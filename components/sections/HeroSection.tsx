@@ -10,7 +10,7 @@ import { Profile } from "@/types/profile";
 import { File, Image as ImageType } from "@/types/file";
 
 export function HeroSection({ profile }: { profile: Profile }) {
-  const name = profile?.attributes?.title || "Juan Pérez"
+  const name = profile?.attributes?.title || "Carlo Echeverría"
   const title = profile?.attributes?.field_title || "Desarrollador Full-Stack"
   // const bio = profile?.attributes?.body?.value || ""
 
