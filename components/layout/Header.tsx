@@ -40,7 +40,6 @@ export function Header() {
           <NavLink href="/#about" label="Sobre Mí" />
           <NavLink href="/#projects" label="Proyectos" />
           <NavLink href="/#skills" label="Habilidades" />
-          <NavLink href="/#blog" label="Habilidades" />
           <NavLink href="/blog" label="Blog" />
           <NavLink href="/#contact" label="Contacto" />
         </nav>
