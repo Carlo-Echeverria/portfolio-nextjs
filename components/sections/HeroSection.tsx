@@ -23,6 +23,8 @@ export function HeroSection({ profile }: { profile: Profile }) {
     ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
     : "/placeholder.svg?height=200&width=200";
 
+  const cvUrlS3 = 'https://jefckqhxjmggckaqzono.supabase.co/storage/v1/object/public/portfolio//CV%20Carlo%20Echeverria.pdf'
+
   return (
     <section id="home" className="relative min-h-screen w-full">
       {/* Background Elements */}
@@ -88,7 +90,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="gap-2 px-8">
-              <Link href={cvUrl} download>
+              <Link href={cvUrlS3} download>
                 Descargar CV
                 <Download className="h-4 w-4" />
               </Link>
