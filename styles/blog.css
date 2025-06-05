@@ -10,6 +10,15 @@
 .article-content a,
 .article-content strong,
 .article-content em,
-.article-content img {
+.article-content img,
+.article-content div {
   margin-bottom: 1rem;
+}
+
+.js-code-highlight {
+  overflow-x: scroll;
+}
+
+iframe {
+  width: 100%;
 }
