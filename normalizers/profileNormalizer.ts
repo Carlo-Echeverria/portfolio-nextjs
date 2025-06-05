@@ -5,6 +5,7 @@ export function normalizeProfile(data: any): Profile {
     type: data.type ?? "node--profile",
     attributes: {
       title: data.attributes?.title ?? "",
+      fullname: data.attributes?.fullname ?? "",
       langcode: data.attributes?.langcode ?? "en",
       drupal_internal__nid: data.attributes?.drupal_internal__nid ?? 0,
       status: String(data.attributes?.status ?? "false"),

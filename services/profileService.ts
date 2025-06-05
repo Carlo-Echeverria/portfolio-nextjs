@@ -39,6 +39,7 @@ export const getProfile = async (id: number): Promise<Profile> => {
       id: data.id,
       attributes: {
         title: data.attributes.title,
+        fullname: data.attributes.fullname,
         langcode: data.attributes.langcode,
         status: data.attributes.status,
         drupal_internal__nid: nodeId,

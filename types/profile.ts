@@ -8,6 +8,7 @@ export interface Profile {
   type?: 'node--profile';
   attributes?: {
     title: string;
+    fullname: string;
     langcode: string,
     drupal_internal__nid: number;
     status: string;
