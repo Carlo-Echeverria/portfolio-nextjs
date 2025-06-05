@@ -19,6 +19,14 @@
   overflow-x: scroll;
 }
 
+.js-code-highlight .highlight__panel {
+  display: none;
+}
+
+.js-code-highlight .highlight {
+  padding: 1rem;
+}
+
 iframe {
   width: 100%;
 }
