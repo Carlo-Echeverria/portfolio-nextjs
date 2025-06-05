@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from 'resend';
 import { z } from 'zod';
 import { generateContactEmail, generateAutoReplyEmail } from '@/lib/email-templates';
+import zohoMailService from '@/lib/zoho-mail';
 
 // Esquema de validación
 const contactSchema = z.object({
@@ -14,18 +14,6 @@ const contactSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    // Validar la API key de Resend
-    const resendApiKey = process.env.RESEND_API_KEY;
-    if (!resendApiKey) {
-      console.error('RESEND_API_KEY no está configurada');
-      return NextResponse.json(
-        { success: false, error: "Configuración de email no válida" }, 
-        { status: 500 }
-      );
-    }
-
-    const resend = new Resend(resendApiKey);
-
     // Validar datos de entrada
     const body = await request.json();
     const validationResult = contactSchema.safeParse(body);
@@ -44,40 +32,46 @@ export async function POST(request: NextRequest) {
     const { name, email, message, subject, sendAutoReply } = validationResult.data;
 
     // Configuración de emails
-    const fromEmail = process.env.FROM_EMAIL || 'noreply@tudominio.com';
     const toEmail = process.env.TO_EMAIL || 'tu@email.com';
 
     // Email principal al propietario del sitio
     const contactEmailHtml = generateContactEmail({ name, email, subject, message });
     
-    const emailData = {
-      from: fromEmail,
+    console.log('Enviando email principal a:', toEmail);
+    const mainEmailResult = await zohoMailService.sendEmail({
       to: toEmail,
       subject: `[Portafolio] ${subject}`,
       html: contactEmailHtml,
       replyTo: email // Permitir responder directamente al remitente
-    };
+    });
 
-    console.log('Enviando email principal a:', toEmail);
-    const mainEmailResult = await resend.emails.send(emailData);
+    if (!mainEmailResult.success) {
+      return NextResponse.json(
+        { success: false, error: mainEmailResult.error }, 
+        { status: 500 }
+      );
+    }
 
-    // Respuesta automática opcional
-    let autoReplyResult = null;
+    // Email de confirmación al usuario (nuevo)
+    let confirmationResult = null;
     if (sendAutoReply) {
       try {
         const autoReplyHtml = generateAutoReplyEmail({ name, email, subject, message });
         
-        autoReplyResult = await resend.emails.send({
-          from: fromEmail,
+        confirmationResult = await zohoMailService.sendEmail({
           to: email,
-          subject: `Re: ${subject} - Mensaje recibido`,
+          subject: `✅ Confirmación: ${subject} - Mensaje recibido`,
           html: autoReplyHtml
         });
         
-        console.log('Respuesta automática enviada a:', email);
+        if (confirmationResult.success) {
+          console.log('Email de confirmación enviado a:', email);
+        } else {
+          console.error('Error enviando email de confirmación:', confirmationResult.error);
+        }
       } catch (autoReplyError) {
-        console.error('Error enviando respuesta automática:', autoReplyError);
-        // No fallar por el auto-reply, solo loguear el error
+        console.error('Error enviando email de confirmación:', autoReplyError);
+        // No fallar por el email de confirmación, solo loguear el error
       }
     }
 
@@ -85,31 +79,20 @@ export async function POST(request: NextRequest) {
       success: true, 
       message: "Mensaje enviado exitosamente",
       data: {
-        mainEmail: mainEmailResult,
-        autoReply: autoReplyResult
+        mainEmail: {
+          success: mainEmailResult.success,
+          messageId: mainEmailResult.messageId
+        },
+        confirmationEmail: confirmationResult ? {
+          success: confirmationResult.success,
+          messageId: confirmationResult.messageId
+        } : null
       }
     });
 
   } catch (error) {
     console.error('Error enviando email:', error);
     
-    // Manejo específico de errores de Resend
-    if (error instanceof Error) {
-      if (error.message.includes('API key')) {
-        return NextResponse.json(
-          { success: false, error: "Error de autenticación del servicio de email" }, 
-          { status: 500 }
-        );
-      }
-      
-      if (error.message.includes('rate limit')) {
-        return NextResponse.json(
-          { success: false, error: "Demasiados emails enviados. Intenta más tarde." }, 
-          { status: 429 }
-        );
-      }
-    }
-
     return NextResponse.json(
       { success: false, error: "Error interno del servidor al enviar email" }, 
       { status: 500 }

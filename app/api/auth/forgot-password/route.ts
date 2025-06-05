@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { PasswordResetRequest, AuthResponse } from '@/types/auth'
 import { findUserByEmail, generateResetToken } from '@/lib/auth'
 import { supabaseAdmin } from '@/lib/supabase'
-import { Resend } from 'resend'
 import { generatePasswordResetEmail } from '@/lib/email-templates'
+import zohoMailService from '@/lib/zoho-mail'
 
 export async function POST(request: NextRequest) {
   try {
@@ -63,52 +63,49 @@ export async function POST(request: NextRequest) {
       throw new Error('Error creating reset token: ' + error.message)
     }
 
-    // Enviar email de recuperación
+    // Enviar email de recuperación con Zoho Mail
     try {
-      const resendApiKey = process.env.RESEND_API_KEY;
-      if (!resendApiKey) {
-        console.error('RESEND_API_KEY no está configurada');
-        // Loguear para desarrollo pero no fallar
+      // Construir URL de reset
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                     process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+                     'http://localhost:3000';
+      const resetUrl = `${baseUrl}/user/reset-password?token=${resetToken}`;
+      
+      // Formatear fecha de expiración
+      const expirationTime = expiresAt.toLocaleString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'America/Santiago'
+      });
+
+      // Generar email HTML
+      const emailHtml = generatePasswordResetEmail({
+        name: user.name || 'Usuario',
+        resetUrl,
+        expirationTime
+      });
+
+      // Enviar email usando Zoho Mail
+      const emailResult = await zohoMailService.sendEmail({
+        to: email,
+        subject: '🔐 Recuperar contraseña - Solicitud de restablecimiento',
+        html: emailHtml
+      });
+
+      if (emailResult.success) {
+        console.log('✅ Email de recuperación enviado exitosamente');
+        console.log('📧 Message ID:', emailResult.messageId);
+      } else {
+        console.error('❌ Error enviando email de recuperación:', emailResult.error);
+        
+        // Para desarrollo, seguimos logueando el token
         console.log('🔑 Reset token para', email, ':', resetToken)
         console.log('🔗 URL de reset: /user/reset-password?token=' + resetToken)
-      } else {
-        const resend = new Resend(resendApiKey);
-        const fromEmail = process.env.FROM_EMAIL || 'noreply@tudominio.com';
-        
-        // Construir URL de reset
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                       process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                       'http://localhost:3000';
-        const resetUrl = `${baseUrl}/user/reset-password?token=${resetToken}`;
-        
-        // Formatear fecha de expiración
-        const expirationTime = expiresAt.toLocaleString('es-ES', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          timeZone: 'America/Santiago'
-        });
-
-        // Generar email HTML
-        const emailHtml = generatePasswordResetEmail({
-          name: user.name || 'Usuario',
-          resetUrl,
-          expirationTime
-        });
-
-        // Enviar email
-        const emailResult = await resend.emails.send({
-          from: fromEmail,
-          to: email,
-          subject: '🔐 Recuperar contraseña - Solicitud de restablecimiento',
-          html: emailHtml
-        });
-
-        console.log('✅ Email de recuperación enviado exitosamente');
-        console.log('📧 Resultado:', emailResult);
       }
+
     } catch (emailError) {
       console.error('❌ Error enviando email de recuperación:', emailError);
       
