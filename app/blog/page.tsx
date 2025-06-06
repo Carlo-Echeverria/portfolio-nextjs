@@ -97,7 +97,7 @@ export default function BlogPage() {
           </h1>
           <div className="h-1 w-20 bg-primary mx-auto mb-8"></div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Todos mis artículos sobre desarrollo web, tecnología y buenas prácticas
+          Artículos sobre desarrollo web, tecnología y buenas prácticas publicados en la comunidad <a href="https://www.dev.to" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">dev.to</a>.
           </p>
         </div>
 
