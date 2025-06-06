@@ -19,18 +19,12 @@ export function MobileMenu() {
           className="fixed inset-0 z-40 flex items-center justify-center bg-background"
         >
           <nav className="flex flex-col items-center gap-8 text-2xl">
-            <NavLink href="home" label="Inicio" />
-            <NavLink href="about" label="Sobre Mí" />
-            <NavLink href="projects" label="Proyectos" />
-            <NavLink href="skills" label="Habilidades" />
-            <Link 
-              href="/blog" 
-              className="relative px-1 py-2 text-foreground/80 transition-colors hover:text-foreground"
-              onClick={closeMenu}
-            >
-              Blog
-            </Link>
-            <NavLink href="contact" label="Contacto" />
+            <NavLink href="/" label="Inicio" />
+            <NavLink href="/#about" label="Sobre Mí" />
+            <NavLink href="/#projects" label="Proyectos" />
+            <NavLink href="/#skills" label="Habilidades" />
+            <NavLink href="/blog" label="Blog" />
+            <NavLink href="/#contact" label="Contacto" />
           </nav>
         </motion.div>
       )}

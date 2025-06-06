@@ -15,10 +15,13 @@ export function HeroSection({ profile }: { profile: Profile }) {
   const title = profile?.attributes?.field_title || "Desarrollador Full-Stack"
   // const bio = profile?.attributes?.body?.value || ""
 
-  const photoUrl = Array.isArray(profile?.relationships?.field_photo?.data) && profile.relationships.field_photo.data.length > 0
-    ? (profile.relationships.field_photo.data[0] as ImageType).attributes.uri.url
-    : "/placeholder.svg?height=200&width=200";
+  // const photoUrl = Array.isArray(profile?.relationships?.field_photo?.data) && profile.relationships.field_photo.data.length > 0
+  //   ? (profile.relationships.field_photo.data[0] as ImageType).attributes.uri.url
+  //   : "/placeholder.svg?height=200&width=200";
   
+
+  const photoUrl = "/placeholder.svg?height=200&width=200";
+
   // const cvUrl = Array.isArray(profile?.relationships?.field_cv?.data) && profile.relationships.field_cv.data.length > 0
   //   ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
   //   : "/placeholder.svg?height=200&width=200";
