@@ -1,3 +1,4 @@
+/* === Estilos para contenido general === */
 .article-content p,
 .article-content h1,
 .article-content h2,
@@ -11,23 +12,48 @@
 .article-content strong,
 .article-content em,
 .article-content img,
-.article-content div {
-  margin-bottom: 1rem;
+.article-content div,
+.article-content code {
+  margin: 1rem 0;
+  overflow-wrap: break-word;
 }
 
-.js-code-highlight {
-  overflow-x: scroll;
+/* === Estilos para bloques de código === */
+.js-code-highlight,
+code {
+  overflow-x: auto;
   background-color: #272A37;
-}
-
-.js-code-highlight .highlight__panel {
-  display: none;
 }
 
 .js-code-highlight .highlight {
   padding: 1rem;
 }
 
+.js-code-highlight .highlight__panel {
+  display: none;
+}
+
+/* === Estilos para tablas === */
+.table-wrapper-paragraph {
+  overflow-x: auto;
+}
+
+.table-wrapper-paragraph table {
+  background-color: #272A37;
+  border-collapse: separate;
+}
+
+.table-wrapper-paragraph table th {
+  text-align: start;
+}
+
+.table-wrapper-paragraph table th,
+.table-wrapper-paragraph table td {
+  border: 1px solid white;
+  padding: 8px;
+}
+
+/* === Estilos para iframes === */
 iframe {
   width: 100%;
 }

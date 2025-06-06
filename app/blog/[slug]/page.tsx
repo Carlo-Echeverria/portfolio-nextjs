@@ -125,11 +125,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </h1>
 
           {/* Description */}
-          {article.description && (
+          {/* {article.description && (
             <p className="text-xl text-muted-foreground mb-6">
               {article.description}
             </p>
-          )}
+          )} */}
 
           {/* Meta Information */}
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8">

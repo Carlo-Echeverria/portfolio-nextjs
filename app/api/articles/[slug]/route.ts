@@ -5,9 +5,9 @@ interface Params {
   slug: string;
 }
 
-export async function GET(request: Request, { params }: { params: Params }) {
+export async function GET(request: Request, { params }: { params: Promise<Params> }) {
   try {
-    const { slug } = params;
+    const { slug } = await params;
     const article = await getArticleBySlug(slug);
 
     if (!article) {
