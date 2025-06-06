@@ -4,7 +4,9 @@ import { Article } from "@/types/blog"
 async function getArticles(): Promise<Article[]> {
   try {
     
-    const response = await fetch(`/api/articles`)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    
+    const response = await fetch(`${baseUrl}/api/articles`)
     
     if (!response.ok) {
       throw new Error('Error fetching articles')
