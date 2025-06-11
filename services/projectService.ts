@@ -61,6 +61,9 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
             drupal_internal__nid: project.attributes.drupal_internal__nid,
             langcode: project.attributes.langcode,
             status: project.attributes.status,
+            path: {
+              alias: project.attributes.path.alias,
+            },
             body: {
               value: project.attributes.body?.value,
               summary: project.attributes.body?.summary,

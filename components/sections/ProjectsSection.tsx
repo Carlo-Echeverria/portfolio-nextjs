@@ -1,10 +1,17 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { Project } from "@/types/project"
 import { ProjectsList } from "@/components/projects/ProjectsList"
 
 export function ProjectsSection({ projectsProps }: { projectsProps: Project[] }) {
+  // Mostrar solo los primeros 6 proyectos en la home
+  const displayedProjects = projectsProps.slice(0, 6)
+  const hasMoreProjects = projectsProps.length > 6
+
   return (
     <section id="projects" className="py-24 bg-muted/30">
       <div className="container px-4 md:px-6">
@@ -23,7 +30,25 @@ export function ProjectsSection({ projectsProps }: { projectsProps: Project[] })
             </p>
           </div>
 
-          <ProjectsList projects={projectsProps} />
+          <ProjectsList projects={displayedProjects} />
+
+          {/* Enlace para ver todos los proyectos */}
+          {hasMoreProjects && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-center mt-12"
+            >
+              <Button asChild variant="outline" size="lg" className="gap-2">
+                <Link href="/projects">
+                  Ver todos los proyectos
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </motion.div>
+          )}
         </motion.div>
       </div>
     </section>

@@ -25,8 +25,8 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        scrolled ? "bg-background/80 py-3 shadow-md backdrop-blur-md" : "bg-transparent py-5"
+      className={`fixed top-0 z-50 w-full transition-all duration-300 py-5 ${
+        scrolled ? "bg-background/80 shadow-md backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="container flex items-center justify-between">

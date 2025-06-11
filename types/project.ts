@@ -11,6 +11,9 @@ export interface Project {
     langcode: string,
     drupal_internal__nid: number;
     status: string;
+    path: {
+      alias: string;
+    },
     body: {
       value?: string;
       summary?: string;
