@@ -15,7 +15,7 @@ export default async function Home() {
   const skills : Skill[] = profile?.relationships?.field_skills?.data
 
   return (
-    <main>
+    <main className="overflow-x-hidden md:overflow-x-auto">
       <HeroSection profile={profile} />
       <AboutSection profile={profile} />
       <ProjectsSection projectsProps={projects} />
