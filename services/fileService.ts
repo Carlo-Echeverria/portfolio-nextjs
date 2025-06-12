@@ -26,7 +26,8 @@ export const getFiles = async (filesId: string[]): Promise<File[]> => {
       let dataFile: File = {
         id: file.id,
         filename: file.filename,
-        attributes: {
+        attributes: { 
+          langcode: file.attributes.langcode,
           uri: {
             url: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${file.attributes.uri.url}`,
           }
@@ -71,6 +72,7 @@ export const getImages = async (imagesId: string[]) : Promise<Image[]> => {
         id: image.id,
         alt: image.alt,
         attributes: {
+          langcode: image.attributes.langcode,
           uri: {
             url: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${image.attributes.uri.url}`,
           }
