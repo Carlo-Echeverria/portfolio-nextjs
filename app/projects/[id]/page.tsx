@@ -106,7 +106,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container px-4 md:px-6 py-20">
+      <div className="container px-4 md:px-6 py-24">
         <div className="mx-auto max-w-4xl">
           {/* Navegación */}
           <div className="mb-8">

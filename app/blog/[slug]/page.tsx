@@ -53,7 +53,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   if (loading) {
     return (
       <div className="container px-4 md:px-6 py-24">
-        <div className="text-center py-20">
+        <div className="text-center py-24">
           <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="mt-4 text-muted-foreground">Cargando artículo...</p>
         </div>
@@ -64,7 +64,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   if (error || !article) {
     return (
       <div className="container px-4 md:px-6 py-24">
-        <div className="text-center py-20">
+        <div className="text-center py-24">
           <p className="text-red-500">{error || 'Artículo no encontrado'}</p>
           <Button asChild className="mt-4">
             <Link href="/blog">

@@ -64,7 +64,7 @@ export default function BlogPage() {
   if (loading) {
     return (
       <div className="container px-4 md:px-6 py-24">
-        <div className="text-center py-20">
+        <div className="text-center py-24">
           <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="mt-4 text-muted-foreground">Cargando artículos...</p>
         </div>
@@ -75,7 +75,7 @@ export default function BlogPage() {
   if (error) {
     return (
       <div className="container px-4 md:px-6 py-24">
-        <div className="text-center py-20">
+        <div className="text-center py-24">
           <p className="text-red-500">{error}</p>
         </div>
       </div>
@@ -102,7 +102,7 @@ export default function BlogPage() {
         </div>
 
         {articles.length === 0 ? (
-          <div className="text-center py-20">
+          <div className="text-center py-24">
             <p className="text-muted-foreground text-lg">
               Actualmente no hay artículos disponibles.
             </p>
