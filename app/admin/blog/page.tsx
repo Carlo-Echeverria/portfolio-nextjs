@@ -66,7 +66,7 @@ export default function AdminBlogPage() {
   }
 
   return (
-    <div className="container py-10">
+    <div className="container py-20">
       {/* Header con información del usuario */}
       <div className="flex justify-between items-center mb-6">
         <div>
