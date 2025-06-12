@@ -66,9 +66,7 @@ export async function POST(request: NextRequest) {
     // Enviar email de recuperación con Zoho Mail
     try {
       // Construir URL de reset
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                     process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                     'http://localhost:3000';
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
       const resetUrl = `${baseUrl}/user/reset-password?token=${resetToken}`;
       
       // Formatear fecha de expiración
