@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Download } from "lucide-react"
+import { ArrowDown, ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 // import { sanitizeHtml } from "@/lib/utils"
 import { Profile } from "@/types/profile";
@@ -29,77 +29,102 @@ export function HeroSection({ profile }: { profile: Profile }) {
   const cvUrlS3 = 'https://jefckqhxjmggckaqzono.supabase.co/storage/v1/object/public/portfolio//CV%20Carlo%20Echeverria.pdf'
 
   return (
-    <section id="home" className="relative min-h-screen w-full">
-      {/* Background Elements */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_var(--tw-gradient-stops))] from-primary/10 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent"></div>
-      </div>
-
-      <div className="container relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-24 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="flex flex-col items-center text-center"
-        >
-          <div className="mb-8 overflow-hidden rounded-full border-4 border-primary/20 p-1">
-            <Image
-              src={photoUrl || "/placeholder.svg"}
-              width={200}
-              height={200}
-              alt="Profile"
-              className="rounded-full"
-              priority
-            />
-          </div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
-          >
-            {name}
-          </motion.h1>
+    <section className="w-full py-12 md:py-24 lg:py-32 lg:pb-0">
+      <div className="container px-4 md:px-6">
+        <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
+          {/* Columna de la imagen */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="mb-8 flex items-center gap-2"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center"
           >
-            <div className="h-[1px] w-12 bg-primary/50"></div>
-            <p className="text-xl text-muted-foreground">{title}</p>
-            <div className="h-[1px] w-12 bg-primary/50"></div>
+            <div className="relative h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] md:h-[350px] md:w-[350px] lg:h-[400px] lg:w-[400px] overflow-hidden rounded-full border-4 border-primary/20">
+              <Image
+                src={photoUrl || "/placeholder.svg"}
+                alt="Foto de perfil"
+                fill
+                sizes="(max-width: 640px) 250px, (max-width: 768px) 300px, (max-width: 1024px) 350px, 400px"
+                className="object-cover"
+                priority
+              />
+            </div>
           </motion.div>
-          {/* {bio && (
+
+          {/* Columna de contenido */}
+          <div className="flex flex-col justify-center space-y-8 text-center md:text-left">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="mb-10 max-w-2xl text-xl text-muted-foreground"
-              dangerouslySetInnerHTML={{ __html: sanitizeHtml(bio) }}
-            />
-          )} */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="flex flex-wrap justify-center gap-4"
-          >
-            <Button asChild size="lg" className="gap-2 px-8">
-              <Link href="#projects">
-                Ver Proyectos
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="gap-2 px-8">
-              <Link href={cvUrlS3} download>
-                Descargar CV
-                <Download className="h-4 w-4" />
-              </Link>
-            </Button>
-          </motion.div>
-        </motion.div>
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="space-y-4"
+            >
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
+                {name}
+              </h1>
+              <p className="text-lg text-muted-foreground sm:text-xl md:text-2xl">
+                {title}
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="space-y-4"
+            >
+              <p className="text-base text-muted-foreground sm:text-lg">
+                Apasionado por crear experiencias web excepcionales y soluciones tecnológicas innovadoras.
+                Especializado en desarrollo frontend y backend con las últimas tecnologías.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="flex flex-col gap-4 sm:flex-row justify-center md:justify-start"
+            >
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <Link href={cvUrlS3} target="_blank">
+                  Descargar CV
+                  <ArrowDown className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto">
+                <Link href="/projects">
+                  Ver Proyectos
+                </Link>
+              </Button>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              className="flex gap-4 justify-center md:justify-start"
+            >
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
+                  <Github className="h-5 w-5" />
+                  <span className="sr-only">GitHub</span>
+                </Link>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="h-5 w-5" />
+                  <span className="sr-only">LinkedIn</span>
+                </Link>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="mailto:your.email@example.com">
+                  <Mail className="h-5 w-5" />
+                  <span className="sr-only">Email</span>
+                </Link>
+              </Button>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   )
