@@ -1,20 +1,13 @@
 import type React from "react"
 import "@/styles/globals.css"
-import { Inter } from "next/font/google"
+import { poppins } from "@/lib/fonts"
 import { ThemeProvider } from "@/components/theme-provider"
 import { MainLayout } from "@/components/layout/MainLayout"
 
-const inter = Inter({ subsets: ["latin"] })
-
 export const metadata = {
-  title: "Carlo Echeverría | Desarrollador Web Full Stack",
-  description: "Desarrollador Full Stack con más de 7 años de experiencia en el desarrollo web",
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/logo.svg', type: 'image/svg+xml' },
-    ],
-  },
+  title: "Portfolio Profesional",
+  description: "Una muestra de mi trabajo y habilidades como desarrollador",
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -24,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${poppins.variable} font-sans`}>
         <ThemeProvider
           attribute="data-theme"
           defaultTheme="light"
