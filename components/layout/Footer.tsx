@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Github, Linkedin, Twitter } from "lucide-react"
 import { Profile } from "@/types/profile"
+import Image from "next/image"
 
 export function Footer({ profile }: { profile?: Profile }) {
   const email = profile?.attributes?.field_email || "contacto@ejemplo.com"
@@ -12,15 +13,15 @@ export function Footer({ profile }: { profile?: Profile }) {
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div>
             <Link href="/" className="text-xl font-bold">
-              Portfolio
+              <Image src="/logo.svg" alt="Logo" width={40} height={40} className="mx-auto md:mx-0" />
             </Link>
-            <p className="mt-2 text-sm text-muted-foreground">Desarrollando experiencias digitales excepcionales</p>
+            <p className="mt-2 text-sm text-muted-foreground text-center md:text-left">Desarrollando experiencias digitales excepcionales</p>
           </div>
 
           <div className="flex flex-col items-center gap-4 md:items-end">
             <div className="flex gap-4">
               <Link
-                href="https://github.com"
+                href="https://github.com/beriliox"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground transition-colors hover:text-foreground"
@@ -29,7 +30,7 @@ export function Footer({ profile }: { profile?: Profile }) {
                 <Github className="h-5 w-5" />
               </Link>
               <Link
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/carloecheverriafuentes/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground transition-colors hover:text-foreground"
@@ -38,7 +39,7 @@ export function Footer({ profile }: { profile?: Profile }) {
                 <Linkedin className="h-5 w-5" />
               </Link>
               <Link
-                href="https://twitter.com"
+                href="https://x.com/carloalbert92"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground transition-colors hover:text-foreground"
@@ -53,7 +54,7 @@ export function Footer({ profile }: { profile?: Profile }) {
           </div>
         </div>
         <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {currentYear} Portfolio Personal. Todos los derechos reservados.</p>
+          <p>&copy; {currentYear} Carlo Echeverría | Desarrollador Web Full Stack. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

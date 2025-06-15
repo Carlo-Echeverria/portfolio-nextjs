@@ -7,9 +7,14 @@ import { MainLayout } from "@/components/layout/MainLayout"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Portfolio Profesional",
-  description: "Una muestra de mi trabajo y habilidades como desarrollador",
-    generator: 'v0.dev'
+  title: "Carlo Echeverría | Desarrollador Web Full Stack",
+  description: "Desarrollador Full Stack con más de 7 años de experiencia en el desarrollo web",
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/logo.svg', type: 'image/svg+xml' },
+    ],
+  },
 }
 
 export default function RootLayout({

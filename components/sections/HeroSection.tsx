@@ -15,12 +15,11 @@ export function HeroSection({ profile }: { profile: Profile }) {
   const title = profile?.attributes?.field_title || "Desarrollador Full-Stack"
   // const bio = profile?.attributes?.body?.value || ""
 
-  // const photoUrl = Array.isArray(profile?.relationships?.field_photo?.data) && profile.relationships.field_photo.data.length > 0
-  //   ? (profile.relationships.field_photo.data[0] as ImageType).attributes.uri.url
-  //   : "/placeholder.svg?height=200&width=200";
+  const photoUrl = Array.isArray(profile?.relationships?.field_photo?.data) && profile.relationships.field_photo.data.length > 0
+    ? (profile.relationships.field_photo.data[0] as ImageType).attributes.uri.url
+    : "/placeholder.svg?height=200&width=200";
   
-
-  const photoUrl = "/placeholder.svg?height=200&width=200";
+  // const photoUrl = "/placeholder.svg?height=200&width=200";
 
   // const cvUrl = Array.isArray(profile?.relationships?.field_cv?.data) && profile.relationships.field_cv.data.length > 0
   //   ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
@@ -29,7 +28,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
   const cvUrlS3 = 'https://jefckqhxjmggckaqzono.supabase.co/storage/v1/object/public/portfolio//CV%20Carlo%20Echeverria.pdf'
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 lg:pb-0">
+    <section className="w-full py-24 md:py-24 lg:py-[12rem] lg:pb-0">
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
           {/* Columna de la imagen */}
@@ -52,7 +51,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
           </motion.div>
 
           {/* Columna de contenido */}
-          <div className="flex flex-col justify-center space-y-8 text-center md:text-left">
+          <div className="flex flex-col justify-center space-y-8 text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -83,7 +82,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="flex flex-col gap-4 sm:flex-row justify-center md:justify-start"
+              className="flex flex-col gap-4 sm:flex-row justify-center lg:justify-start"
             >
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href={cvUrlS3} target="_blank">
@@ -102,22 +101,22 @@ export function HeroSection({ profile }: { profile: Profile }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="flex gap-4 justify-center md:justify-start"
+              className="flex gap-4 justify-center lg:justify-start"
             >
               <Button variant="ghost" size="icon" asChild>
-                <Link href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
+                <Link href="https://github.com/beriliox" target="_blank" rel="noopener noreferrer">
                   <Github className="h-5 w-5" />
                   <span className="sr-only">GitHub</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
-                <Link href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">
+                <Link href="https://www.linkedin.com/in/carloecheverriafuentes/" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="h-5 w-5" />
                   <span className="sr-only">LinkedIn</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
-                <Link href="mailto:your.email@example.com">
+                <Link href="mailto:contacto@cecheverria.dev">
                   <Mail className="h-5 w-5" />
                   <span className="sr-only">Email</span>
                 </Link>
