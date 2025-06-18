@@ -14,6 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className={`${poppins.variable} font-sans`}>
         <ThemeProvider
           attribute="data-theme"

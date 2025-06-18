@@ -85,9 +85,6 @@ export function generateBaseMetadata(overrides: Partial<Metadata> = {}): Metadat
       address: false,
       telephone: false,
     },
-    icons: {
-      icon: '/favicon.ico',
-    },
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
     alternates: {
       canonical: process.env.NEXT_PUBLIC_BASE_URL,
