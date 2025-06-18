@@ -8,7 +8,7 @@ export const metadata = {
   title: "Carlo Echevrría - Desarrollador Full Stack",
   description: "Portfolio de Carlo Echevrría, desarrollador full stack con más de 7 años de experiencia en el desarrollo de aplicaciones web",
   icons: {
-    icon: './public/favicon.ico',
+    icon: '/public/favicon.ico',
   },
   alternates: {
     canonical: 'https://carloecheverria.com',
