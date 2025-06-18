@@ -85,6 +85,11 @@ export function generateBaseMetadata(overrides: Partial<Metadata> = {}): Metadat
       address: false,
       telephone: false,
     },
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/favicon.ico',
+    },
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
     alternates: {
       canonical: process.env.NEXT_PUBLIC_BASE_URL,
@@ -137,6 +142,11 @@ export function generateArticleMetadata(
     title: `${title} | Carlo Echeverría - Desarrollador Full Stack`,
     description,
     keywords: articleKeywords.join(", "),
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/favicon.ico',
+    },
     openGraph: {
       title,
       description,
@@ -152,7 +162,7 @@ export function generateArticleMetadata(
     },
     ...overrides,
   }
-}
+} 
 
 // Función para generar metadata de proyecto
 export function generateProjectMetadata(
@@ -176,6 +186,11 @@ export function generateProjectMetadata(
     title: `${title} | Carlo Echeverría - Desarrollador Full Stack`,
     description,
     keywords: projectKeywords.join(", "),
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/favicon.ico',
+    },
     openGraph: {
       title,
       description,
