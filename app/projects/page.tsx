@@ -31,7 +31,6 @@ export const metadata = {
     "proyectos Next.js",
     "desarrollo frontend",
     "desarrollo backend",
-    "aplicaciones móviles",
     "sitios web",
     "Carlo Echeverría proyectos"
   ].join(", "),

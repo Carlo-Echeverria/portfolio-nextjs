@@ -33,14 +33,13 @@ export const PAGE_KEYWORDS = {
     ...BASE_KEYWORDS,
     "proyectos web",
     "portfolio proyectos",
-    "desarrollo de aplicaciones",
+    "desarrollo de aplicaciones web",
     "casos de estudio",
     "trabajos realizados",
     "proyectos React",
     "proyectos Next.js",
     "desarrollo frontend",
     "desarrollo backend",
-    "aplicaciones móviles",
     "sitios web"
   ],
   blog: [
@@ -138,7 +137,7 @@ export function generateArticleMetadata(
   ]
 
   return {
-    title: `${title} | Carlo Echeverría`,
+    title: `${title} | Carlo Echeverría - Desarrollador Full Stack`,
     description,
     keywords: articleKeywords.join(", "),
     openGraph: {
@@ -177,7 +176,7 @@ export function generateProjectMetadata(
   ]
 
   return {
-    title: `${title} - Portfolio`,
+    title: `${title} | Carlo Echeverría - Desarrollador Full Stack`,
     description,
     keywords: projectKeywords.join(", "),
     openGraph: {

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     
     if (!response.ok) {
       return {
-        title: "Artículo no encontrado | Carlo Echeverría",
+        title: "Artículo no encontrado | Carlo Echeverría - Desarrollador Full Stack",
         description: "El artículo que buscas no está disponible",
       }
     }
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     const article: Article = await response.json()
     
     return generateArticleMetadata(
-      article.title,
+      article.title + " | Carlo Echeverría - Desarrollador Full Stack",
       article.description || `Artículo sobre ${article.tag_list.join(", ")}`,
       article.tag_list,
       article.published_at

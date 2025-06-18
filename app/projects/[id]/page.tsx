@@ -68,7 +68,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   
   if (!project) {
     return {
-      title: "Proyecto no encontrado",
+      title: "Proyecto no encontrado | Carlo Echeverría - Desarrollador Full Stack",
       description: "El proyecto solicitado no existe o no está disponible."
     }
   }
@@ -93,7 +93,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   ]
 
   return {
-    title: `${project.attributes.title} - Portfolio`,
+    title: `${project.attributes.title} | Carlo Echeverría - Desarrollador Full Stack`,
     description: project.attributes.body?.summary || `Detalles del proyecto ${project.attributes.title}`,
     keywords: projectKeywords.join(", "),
     openGraph: {
