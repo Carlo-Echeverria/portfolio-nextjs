@@ -5,9 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { MainLayout } from "@/components/layout/MainLayout"
 
 export const metadata = {
-  title: "Portfolio Profesional",
-  description: "Una muestra de mi trabajo y habilidades como desarrollador",
-  generator: 'v0.dev'
+  title: "Carlo Echevrría - Desarrollador Full Stack",
+  description: "Portfolio de Carlo Echevrría, desarrollador full stack con más de 7 años de experiencia en el desarrollo de aplicaciones web",
 }
 
 export default function RootLayout({

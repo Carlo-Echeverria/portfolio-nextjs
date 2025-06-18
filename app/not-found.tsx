@@ -35,6 +35,6 @@ export default function ProjectNotFound() {
 }
 
 export const metadata = {
-  title: "Proyecto no encontrado - Portfolio",
-  description: "El proyecto solicitado no existe o no está disponible.",
+  title: "Página no encontrada | Carlo Echeverría - Desarrollador Full Stack",
+  description: "La página que buscas no existe o no está disponible en este momento.",
 } 

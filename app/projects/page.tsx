@@ -19,6 +19,6 @@ export default async function ProjectsPage() {
 }
 
 export const metadata = {
-  title: "Proyectos - Portfolio",
+  title: "Proyectos | Carlo Echeverría - Desarrollador Full Stack",
   description: "Todos los proyectos en los que he trabajado como desarrollador",
 } 
