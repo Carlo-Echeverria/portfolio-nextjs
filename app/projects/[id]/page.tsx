@@ -75,15 +75,38 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
   const thumbnailData = project.relationships.field_thumbnail.data as any[]
   const thumbnailUrl = thumbnailData[0]?.attributes?.uri?.url || "/placeholder.svg"
+  
+  // Crear keywords basados en las tecnologías y roles del proyecto
+  const techStacks = project.relationships.field_tech_stacks.data.map((tech) => tech.attributes.name)
+  const roles = project.relationships.field_roles.data.map((role) => role.attributes.name)
+  const projectTypes = project.relationships.field_project_types.data.map((type) => type.attributes.name)
+  
+  const projectKeywords = [
+    ...techStacks,
+    ...roles,
+    ...projectTypes,
+    "proyecto desarrollo",
+    "caso de estudio",
+    "portfolio",
+    "Carlo Echeverría",
+    project.attributes.title
+  ]
 
   return {
     title: `${project.attributes.title} - Portfolio`,
     description: project.attributes.body?.summary || `Detalles del proyecto ${project.attributes.title}`,
+    keywords: projectKeywords.join(", "),
     openGraph: {
       title: project.attributes.title,
       description: project.attributes.body?.summary,
       images: [thumbnailUrl],
+      type: "website",
     },
+    twitter: {
+      card: "summary_large_image",
+      title: project.attributes.title,
+      description: project.attributes.body?.summary,
+    }
   }
 }
 

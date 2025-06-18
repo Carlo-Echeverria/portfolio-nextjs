@@ -3,21 +3,9 @@ import "@/styles/globals.css"
 import { poppins } from "@/lib/fonts"
 import { ThemeProvider } from "@/components/theme-provider"
 import { MainLayout } from "@/components/layout/MainLayout"
+import { generateBaseMetadata } from "@/lib/seo"
 
-export const metadata = {
-  title: "Carlo Echevrría - Desarrollador Full Stack",
-  description: "Portfolio de Carlo Echevrría, desarrollador full stack con más de 7 años de experiencia en el desarrollo de aplicaciones web",
-  icons: {
-    icon: '/public/favicon.ico',
-  },
-  alternates: {
-    canonical: 'https://carloecheverria.com',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-}
+export const metadata = generateBaseMetadata()
 
 export default function RootLayout({
   children,
