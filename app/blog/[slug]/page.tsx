@@ -20,23 +20,23 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     
     if (!response.ok) {
       return {
-        title: "Artículo no encontrado | Carlo Echeverría - Desarrollador Full Stack",
-        description: "El artículo que buscas no está disponible",
+        title: "Artículo no encontrado | Carlo Echeverría - Desarrollador Full Stack | Portfolio",
+        description: "El artículo que buscas no está disponible o ha sido eliminado. Te invitamos a explorar otros contenidos o volver al inicio del sitio.",
       }
     }
     
     const article: Article = await response.json()
     
     return generateArticleMetadata(
-      article.title + " | Carlo Echeverría - Desarrollador Full Stack",
+      article.title + " | Carlo Echeverría - Desarrollador Full Stack | Portfolio | Portfolio",
       article.description || `Artículo sobre ${article.tag_list.join(", ")}`,
       article.tag_list,
       article.published_at
     )
   } catch (error) {
     return {
-      title: "Error | Carlo Echeverría",
-      description: "Error al cargar el artículo",
+      title: "Error | Carlo Echeverría - Desarrollador Full Stack | Portfolio",
+      description: "Ocurrió un error al cargar el artículo. Puede que el contenido haya sido eliminado o esté temporalmente fuera de servicio. Vuelve más tarde o regresa al inicio.",
     }
   }
 }
@@ -46,7 +46,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   let error: string | null = null
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/${params.slug}`)
+    const { slug } = await params
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/${slug}`)
     
     if (response.status === 404) {
       notFound()

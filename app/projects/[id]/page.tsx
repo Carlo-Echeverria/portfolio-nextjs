@@ -68,8 +68,8 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   
   if (!project) {
     return {
-      title: "Proyecto no encontrado | Carlo Echeverría - Desarrollador Full Stack",
-      description: "El proyecto solicitado no existe o no está disponible."
+      title: "Proyecto no encontrado | Carlo Echeverría - Desarrollador Full Stack | Portfolio",
+      description: "El proyecto que estás buscando no existe o no está disponible en este momento. Te invitamos a explorar otros trabajos en el portafolio."
     }
   }
 
@@ -93,7 +93,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   ]
 
   return {
-    title: `${project.attributes.title} | Carlo Echeverría - Desarrollador Full Stack`,
+    title: `${project.attributes.title} | Carlo Echeverría - Desarrollador Full Stack | Portfolio`,
     description: project.attributes.body?.summary || `Detalles del proyecto ${project.attributes.title}`,
     keywords: projectKeywords.join(", "),
     openGraph: {

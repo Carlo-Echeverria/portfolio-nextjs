@@ -35,6 +35,6 @@ export default function ProjectNotFound() {
 }
 
 export const metadata = {
-  title: "Página no encontrada | Carlo Echeverría - Desarrollador Full Stack",
-  description: "La página que buscas no existe o no está disponible en este momento.",
+  title: "Página no encontrada | Carlo Echeverría - Desarrollador Full Stack | Portfolio",
+  description: "La página que buscas no existe o no está disponible en este momento. Verifica la URL o vuelve al inicio para seguir explorando el sitio.",
 } 

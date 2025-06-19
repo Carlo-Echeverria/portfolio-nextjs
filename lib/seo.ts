@@ -74,8 +74,8 @@ export const PAGE_KEYWORDS = {
 // Función para generar metadata base
 export function generateBaseMetadata(overrides: Partial<Metadata> = {}): Metadata {
   return {
-    title: "Carlo Echeverría - Desarrollador Full Stack",
-    description: "Portfolio de Carlo Echeverría, desarrollador full stack con más de 7 años de experiencia en el desarrollo de aplicaciones web",
+    title: "Carlo Echeverría - Desarrollador Full Stack | Portfolio",
+    description: "Portafolio de Carlo Echeverría, desarrollador full stack con más de 7 años de experiencia creando aplicaciones web modernas, eficientes y escalables.",
     keywords: BASE_KEYWORDS.join(", "),
     authors: [{ name: "Carlo Echeverría" }],
     creator: "Carlo Echeverría",
@@ -139,7 +139,7 @@ export function generateArticleMetadata(
   ]
 
   return {
-    title: `${title} | Carlo Echeverría - Desarrollador Full Stack`,
+    title: `${title} | Carlo Echeverría - Desarrollador Full Stack | Portfolio`,
     description,
     keywords: articleKeywords.join(", "),
     icons: {
@@ -183,7 +183,7 @@ export function generateProjectMetadata(
   ]
 
   return {
-    title: `${title} | Carlo Echeverría - Desarrollador Full Stack`,
+    title: `${title} | Carlo Echeverría - Desarrollador Full Stack | Portfolio`,
     description,
     keywords: projectKeywords.join(", "),
     icons: {

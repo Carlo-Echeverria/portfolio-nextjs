@@ -27,7 +27,7 @@ export function AboutSection({ profile }: { profile : Profile }) {
   //     ],
   //   },
   //   {
-  //     title: "Desarrollador Full Stack",
+  //     title: "Desarrollador Full Stack | Portfolio",
   //     company: "Empresa Anterior",
   //     period: "Enero 2020 - Julio 2022",
   //     location: "Santiago, Chile",

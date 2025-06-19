@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -10,46 +10,16 @@ import { Article } from "@/types/blog"
 const ARTICLES_PER_PAGE = 6
 
 interface BlogPageClientProps {
-  initialArticles?: Article[]
+  initialArticles: Article[]
 }
 
-export default function BlogPageClient({ initialArticles = [] }: BlogPageClientProps) {
-  const [articles, setArticles] = useState<Article[]>(initialArticles)
-  const [loading, setLoading] = useState(initialArticles.length === 0)
-  const [error, setError] = useState<string | null>(null)
+export default function BlogPageClient({ initialArticles }: BlogPageClientProps) {
   const [currentPage, setCurrentPage] = useState(1)
 
-  const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE)
+  const totalPages = Math.ceil(initialArticles.length / ARTICLES_PER_PAGE)
   const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE
   const endIndex = startIndex + ARTICLES_PER_PAGE
-  const currentArticles = articles.slice(startIndex, endIndex)
-
-  useEffect(() => {
-    // Solo hacer fetch si no hay artículos iniciales
-    if (initialArticles.length === 0) {
-      async function fetchArticles() {
-        try {
-          setLoading(true)
-          const response = await fetch('/api/articles')
-          
-          if (!response.ok) {
-            throw new Error('Error fetching articles')
-          }
-          
-          const fetchedArticles: Article[] = await response.json()
-          setArticles(fetchedArticles)
-        } catch (err) {
-          console.error('Error fetching articles:', err)
-          setError('Failed to load articles')
-          setArticles([])
-        } finally {
-          setLoading(false)
-        }
-      }
-
-      fetchArticles()
-    }
-  }, [initialArticles.length])
+  const currentArticles = initialArticles.slice(startIndex, endIndex)
 
   const goToPage = (page: number) => {
     setCurrentPage(page)
@@ -66,27 +36,6 @@ export default function BlogPageClient({ initialArticles = [] }: BlogPageClientP
     if (currentPage < totalPages) {
       goToPage(currentPage + 1)
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="container px-4 md:px-6 py-24">
-        <div className="text-center py-24">
-          <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Cargando artículos...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="container px-4 md:px-6 py-24">
-        <div className="text-center py-24">
-          <p className="text-red-500">{error}</p>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -108,7 +57,7 @@ export default function BlogPageClient({ initialArticles = [] }: BlogPageClientP
           </p>
         </div>
 
-        {articles.length === 0 ? (
+        {initialArticles.length === 0 ? (
           <div className="text-center py-24">
             <p className="text-muted-foreground text-lg">
               Actualmente no hay artículos disponibles.
@@ -174,7 +123,7 @@ export default function BlogPageClient({ initialArticles = [] }: BlogPageClientP
 
             {/* Page Info */}
             <div className="text-center mt-8 text-sm text-muted-foreground">
-              Mostrando {startIndex + 1}-{Math.min(endIndex, articles.length)} de {articles.length} artículos
+              Mostrando {startIndex + 1}-{Math.min(endIndex, initialArticles.length)} de {initialArticles.length} artículos
             </div>
           </>
         )}
