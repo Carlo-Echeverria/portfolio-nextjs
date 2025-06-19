@@ -15,7 +15,8 @@ interface BlogPostPageProps {
 // Función para generar metadata dinámica
 export async function generateMetadata({ params }: BlogPostPageProps) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/${params.slug}`)
+    const { slug } = await params
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/${slug}`)
     
     if (!response.ok) {
       return {
