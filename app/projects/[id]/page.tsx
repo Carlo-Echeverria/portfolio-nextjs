@@ -133,7 +133,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className="mx-auto max-w-4xl">
           {/* Navegación */}
           <div className="mb-8">
-            <Button asChild variant="ghost" className="gap-2 p-0 h-auto">
+            <Button asChild variant="ghost" className="gap-2 p-0 px-3 h-9">
               <Link href="/#projects">
                 <ArrowLeft className="h-4 w-4" />
                 Volver a proyectos

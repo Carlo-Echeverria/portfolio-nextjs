@@ -25,7 +25,7 @@ export function AnimatedBlogSection({ articles }: AnimatedBlogSectionProps) {
         </p>
       </div>
       
-      <BlogList articles={articles} viewAllUrl="/blog" limit={6} />
+      <BlogList articles={articles} viewAllUrl="/blog" limit={3} />
     </motion.div>
   )
 } 

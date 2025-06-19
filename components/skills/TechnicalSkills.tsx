@@ -62,12 +62,11 @@ export function TechnicalSkills({ skills }: TechnicalSkillsProps) {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="flex flex-col items-center justify-center"
         >
           <SkillCard title="Áreas de Especialización" className="w-full">
-            <div className="relative aspect-square">
+            <div className="relative aspect-square md:aspect">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-full max-w-md">
+                <div className="w-full">
                   {Object.entries(processedTechnicalSkills).map(([category, skills], index) => {
                     // Calcular el nivel promedio de habilidades en esta categoría
                     const avgLevel =

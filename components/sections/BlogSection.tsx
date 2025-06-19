@@ -42,7 +42,7 @@ export async function BlogSection() {
   const articles = await getArticles()
 
   return (
-    <section id="blog" className="py-24 bg-muted/30">
+    <section id="blog" className="py-12 bg-muted/30">
       <div className="container px-4 md:px-6">
         <AnimatedBlogSection articles={articles} />
       </div>

@@ -6,7 +6,7 @@ import { SkillsList } from "@/components/skills/SkillsList"
 
 export function SkillsSection({ skills }: { skills: Skill[] }) {
   return (
-    <section id="skills" className="py-24">
+    <section id="skills" className="py-12">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
