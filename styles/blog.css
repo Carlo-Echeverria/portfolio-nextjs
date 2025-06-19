@@ -18,11 +18,28 @@
   overflow-wrap: break-word;
 }
 
+.article-content img {
+  border-radius: 6px;
+  margin: 1rem auto 0 auto;
+}
+
+
+/* [data-theme="light"] .js-code-highlight
+[data-theme="dark"] .js-code-highlight */
+
 /* === Estilos para bloques de código === */
 .js-code-highlight,
-code {
+code, code > * {
   overflow-x: auto;
-  background-color: #272A37;
+  background-color: hsl(210 29% 18%);
+  border-radius: 6px;
+  color: white;
+}
+
+[data-theme="dark"] .js-code-highlight,
+[data-theme="dark"] code, [data-theme="dark"] code > * {
+  background-color: hsl( 200 17% 61%);
+  color: hsl(210 29% 18%);
 }
 
 .js-code-highlight .highlight {
@@ -39,8 +56,9 @@ code {
 }
 
 .table-wrapper-paragraph table {
-  background-color: #272A37;
+  background-color: hsl(210 29% 18%);
   border-collapse: separate;
+  color: white;
 }
 
 .table-wrapper-paragraph table th {
