@@ -5,6 +5,9 @@ import BlogPostClient from "@/components/blog/BlogPostClient"
 import { generateArticleMetadata } from "@/lib/seo"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+// import "@/styles/4af9902655894975b7088821085b0a0a.css"
+import "@/styles/minimal-default.css"
+import "@/styles/views-default.css"
 
 interface BlogPostPageProps {
   params: {
