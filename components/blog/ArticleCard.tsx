@@ -26,7 +26,7 @@ export function ArticleCard({ article, index }: ArticleCardProps) {
       <Card className="overflow-hidden h-full flex flex-col">
         <div className="relative h-48 w-full overflow-hidden">
           <Image
-            src={article.cover_image || "/placeholder.svg"}
+            src={article.cover_image || "/placeholder.webp"}
             alt={article.title}
             fill
             className="object-cover transition-transform duration-300 hover:scale-105"

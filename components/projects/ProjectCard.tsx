@@ -23,7 +23,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const tasks = project.attributes.field_taks || []
   
   const thumbnailData = project.relationships.field_thumbnail.data as unknown as ImageData[]
-  const thumbnailUrl = thumbnailData[0]?.attributes?.uri?.url || "/placeholder.svg"
+  const thumbnailUrl = thumbnailData[0]?.attributes?.uri?.url || "/placeholder.webp"
 
   const projectTypes = project.relationships.field_project_types.data.map((type) => type.attributes.name)
 

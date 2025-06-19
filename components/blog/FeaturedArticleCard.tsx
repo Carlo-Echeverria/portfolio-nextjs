@@ -27,7 +27,7 @@ export function FeaturedArticleCard({ article }: FeaturedArticleCardProps) {
         <div className="grid md:grid-cols-2 gap-0">
           <div className="relative h-64 md:h-full">
             <Image
-              src={article.cover_image || "/placeholder.svg"}
+              src={article.cover_image || "/placeholder.webp"}
               alt={article.title}
               fill
               className="object-cover"

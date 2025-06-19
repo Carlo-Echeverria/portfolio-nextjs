@@ -17,13 +17,13 @@ export function HeroSection({ profile }: { profile: Profile }) {
 
   const photoUrl = Array.isArray(profile?.relationships?.field_photo?.data) && profile.relationships.field_photo.data.length > 0
     ? (profile.relationships.field_photo.data[0] as ImageType).attributes.uri.url
-    : "/placeholder.svg?height=200&width=200";
+    : "/placeholder.webp?height=200&width=200";
   
-  // const photoUrl = "/placeholder.svg?height=200&width=200";
+  // const photoUrl = "/placeholder.webp?height=200&width=200";
 
   // const cvUrl = Array.isArray(profile?.relationships?.field_cv?.data) && profile.relationships.field_cv.data.length > 0
   //   ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
-  //   : "/placeholder.svg?height=200&width=200";
+  //   : "/placeholder.webp?height=200&width=200";
 
   const cvUrlS3 = 'https://jefckqhxjmggckaqzono.supabase.co/storage/v1/object/public/portfolio//CV%20Carlo%20Echeverria.pdf'
 
@@ -40,7 +40,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
           >
             <div className="relative h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] md:h-[350px] md:w-[350px] lg:h-[400px] lg:w-[400px] overflow-hidden rounded-full border-4 border-primary/20">
               <Image
-                src={photoUrl || "/placeholder.svg"}
+                src={photoUrl || "/placeholder.webp"}
                 alt="Foto de perfil"
                 fill
                 sizes="(max-width: 640px) 250px, (max-width: 768px) 300px, (max-width: 1024px) 350px, 400px"

@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 
   const thumbnailData = project.relationships.field_thumbnail.data as any[]
-  const thumbnailUrl = thumbnailData[0]?.attributes?.uri?.url || "/placeholder.svg"
+  const thumbnailUrl = thumbnailData[0]?.attributes?.uri?.url || "/placeholder.webp"
   
   // Crear keywords basados en las tecnologías y roles del proyecto
   const techStacks = project.relationships.field_tech_stacks.data.map((tech) => tech.attributes.name)
@@ -124,7 +124,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const tasks = project.attributes.field_taks || []
   
   const thumbnailData = project.relationships.field_thumbnail.data as any[]
-  const thumbnailUrl = thumbnailData[0]?.attributes?.uri?.url || "/placeholder.svg"
+  const thumbnailUrl = thumbnailData[0]?.attributes?.uri?.url || "/placeholder.webp"
   const galleryUrls = project.relationships.field_gallery.data.map((image) => image.attributes.uri.url)
 
   return (
