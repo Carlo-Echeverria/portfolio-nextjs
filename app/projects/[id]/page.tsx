@@ -177,6 +177,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               fill
               className="object-cover"
               priority
+              quality={75}
             />
           </div>
 
@@ -228,6 +229,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                             alt={`Imagen ${idx + 1} del proyecto ${project.attributes.title}`}
                             fill
                             className="object-cover transition-transform duration-300 hover:scale-105"
+                            quality={75}
                           />
                         </div>
                       ))}

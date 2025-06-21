@@ -44,6 +44,7 @@ export default function BlogPostClient({ article }: BlogPostClientProps) {
                 fill
                 className="object-cover"
                 priority
+                quality={75}
               />
             </div>
           )}
