@@ -162,45 +162,4 @@ export function generateArticleMetadata(
     },
     ...overrides,
   }
-} 
-
-// Función para generar metadata de proyecto
-export function generateProjectMetadata(
-  title: string,
-  description: string,
-  technologies: string[],
-  roles: string[],
-  overrides: Partial<Metadata> = {}
-): Metadata {
-  const projectKeywords = [
-    ...technologies,
-    ...roles,
-    "proyecto desarrollo",
-    "caso de estudio",
-    "portfolio",
-    "Carlo Echeverría",
-    title
-  ]
-
-  return {
-    title: `${title} | Carlo Echeverría - Desarrollador Full Stack | Portfolio`,
-    description,
-    keywords: projectKeywords.join(", "),
-    icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon.ico',
-      apple: '/favicon.ico',
-    },
-    openGraph: {
-      title,
-      description,
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-    ...overrides,
-  }
-} 
+}

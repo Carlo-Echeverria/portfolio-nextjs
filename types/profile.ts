@@ -2,6 +2,7 @@ import { Project } from "@/types/project";
 import { Skill } from "@/types/skill";
 import { Education } from "@/types/education";
 import { File, Image } from "./file";
+import { Experience } from "./experience";
 
 export interface Profile {
   id: string;
@@ -35,6 +36,9 @@ export interface Profile {
     };
     field_projects: {
       data: Project[];
+    };
+    field_experiences: {
+      data: Experience[];
     };
   };
 }

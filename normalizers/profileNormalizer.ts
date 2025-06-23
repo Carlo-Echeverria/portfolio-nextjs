@@ -33,6 +33,9 @@ export function normalizeProfile(data: any): Profile {
       field_projects: {
         data: data.relationships?.field_projects?.data ?? [],
       },
+      field_experiences: {
+        data: data.relationships?.field_experiences?.data ?? [],
+      },
     },
   };
 }

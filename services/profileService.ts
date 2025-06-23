@@ -5,6 +5,7 @@ import { getProjects } from '@/services/projectService';
 import { getEducation } from '@/services/educationService';
 import { getSkills } from '@/services/skillService';
 import { getAuthenticatedHeaders } from '@/services/authService';
+import { getExperiences } from './experienceService';
 
 export const getProfile = async (id: number): Promise<Profile> => {
   try {
@@ -24,6 +25,11 @@ export const getProfile = async (id: number): Promise<Profile> => {
     const photoID = data.relationships.field_photo.data.id;
     const cvID = data.relationships.field_cv.data.id;
     const educationID = data.relationships.field_education.data.meta.drupal_internal__target_id;
+
+    // Experiences
+    const experienceIds = data.relationships.field_experiences.data.map(
+      (item: { id: string }) => item.id
+    );
 
     // Projects
     const projectIds = data.relationships.field_projects.data.map(
@@ -66,6 +72,9 @@ export const getProfile = async (id: number): Promise<Profile> => {
         },
         field_projects: {
           data: await getProjects(projectIds), // ahora es el detalle de cada proyecto
+        },
+        field_experiences: {
+          data: await getExperiences(experienceIds),
         },
       },
     };
