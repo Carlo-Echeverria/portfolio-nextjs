@@ -28,7 +28,7 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
           className="mx-auto max-w-4xl"
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">Experiencia Profesional</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">Experiencia</h2>
             <div className="h-1 w-20 bg-primary mx-auto mb-8 rounded-full"></div>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Mi trayectoria profesional y las tecnologías que he utilizado
