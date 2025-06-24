@@ -217,7 +217,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               )}
 
               {/* Galería */}
-              {galleryUrls.length > 0 && (
+              {/* {galleryUrls.length > 0 && (
                 <Card>
                   <CardContent className="p-6">
                     <h2 className="text-2xl font-bold mb-4">Galería</h2>
@@ -236,7 +236,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     </div>
                   </CardContent>
                 </Card>
-              )}
+              )} */}
             </div>
 
             {/* Sidebar */}
