@@ -2,6 +2,10 @@ import { Experience } from '@/types/experience';
 import { getTechStacks } from '@/services/techStackService';
 import { getRoles } from '@/services/roleService';
 import { getAuthenticatedHeaders } from '@/services/authService';
+import { getImages } from '@/services/fileService';
+import { getOrganizations } from '@/services/organizationService';
+import { Image as ImageType } from '@/types/file';
+import { Organization } from '@/types/organization';
 
 export const getExperiences = async (experienceIds: string[]): Promise<Experience[]>  => {
   if (!experienceIds || experienceIds.length === 0) return [];
@@ -38,6 +42,16 @@ export const getExperiences = async (experienceIds: string[]): Promise<Experienc
           (stack: { id: string }) => stack.id
         );
 
+        // Gallery
+        const galleryIds = experience?.relationships.field_gallery.data.map(
+          (stack: { id: string }) => stack.id
+        );
+        
+        // Thumbnail
+        const thumbnailsId = (experience?.relationships.field_thumbnail.data as ImageType)?.id || "";
+
+        // Organization
+        const organizationId = (experience?.relationships.field_organization.data as Organization)?.id || "";
 
         const dataExperience: Experience = {
           id: experience.id,
@@ -64,6 +78,15 @@ export const getExperiences = async (experienceIds: string[]): Promise<Experienc
             },
             field_roles: {
               data: await getRoles(rolesIds)
+            },
+            field_gallery: {
+              data: await getImages(galleryIds),
+            },
+            field_thumbnail: {
+              data: await getImages([thumbnailsId]),
+            },
+            field_organization: {
+              data: await getOrganizations([organizationId]),
             },
           },
         };

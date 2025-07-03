@@ -15,7 +15,6 @@ export function Footer({ profile }: { profile?: Profile }) {
             <Link href="/" className="text-xl font-bold">
               <Image src="/logo.svg" alt="Logo" width={40} height={40} className="mx-auto md:mx-0" />
             </Link>
-            <p className="mt-2 text-sm text-muted-foreground text-center md:text-left">Desarrollando experiencias digitales excepcionales</p>
           </div>
 
           <div className="flex flex-col items-center gap-4 md:items-end">

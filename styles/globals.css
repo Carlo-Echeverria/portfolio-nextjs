@@ -7,6 +7,10 @@ body {
 }
 
 @layer utilities {
+  .left-5-6 {
+    left: 1.05rem;
+  }
+
   .text-balance {
     text-wrap: balance;
   }

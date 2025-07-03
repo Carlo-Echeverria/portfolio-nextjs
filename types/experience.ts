@@ -1,5 +1,7 @@
 import { TechStack } from '@/types/tech_stack';
 import { Role } from '@/types/role';
+import { Image } from '@/types/file';
+import { Organization } from '@/types/organization';
 
 export interface Experience {
   id: string;
@@ -27,6 +29,15 @@ export interface Experience {
     };
     field_tech_stacks: {
       data: TechStack[];
+    };
+    field_gallery: {
+      data: Image[];
+    };
+    field_thumbnail: {
+      data: Image | {};
+    };
+    field_organization: {
+      data: Organization | {};
     };
   };
 }

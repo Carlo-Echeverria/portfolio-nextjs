@@ -29,6 +29,15 @@ export function normalizeExperience(data: any): Experience {
       field_tech_stacks: {
         data: data.relationships?.field_tech_stacks?.data ?? [],
       },
+      field_gallery: {
+        data: data.relationships?.field_gallery?.data ?? [],
+      },
+      field_thumbnail: {
+        data: data.relationships?.field_thumbnail?.data ?? {},
+      },
+      field_organization: {
+        data: data.relationships?.field_organization?.data ?? {},
+      },
     },
   };
 }
