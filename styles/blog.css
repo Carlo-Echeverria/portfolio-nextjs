@@ -75,3 +75,7 @@ code, code > * {
 iframe {
   width: 100%;
 }
+
+.ltag_cta {
+  padding: 0 1rem;
+}
