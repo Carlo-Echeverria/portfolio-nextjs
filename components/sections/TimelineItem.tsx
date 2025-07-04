@@ -14,7 +14,7 @@ interface TimelineItemProps {
 }
 
 export function TimelineItem({ experience, index, isVisible }: TimelineItemProps) {
-  const [expandedRoles, setExpandedRoles] = useState(true)
+  const [expandedRoles, setExpandedRoles] = useState(false)
   const [expandedTasks, setExpandedTasks] = useState(false)
 
   // Icono único para todos los elementos del timeline
