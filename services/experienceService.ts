@@ -17,7 +17,7 @@ export const getExperiences = async (experienceIds: string[]): Promise<Experienc
 
     const headers = await getAuthenticatedHeaders();
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/experience?${queryParams.toString()}`, {
+      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/node/experience?sort=field_end_date&${queryParams.toString()}`, {
         headers,
         next: {
           revalidate: parseInt(process.env.NEXT_PUBLIC_REVALIDATE_APP || '0'),
