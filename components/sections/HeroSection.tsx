@@ -91,8 +91,8 @@ export function HeroSection({ profile }: { profile: Profile }) {
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild className="w-full sm:w-auto">
-                <Link href="/projects">
-                  Ver Proyectos
+                <Link href="#experience">
+                  Ver Experiencia
                 </Link>
               </Button>
             </motion.div>
