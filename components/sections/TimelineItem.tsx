@@ -39,18 +39,7 @@ export function TimelineItem({ experience, index, isVisible }: TimelineItemProps
     return startDate
   }
 
-  const getExperienceLocation = (experience: Experience): string => {
-    if (experience.relationships?.field_organization?.data && 
-        typeof experience.relationships.field_organization.data === 'object' && 
-        'id' in experience.relationships.field_organization.data) {
-      const org = experience.relationships.field_organization.data as any
-      return org.attributes?.title || 'Remoto'
-    }
-    return 'Remoto'
-  }
-
   const period = formatExperiencePeriod(experience)
-  const location = getExperienceLocation(experience)  
 
   return (
     <motion.div
@@ -94,22 +83,17 @@ export function TimelineItem({ experience, index, isVisible }: TimelineItemProps
               <h3 className="text-xl font-bold mb-1 group-hover:text-primary transition-colors">
                 {experience.attributes.title}
               </h3>
+              <p className="text-lg text-primary font-medium mb-2">
+                {(experience.relationships?.field_organization.data as Organization[])[0].attributes.title}
+              </p>
             </div>
             <div className="flex flex-row md:flex-col items-end text-sm text-muted-foreground ml-0 mt-2 md:mt-0 md:ml-4 items-center md:items-end">
               <div className="flex items-center mb-0 md:mb-1">
                 <Calendar className="w-4 h-4 mr-1" />
                 {period}
               </div>
-              <div className="flex items-center ms-2 md:ms-0">
-                <MapPin className="w-4 h-4 mr-1" />
-                {location}
-              </div>
             </div>
           </div>
-
-          <p className="text-lg text-primary font-medium mb-2">
-            {(experience.relationships?.field_organization.data as Organization[])[0].attributes.title}
-          </p>
 
         {/* Descripción */}
         {experience.attributes.body?.value && (
