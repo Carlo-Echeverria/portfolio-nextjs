@@ -80,7 +80,7 @@ export function TimelineItem({ experience, index, isVisible }: TimelineItemProps
         {/* Header de la tarjeta */}
           <div className="flex flex-wrap items-start justify-between mb-4 flex-col md:flex-row">
             <div className="flex-1 min-w-0">
-              <h3 className="text-xl font-bold mb-1 group-hover:text-primary transition-colors">
+              <h3 className="text-xl font-bold mb-1">
                 {experience.attributes.title}
               </h3>
               <p className="text-lg text-primary font-medium mb-2">
