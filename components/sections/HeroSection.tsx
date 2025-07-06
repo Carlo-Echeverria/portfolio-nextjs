@@ -21,11 +21,11 @@ export function HeroSection({ profile }: { profile: Profile }) {
   
   // const photoUrl = "/placeholder.webp?height=200&width=200";
 
-  // const cvUrl = Array.isArray(profile?.relationships?.field_cv?.data) && profile.relationships.field_cv.data.length > 0
-  //   ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
-  //   : "/placeholder.webp?height=200&width=200";
+  const cvUrl = Array.isArray(profile?.relationships?.field_cv?.data) && profile.relationships.field_cv.data.length > 0
+    ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
+    : "/placeholder.webp?height=200&width=200";
 
-  const cvUrlS3 = 'https://jefckqhxjmggckaqzono.supabase.co/storage/v1/object/public/portfolio//CV%20Carlo%20Echeverria.pdf'
+  // const cvUrlS3 = 'https://jefckqhxjmggckaqzono.supabase.co/storage/v1/object/public/portfolio//CV%20Carlo%20Echeverria.pdf'
 
   return (
     <section className="w-full py-24 md:py-24 lg:py-[12rem] lg:pb-0">
@@ -84,7 +84,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
               className="flex flex-col gap-4 sm:flex-row justify-center lg:justify-start"
             >
               <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link href={cvUrlS3} target="_blank">
+                <Link href={cvUrl} target="_blank">
                   Descargar CV
                   <ArrowDown className="ml-2 h-4 w-4" />
                 </Link>
