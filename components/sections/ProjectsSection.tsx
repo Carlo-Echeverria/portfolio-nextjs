@@ -13,7 +13,7 @@ export function ProjectsSection({ projectsProps }: { projectsProps: Project[] })
   const hasMoreProjects = projectsProps.length > 6
 
   return (
-    <section id="projects" className="py-12 bg-muted/30">
+    <section id="projects" className="py-12 bg-muted/30 scroll-mt-[100px]">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

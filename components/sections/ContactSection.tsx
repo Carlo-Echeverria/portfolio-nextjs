@@ -107,7 +107,7 @@ export function ContactSection({ profile }: { profile : Profile }) {
   }
 
   return (
-    <section id="contact" className="py-12 bg-muted/30">
+    <section id="contact" className="py-12 bg-muted/30 scroll-mt-[100px]">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

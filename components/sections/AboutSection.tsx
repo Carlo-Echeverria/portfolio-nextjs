@@ -58,7 +58,7 @@ export function AboutSection({ profile }: { profile : Profile }) {
   const bioText = profile.attributes?.body.value
 
   return (
-    <section id="about" className="py-24 bg-gradient-to-b from-background via-background/80 to-muted/30">
+    <section id="about" className="py-24 bg-gradient-to-b from-background via-background/80 to-muted/30 scroll-mt-[100px]">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

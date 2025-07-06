@@ -11,7 +11,7 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
   }
 
   return (
-    <section id="experience" className="relative py-16">
+    <section id="experience" className="relative py-16 scroll-mt-[100px]">
       <div className="container px-4 md:px-6">
         <TimelineExperience experiences={experiences} />
       </div>
