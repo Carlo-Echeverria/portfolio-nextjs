@@ -73,8 +73,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
               className="space-y-4"
             >
               <p className="text-base text-muted-foreground sm:text-lg">
-                Apasionado por crear experiencias web excepcionales y soluciones tecnológicas innovadoras.
-                Especializado en desarrollo frontend y backend con las últimas tecnologías.
+              Diseño y construyo plataformas digitales eficientes, escalables y bien estructuradas. Combino el poder de Drupal como backend con interfaces externas flexibles para ofrecer experiencias web robustas y personalizadas.
               </p>
             </motion.div>
 
