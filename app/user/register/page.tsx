@@ -85,11 +85,11 @@ export default function RegisterPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              {error && (
-                <Alert variant="destructive">
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
+                    {error && (
+        <Alert variant="destructive" className="border-red-200/50 bg-red-50/50 dark:border-red-500/50 dark:bg-red-950/50">
+          <AlertDescription className="text-red-700 dark:text-red-300">{error}</AlertDescription>
+        </Alert>
+      )}
 
               <div className="space-y-2">
                 <Label htmlFor="name">Nombre (opcional)</Label>

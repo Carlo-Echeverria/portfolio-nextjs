@@ -79,11 +79,11 @@ export function WhatsappFloatingButton({
               <Button
                 onClick={openWhatsApp}
                 size="lg"
-                className="relative h-12 w-12 md:h-14 md:w-14 rounded-full bg-green-500 p-0 shadow-lg hover:bg-green-600 hover:shadow-xl transition-all duration-300 group"
+                className="relative h-12 w-12 md:h-14 md:w-14 rounded-full bg-green-500 dark:bg-green-600 p-0 shadow-lg hover:bg-green-600 dark:hover:bg-green-700 hover:shadow-xl transition-all duration-300 group"
                 aria-label="Contactar por WhatsApp"
               >
                 {/* Pulse animation */}
-                <div className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-20 group-hover:opacity-30" />
+                <div className="absolute inset-0 rounded-full bg-green-400 dark:bg-green-500 animate-ping opacity-20 group-hover:opacity-30" />
                 <MessageCircle className="h-5 w-5 md:h-6 md:w-6 text-white relative z-10" />
               </Button>
             </motion.div>

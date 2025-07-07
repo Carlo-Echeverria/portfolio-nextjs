@@ -139,10 +139,10 @@ export default function AdminBlogPage() {
               </Button>
 
               {syncStatus === 'success' && (
-                <Alert className="bg-green-50 border-green-200">
-                  <CheckIcon className="h-4 w-4 text-green-600" />
-                  <AlertTitle>Éxito</AlertTitle>
-                  <AlertDescription>
+                <Alert className="border-green-200/50 bg-green-50/50 dark:border-green-500/50 dark:bg-green-950/50">
+                  <CheckIcon className="h-4 w-4 text-green-600 dark:text-green-400" />
+                  <AlertTitle className="text-green-800 dark:text-green-200">Éxito</AlertTitle>
+                  <AlertDescription className="text-green-700 dark:text-green-300">
                     {syncResult?.message} 
                     {syncResult?.count !== undefined && (
                       <span className="font-semibold"> ({syncResult.count} artículos)</span>
@@ -152,10 +152,10 @@ export default function AdminBlogPage() {
               )}
 
               {syncStatus === 'error' && (
-                <Alert className="bg-red-50 border-red-200">
-                  <Cross2Icon className="h-4 w-4 text-red-600" />
-                  <AlertTitle>Error</AlertTitle>
-                  <AlertDescription>{syncResult?.message}</AlertDescription>
+                <Alert className="border-red-200/50 bg-red-50/50 dark:border-red-500/50 dark:bg-red-950/50">
+                  <Cross2Icon className="h-4 w-4 text-red-600 dark:text-red-400" />
+                  <AlertTitle className="text-red-800 dark:text-red-200">Error</AlertTitle>
+                  <AlertDescription className="text-red-700 dark:text-red-300">{syncResult?.message}</AlertDescription>
                 </Alert>
               )}
             </div>

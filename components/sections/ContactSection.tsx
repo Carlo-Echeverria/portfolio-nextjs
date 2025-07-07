@@ -129,8 +129,8 @@ export function ContactSection({ profile }: { profile : Profile }) {
               animate={{ opacity: 1, y: 0 }}
               className="mb-6"
             >
-              <Alert className="border-green-200 bg-green-50 text-green-800">
-                <CheckCircle className="h-4 w-4" />
+              <Alert className="border-green-200/50 bg-green-50/50 dark:border-green-500/50 dark:bg-green-950/50 text-green-800 dark:text-green-200">
+                <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
                 <AlertDescription>
                   <strong>¡Mensaje enviado exitosamente!</strong> Te responderé lo antes posible.
                   También recibirás una confirmación automática en tu email.
@@ -145,8 +145,8 @@ export function ContactSection({ profile }: { profile : Profile }) {
               animate={{ opacity: 1, y: 0 }}
               className="mb-6"
             >
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
+              <Alert variant="destructive" className="border-red-200/50 bg-red-50/50 dark:border-red-500/50 dark:bg-red-950/50">
+                <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
                 <AlertDescription>
                   {errorMessage}
                 </AlertDescription>

@@ -91,8 +91,8 @@ function ResetPasswordContent() {
         >
           <Card>
             <CardHeader className="text-center">
-              <div className="mx-auto w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
-                <AlertCircle className="h-6 w-6 text-red-600" />
+              <div className="mx-auto w-12 h-12 bg-red-100 dark:bg-red-900/50 rounded-full flex items-center justify-center mb-4">
+                <AlertCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
               </div>
               <CardTitle className="text-2xl font-bold">Enlace Inválido</CardTitle>
               <CardDescription>
@@ -135,8 +135,8 @@ function ResetPasswordContent() {
         >
           <Card>
             <CardHeader className="text-center">
-              <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <CheckCircle className="h-6 w-6 text-green-600" />
+              <div className="mx-auto w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-4">
+                <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
               </div>
               <CardTitle className="text-2xl font-bold">¡Contraseña Actualizada!</CardTitle>
               <CardDescription>
@@ -183,8 +183,8 @@ function ResetPasswordContent() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
-                <Alert variant="destructive">
-                  <AlertDescription>{error}</AlertDescription>
+                <Alert variant="destructive" className="border-red-200/50 bg-red-50/50 dark:border-red-500/50 dark:bg-red-950/50">
+                  <AlertDescription className="text-red-700 dark:text-red-300">{error}</AlertDescription>
                 </Alert>
               )}
 
