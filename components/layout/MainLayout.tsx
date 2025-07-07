@@ -3,7 +3,6 @@ import { Header } from "@/components/layout/Header"
 import { MobileMenu } from "@/components/layout/MobileMenu"
 import { Footer } from "@/components/layout/Footer"
 import { FloatingButtons } from "@/components/ui/floating-buttons"
-import { Toaster } from "@/components/ui/toaster"
 import { getProfile } from "@/services/profileService"
 
 interface MainLayoutProps {
@@ -34,9 +33,6 @@ export async function MainLayout({
       {showFloatingButtons && (
         <FloatingButtons phoneNumber={phoneNumber} />
       )}
-      
-      {/* Toaster para notificaciones */}
-      <Toaster />
     </div>
   )
 } 
