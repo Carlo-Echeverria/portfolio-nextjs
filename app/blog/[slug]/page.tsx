@@ -19,19 +19,18 @@ interface BlogPostPageProps {
 export async function generateMetadata({ params }: BlogPostPageProps) {
   try {
     const { slug } = await params
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/${slug}`)
+    const { getArticleBySlug } = await import('@/lib/api/articles-service')
+    const article = await getArticleBySlug(slug)
     
-    if (!response.ok) {
+    if (!article) {
       return {
         title: "Artículo no encontrado | Carlo Echeverría - Desarrollador Full Stack | Portfolio",
         description: "El artículo que buscas no está disponible o ha sido eliminado. Te invitamos a explorar otros contenidos o volver al inicio del sitio.",
       }
     }
     
-    const article: Article = await response.json()
-    
     return generateArticleMetadata(
-      article.title + " | Carlo Echeverría - Desarrollador Full Stack | Portfolio | Portfolio",
+      article.title + " | Carlo Echeverría - Desarrollador Full Stack | Portfolio",
       article.description || `Artículo sobre ${article.tag_list.join(", ")}`,
       article.tag_list,
       article.published_at
@@ -44,23 +43,36 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   }
 }
 
+// Configurar generación estática sin revalidación
+export const revalidate = false // Página completamente estática
+
+// Generar rutas estáticas para todos los artículos
+export async function generateStaticParams() {
+  try {
+    const { getArticles } = await import('@/lib/api/articles-service')
+    const articles = await getArticles()
+    
+    return articles.map((article) => ({
+      slug: article.slug,
+    }))
+  } catch (error) {
+    console.error('Error generating static params:', error)
+    return []
+  }
+}
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   let article: Article | null = null
   let error: string | null = null
 
   try {
     const { slug } = await params
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/${slug}`)
+    const { getArticleBySlug } = await import('@/lib/api/articles-service')
+    article = await getArticleBySlug(slug)
     
-    if (response.status === 404) {
+    if (!article) {
       notFound()
     }
-    
-    if (!response.ok) {
-      throw new Error('Error fetching article')
-    }
-    
-    article = await response.json()
   } catch (err) {
     console.error('Error fetching article:', err)
     error = 'Failed to load article'

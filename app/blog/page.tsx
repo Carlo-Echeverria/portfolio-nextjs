@@ -10,26 +10,17 @@ export const metadata = generatePageMetadata('blog', {
 // Función para obtener artículos en el servidor
 async function getArticles(): Promise<Article[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const response = await fetch(`${baseUrl}/api/articles`, {
-      next: { revalidate: 3600 }, // Revalidar cada hora
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    
-    if (!response.ok) {
-      console.error(`Error fetching articles: ${response.status} ${response.statusText}`)
-      return []
-    }
-    
-    const articles = await response.json()
-    return Array.isArray(articles) ? articles : []
+    // Usar directamente el servicio en lugar de la API
+    const { getArticles } = await import('@/lib/api/articles-service')
+    return await getArticles()
   } catch (error) {
     console.error('Error fetching articles:', error)
     return []
   }
 }
+
+// Configurar generación estática sin revalidación
+export const revalidate = false // Página completamente estática
 
 export default async function BlogPage() {
   // Obtener artículos en el servidor para SSR
