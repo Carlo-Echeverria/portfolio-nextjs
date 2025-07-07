@@ -36,7 +36,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center justify-center"
+            className="flex items-center justify-center mb-8 md:mb-0"
           >
             <div className="relative h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] md:h-[350px] md:w-[350px] lg:h-[400px] lg:w-[400px] overflow-hidden rounded-full border-4 border-primary/20">
               <Image
