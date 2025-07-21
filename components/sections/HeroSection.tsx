@@ -25,6 +25,8 @@ export function HeroSection({ profile }: { profile: Profile }) {
     ? (profile.relationships.field_cv.data[0] as File).attributes.uri.url
     : "/placeholder.webp?height=200&width=200";
 
+
+  const summary = profile?.attributes?.body?.summary || "Diseño y construyo plataformas digitales eficientes, escalables y bien estructuradas. Combino el poder de Drupal como backend con interfaces externas flexibles para ofrecer experiencias web robustas y personalizadas."
   // const cvUrlS3 = 'https://jefckqhxjmggckaqzono.supabase.co/storage/v1/object/public/portfolio//CV%20Carlo%20Echeverria.pdf'
 
   return (
@@ -73,7 +75,7 @@ export function HeroSection({ profile }: { profile: Profile }) {
               className="space-y-4"
             >
               <p className="text-base text-muted-foreground sm:text-lg">
-              Diseño y construyo plataformas digitales eficientes, escalables y bien estructuradas. Combino el poder de Drupal como backend con interfaces externas flexibles para ofrecer experiencias web robustas y personalizadas.
+                {summary}
               </p>
             </motion.div>
 
