@@ -44,7 +44,7 @@ export function AboutSection({ profile }: { profile : Profile }) {
 
   // Datos de educación
   const startDateEducation = formatDate(profile.relationships.field_education.data.attributes?.field_start_date);
-  const endDateEducation = formatDate(profile.relationships.field_education.data.attributes?.field_start_date);
+  const endDateEducation = formatDate(profile.relationships.field_education.data.attributes?.field_end_date);
   const isCurrent = profile.relationships.field_education.data.attributes?.field_is_current;
 
   const education = {
