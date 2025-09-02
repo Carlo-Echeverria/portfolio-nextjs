@@ -8,6 +8,7 @@ import { ArrowLeft } from "lucide-react"
 // import "@/styles/4af9902655894975b7088821085b0a0a.css"
 import "@/styles/minimal-default.css"
 import "@/styles/views-default.css"
+import "@/styles/blog-crayons.css"
 
 interface BlogPostPageProps {
   params: {
