@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack -p $PORT",
     "build": "next build",
     "start": "next start -p $PORT",
     "lint": "next lint"
@@ -39,8 +39,10 @@
     "@radix-ui/react-toggle-group": "1.1.1",
     "@radix-ui/react-tooltip": "1.1.6",
     "@supabase/supabase-js": "^2.49.8",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node-fetch": "^2.6.12",
     "autoprefixer": "^10.4.20",
+    "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
@@ -64,6 +66,7 @@
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
+    "use-sync-external-store": "latest",
     "vaul": "^1.1.2",
     "zod": "^3.24.1",
     "zustand": "latest"
