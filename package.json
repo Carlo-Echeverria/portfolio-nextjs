@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 3001",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start -p $PORT",
     "lint": "next lint"
@@ -64,7 +64,7 @@
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.10.1",
     "react": "^19",
-    "react-day-picker": "8.10.1",
+    "react-day-picker": "^9.6.0",
     "react-dom": "^19",
     "react-hook-form": "^7.54.1",
     "react-resizable-panels": "^2.1.7",
@@ -73,7 +73,7 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "use-sync-external-store": "latest",
-    "vaul": "^0.9.6",
+    "vaul": "^1.1.2",
     "zod": "^3.24.1",
     "zustand": "latest"
   },
