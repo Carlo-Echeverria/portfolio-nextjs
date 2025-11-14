@@ -12,6 +12,9 @@ async function getArticles(): Promise<Article[]> {
   try {
     // Usar directamente el servicio en lugar de la API
     const { getArticles } = await import('@/lib/api/articles-service')
+    console.log('getArticles');
+    console.log(await getArticles());
+    
     return await getArticles()
   } catch (error) {
     console.error('Error fetching articles:', error)
