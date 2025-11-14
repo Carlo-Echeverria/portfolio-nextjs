@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { LoginCredentials, AuthResponse } from '@/types/auth'
 import { createSession, findUserByEmail, comparePassword, updateLastLogin } from '@/lib/auth'
+import { LockKeyhole } from 'lucide-react';
+import { log } from 'console';
 
 export async function POST(request: NextRequest) {
   try {
     const body: LoginCredentials = await request.json()
+
     const { email, password } = body
 
     // Validación básica
@@ -17,7 +20,6 @@ export async function POST(request: NextRequest) {
 
     // Buscar usuario en Supabase
     const user = await findUserByEmail(email)
-
     if (!user || !user.is_active) {
       return NextResponse.json(
         { success: false, message: 'Credenciales inválidas' },
@@ -27,6 +29,7 @@ export async function POST(request: NextRequest) {
 
     // Verificar contraseña
     const isValidPassword = await comparePassword(password, user.password)
+    console.log('isValidPassword', isValidPassword);
     if (!isValidPassword) {
       return NextResponse.json(
         { success: false, message: 'Credenciales inválidas' },
