@@ -1,31 +1,36 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import crypto from 'crypto'
+import bcrypt from 'bcryptjs'
 import { AuthUser, UserRole, User, Session } from '@/types/auth'
 import { supabaseAdmin } from '@/lib/supabase'
 
-// Hashear contraseña con crypto (temporal hasta instalar bcryptjs)
+// Hashear contraseña con bcryptjs
 export const hashPassword = async (password: string): Promise<string> => {
-  const salt = crypto.randomBytes(16).toString('hex')
-  const hash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex')
-  return `${salt}:${hash}`
+  const saltRounds = 10
+  return await bcrypt.hash(password, saltRounds)
 }
 
-// Comparar contraseña con crypto (temporal hasta instalar bcryptjs)
+// Comparar contraseña con bcryptjs
 export const comparePassword = async (password: string, storedHash: string): Promise<boolean> => {
-  const [salt, hash] = storedHash.split(':')
-  const hashToCompare = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex')
-  return hash === hashToCompare
+  return await bcrypt.compare(password, storedHash)
+}
+
+// Generar token aleatorio usando bcryptjs
+const generateRandomToken = async (): Promise<string> => {
+  const randomString = `${Date.now()}-${Math.random()}-${Math.random()}-${Math.random()}`
+  const hash = await bcrypt.hash(randomString, 10)
+  // Remover caracteres especiales de bcrypt y tomar solo caracteres alfanuméricos
+  return hash.replace(/[^a-zA-Z0-9]/g, '').substring(0, 64)
 }
 
 // Generar token de sesión
-export const generateSessionToken = (): string => {
-  return crypto.randomBytes(32).toString('hex')
+export const generateSessionToken = async (): Promise<string> => {
+  return await generateRandomToken()
 }
 
 // Generar token de reset de contraseña
-export const generateResetToken = (): string => {
-  return crypto.randomBytes(32).toString('hex')
+export const generateResetToken = async (): Promise<string> => {
+  return await generateRandomToken()
 }
 
 // Obtener sesión actual
@@ -107,7 +112,7 @@ export async function logout(): Promise<void> {
 
 // Crear sesión
 export async function createSession(userId: string): Promise<string> {
-  const token = generateSessionToken()
+  const token = await generateSessionToken()
   const expiresAt = new Date(Date.now() + 2 * 60 * 60 * 1000) // 2 horas
 
   // Crear sesión en Supabase
@@ -181,6 +186,34 @@ export async function updateLastLogin(userId: string): Promise<void> {
     .from('users')
     .update({ last_login_at: new Date().toISOString() })
     .eq('id', userId)
+}
+
+// Actualizar contraseña de un usuario (genera nuevo hash con bcryptjs)
+export async function updateUserPassword(userId: string, newPassword: string): Promise<void> {
+  const hashedPassword = await hashPassword(newPassword)
+  
+  const { error } = await supabaseAdmin
+    .from('users')
+    .update({ 
+      password: hashedPassword,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', userId)
+
+  if (error) {
+    throw new Error('Error updating password: ' + error.message)
+  }
+}
+
+// Actualizar contraseña por email (útil para actualizar usuario principal)
+export async function updateUserPasswordByEmail(email: string, newPassword: string): Promise<void> {
+  const user = await findUserByEmail(email)
+  
+  if (!user) {
+    throw new Error('Usuario no encontrado')
+  }
+  
+  await updateUserPassword(user.id, newPassword)
 }
 
 // Limpiar sesiones expiradas

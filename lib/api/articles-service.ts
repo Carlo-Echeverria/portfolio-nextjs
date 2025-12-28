@@ -1,5 +1,4 @@
 import { supabase } from '../supabase';
-import fetch from 'node-fetch';
 import { Article } from "@/types/blog"
 
 // Obtener artículos de DEV.to

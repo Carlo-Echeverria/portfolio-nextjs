@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generar token de reset
-    const resetToken = generateResetToken()
+    const resetToken = await generateResetToken()
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000) // 1 hora
 
     // Invalidar tokens anteriores del usuario

@@ -2,6 +2,7 @@ import type React from "react"
 import "@/styles/globals.css"
 import { poppins } from "@/lib/fonts"
 import { ThemeProvider } from "@/components/theme-provider"
+import { StoreProvider } from "@/lib/store"
 import { MainLayout } from "@/components/layout/MainLayout"
 import { generateBaseMetadata } from "@/lib/seo"
 
@@ -21,9 +22,11 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <MainLayout>
-            {children}
-          </MainLayout>
+          <StoreProvider>
+            <MainLayout>
+              {children}
+            </MainLayout>
+          </StoreProvider>
         </ThemeProvider>
       </body>
     </html>
