@@ -1,17 +1,23 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
-import DOMPurify from "isomorphic-dompurify"
 
 // Función para combinar clases de Tailwind
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+// Importar DOMPurify - será reemplazado por un stub en el servidor mediante webpack
+// En el servidor, el stub retornará HTML sin sanitizar
+// En el cliente, se usará DOMPurify real
+import DOMPurify from 'isomorphic-dompurify'
+
 // Función para sanitizar HTML
 export function sanitizeHtml(html = ""): string {
   if (!html) return ""
-
+  
   try {
+    // En el servidor, DOMPurify será el stub que retorna HTML sin sanitizar
+    // En el cliente, DOMPurify será el real que sanitiza el HTML
     return DOMPurify.sanitize(html, {
       USE_PROFILES: { html: true },
       ALLOWED_TAGS: [
@@ -38,6 +44,6 @@ export function sanitizeHtml(html = ""): string {
     })
   } catch (error) {
     console.error("Error sanitizing HTML:", error)
-    return html // Devolver el HTML original si hay un error
+    return html
   }
 }
