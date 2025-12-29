@@ -20,7 +20,7 @@ export default async function Home() {
       <AboutSection profile={profile} />
       <ExperienceSection experiences={experiences} />
       <SkillsSection skills={skills} />
-      <BlogSection />
+      {/* <BlogSection /> */}
       <ContactSection profile={profile} />
     </main>
   )
