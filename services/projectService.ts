@@ -39,15 +39,41 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
         // Thumbnail
         const thumbnailsId = (project?.relationships.field_thumbnail?.data as ImageType)?.id || "";
 
-        // Tech Satcks
+        // Hero Image
+        const heroImageId = (project?.relationships.field_project_hero?.data as ImageType)?.id || "";
+
+        // Diagrams
+        const diagramsIds = project?.relationships.field_diagrams?.data?.map(
+          (image: { id: string }) => image.id
+        ) || [];
+
+        // Tech Stacks
         const techStacksIds = project?.relationships.field_tech_stacks.data.map(
           (stack: { id: string }) => stack.id
         );
+
+        // Backend Stack
+        const backendStackIds = project?.relationships.field_backend_stack?.data?.map(
+          (stack: { id: string }) => stack.id
+        ) || [];
+
+        // Frontend Stack
+        const frontendStackIds = project?.relationships.field_frontend_stack?.data?.map(
+          (stack: { id: string }) => stack.id
+        ) || [];
+
+        // Tools and Platforms
+        const toolsPlatformsIds = project?.relationships.field_tools_platforms?.data?.map(
+          (stack: { id: string }) => stack.id
+        ) || [];
 
         // Roles
         const rolesIds = project?.relationships.field_roles.data.map(
           (stack: { id: string }) => stack.id
         );
+
+        // Main Role
+        const mainRoleId = (project?.relationships.field_main_role?.data as { id: string })?.id || "";
 
         // Project Types
         const projectTypesIds = project?.relationships.field_project_types.data.map(
@@ -68,23 +94,88 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
               value: project.attributes.body?.value,
               summary: project.attributes.body?.summary,
             },
+            // Información Básica
+            field_summary: project.attributes.field_summary,
+            field_objective: project.attributes.field_objective,
+            field_sector: project.attributes.field_sector,
+            field_project_status: project.attributes.field_project_status,
+            // Fechas y Período
             field_start_date: project.attributes.field_start_date,
             field_end_date: project.attributes.field_end_date,
             field_is_current: project.attributes.field_is_current,
-            field_taks: project.attributes.field_taks,
+            // Equipo y Metodología
+            field_team_composition: Array.isArray(project.attributes.field_team_composition)
+              ? project.attributes.field_team_composition
+              : project.attributes.field_team_composition
+                ? [project.attributes.field_team_composition]
+                : undefined,
+            field_methodology: Array.isArray(project.attributes.field_methodology)
+              ? project.attributes.field_methodology
+              : project.attributes.field_methodology
+                ? [project.attributes.field_methodology]
+                : undefined,
+            // Tareas y Responsabilidades
+            field_taks: project.attributes.field_taks || [],
+            field_responsibilities: project.attributes.field_responsibilities,
+            // Contenido Detallado
+            field_project_context: project.attributes.field_project_context,
+            field_challenges: project.attributes.field_challenges,
+            field_solutions: project.attributes.field_solutions,
+            field_features: project.attributes.field_features,
+            field_architecture: project.attributes.field_architecture,
+            // Resultados e Impacto
+            field_results: project.attributes.field_results,
+            field_success_metrics: project.attributes.field_success_metrics,
+            field_technical_impact: project.attributes.field_technical_impact,
+            field_lessons_learned: project.attributes.field_lessons_learned,
+            // Integraciones
+            field_integrations: project.attributes.field_integrations,
+            // Enlaces y Recursos
+            field_project_url: (project.attributes.field_project_url as any)?.uri || 
+              (typeof project.attributes.field_project_url === 'string' ? project.attributes.field_project_url : undefined),
+            field_repository_url: (project.attributes.field_repository_url as any)?.uri || 
+              (typeof project.attributes.field_repository_url === 'string' ? project.attributes.field_repository_url : undefined),
+            field_case_study_url: (project.attributes.field_case_study_url as any)?.uri || 
+              (typeof project.attributes.field_case_study_url === 'string' ? project.attributes.field_case_study_url : undefined),
+            field_technical_docs_url: (project.attributes.field_technical_docs_url as any)?.uri || 
+              (typeof project.attributes.field_technical_docs_url === 'string' ? project.attributes.field_technical_docs_url : undefined),
+            // SEO y Metadata
+            field_meta_description: project.attributes.field_meta_description,
+            field_keywords: project.attributes.field_keywords,
+            field_featured: project.attributes.field_featured,
+            field_weight: project.attributes.field_weight,
+            field_display_priority: project.attributes.field_display_priority,
           },
           relationships: {
             field_gallery: {
               data: await getImages(galleryIds),
             },
             field_thumbnail: {
-              data: await getImages([thumbnailsId]),
+              data: thumbnailsId ? (await getImages([thumbnailsId]))[0] || {} : {},
+            },
+            field_project_hero: {
+              data: heroImageId ? (await getImages([heroImageId]))[0] || {} : {},
+            },
+            field_diagrams: {
+              data: await getImages(diagramsIds),
             },
             field_tech_stacks: {
               data: await getTechStacks(techStacksIds)
             },
+            field_backend_stack: {
+              data: await getTechStacks(backendStackIds)
+            },
+            field_frontend_stack: {
+              data: await getTechStacks(frontendStackIds)
+            },
+            field_tools_platforms: {
+              data: await getTechStacks(toolsPlatformsIds)
+            },
             field_roles: {
               data: await getRoles(rolesIds)
+            },
+            field_main_role: {
+              data: mainRoleId ? (await getRoles([mainRoleId]))[0] || {} : {}
             },
             field_project_types: {
               data: await getProjectTypes(projectTypesIds)
