@@ -116,12 +116,28 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
                 : undefined,
             // Tareas y Responsabilidades
             field_taks: project.attributes.field_taks || [],
-            field_responsibilities: project.attributes.field_responsibilities,
+            field_responsibilities: Array.isArray(project.attributes.field_responsibilities)
+              ? project.attributes.field_responsibilities
+              : project.attributes.field_responsibilities
+                ? [project.attributes.field_responsibilities]
+                : undefined,
             // Contenido Detallado
             field_project_context: project.attributes.field_project_context,
-            field_challenges: project.attributes.field_challenges,
-            field_solutions: project.attributes.field_solutions,
-            field_features: project.attributes.field_features,
+            field_challenges: Array.isArray(project.attributes.field_challenges)
+              ? project.attributes.field_challenges
+              : project.attributes.field_challenges
+                ? [project.attributes.field_challenges]
+                : undefined,
+            field_solutions: Array.isArray(project.attributes.field_solutions)
+              ? project.attributes.field_solutions
+              : project.attributes.field_solutions
+                ? [project.attributes.field_solutions]
+                : undefined,
+            field_features: Array.isArray(project.attributes.field_features)
+              ? project.attributes.field_features
+              : project.attributes.field_features
+                ? [project.attributes.field_features]
+                : undefined,
             field_architecture: project.attributes.field_architecture,
             // Resultados e Impacto
             field_results: project.attributes.field_results,
@@ -129,7 +145,11 @@ export const getProjects = async (projectIds: string[]): Promise<Project[]>  => 
             field_technical_impact: project.attributes.field_technical_impact,
             field_lessons_learned: project.attributes.field_lessons_learned,
             // Integraciones
-            field_integrations: project.attributes.field_integrations,
+            field_integrations: Array.isArray(project.attributes.field_integrations)
+              ? project.attributes.field_integrations
+              : project.attributes.field_integrations
+                ? [project.attributes.field_integrations]
+                : undefined,
             // Enlaces y Recursos
             field_project_url: (project.attributes.field_project_url as any)?.uri || 
               (typeof project.attributes.field_project_url === 'string' ? project.attributes.field_project_url : undefined),

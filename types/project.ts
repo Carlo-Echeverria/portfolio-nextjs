@@ -32,12 +32,12 @@ export interface Project {
     field_methodology?: string[]; // Metodología usada (Agile, Scrum, etc.) - array de valores
     // Tareas y Responsabilidades
     field_taks: string[]; // Tareas principales (typo en Drupal: field_taks)
-    field_responsibilities?: string; // Responsabilidades detalladas
+    field_responsibilities?: string[]; // Responsabilidades detalladas (array de valores)
     // Contenido Detallado
     field_project_context?: string; // Contexto y antecedentes
-    field_challenges?: string; // Desafíos técnicos principales
-    field_solutions?: string; // Soluciones técnicas implementadas
-    field_features?: string; // Características principales
+    field_challenges?: string[]; // Desafíos técnicos principales (array de valores)
+    field_solutions?: string[]; // Soluciones técnicas implementadas (array de valores)
+    field_features?: string[]; // Características principales (array de valores)
     field_architecture?: string; // Arquitectura o enfoque técnico
     // Resultados e Impacto
     field_results?: string; // Resultados e impacto del proyecto
@@ -45,7 +45,7 @@ export interface Project {
     field_technical_impact?: string; // Impacto técnico y aprendizajes
     field_lessons_learned?: string; // Lecciones aprendidas
     // Integraciones
-    field_integrations?: string; // Lista de integraciones con servicios externos
+    field_integrations?: string[]; // Lista de integraciones con servicios externos (array de valores)
     // Enlaces y Recursos
     field_project_url?: string; // URL pública del proyecto
     field_repository_url?: string; // URL del repositorio

@@ -51,12 +51,52 @@ export function normalizeProject(data: any): Project {
             : undefined,
       // Tareas y Responsabilidades
       field_taks: data.attributes?.field_taks ?? data.attributes?.field_tasks ?? [],
-      field_responsibilities: data.attributes?.field_responsibilities?.value ?? data.attributes?.field_responsibilities ?? "",
+      field_responsibilities: Array.isArray(data.attributes?.field_responsibilities)
+        ? data.attributes.field_responsibilities
+        : data.attributes?.field_responsibilities?.value
+          ? (Array.isArray(data.attributes.field_responsibilities.value) 
+              ? data.attributes.field_responsibilities.value 
+              : [data.attributes.field_responsibilities.value])
+          : data.attributes?.field_responsibilities
+            ? (typeof data.attributes.field_responsibilities === 'string' 
+                ? [data.attributes.field_responsibilities] 
+                : [])
+            : undefined,
       // Contenido Detallado
       field_project_context: data.attributes?.field_project_context?.value ?? data.attributes?.field_project_context ?? "",
-      field_challenges: data.attributes?.field_challenges?.value ?? data.attributes?.field_challenges ?? "",
-      field_solutions: data.attributes?.field_solutions?.value ?? data.attributes?.field_solutions ?? "",
-      field_features: data.attributes?.field_features?.value ?? data.attributes?.field_features ?? "",
+      field_challenges: Array.isArray(data.attributes?.field_challenges)
+        ? data.attributes.field_challenges
+        : data.attributes?.field_challenges?.value
+          ? (Array.isArray(data.attributes.field_challenges.value) 
+              ? data.attributes.field_challenges.value 
+              : [data.attributes.field_challenges.value])
+          : data.attributes?.field_challenges
+            ? (typeof data.attributes.field_challenges === 'string' 
+                ? [data.attributes.field_challenges] 
+                : [])
+            : undefined,
+      field_solutions: Array.isArray(data.attributes?.field_solutions)
+        ? data.attributes.field_solutions
+        : data.attributes?.field_solutions?.value
+          ? (Array.isArray(data.attributes.field_solutions.value) 
+              ? data.attributes.field_solutions.value 
+              : [data.attributes.field_solutions.value])
+          : data.attributes?.field_solutions
+            ? (typeof data.attributes.field_solutions === 'string' 
+                ? [data.attributes.field_solutions] 
+                : [])
+            : undefined,
+      field_features: Array.isArray(data.attributes?.field_features)
+        ? data.attributes.field_features
+        : data.attributes?.field_features?.value
+          ? (Array.isArray(data.attributes.field_features.value) 
+              ? data.attributes.field_features.value 
+              : [data.attributes.field_features.value])
+          : data.attributes?.field_features
+            ? (typeof data.attributes.field_features === 'string' 
+                ? [data.attributes.field_features] 
+                : [])
+            : undefined,
       field_architecture: data.attributes?.field_architecture?.value ?? data.attributes?.field_architecture ?? "",
       // Resultados e Impacto
       field_results: data.attributes?.field_results?.value ?? data.attributes?.field_results ?? "",
@@ -64,7 +104,17 @@ export function normalizeProject(data: any): Project {
       field_technical_impact: data.attributes?.field_technical_impact?.value ?? data.attributes?.field_technical_impact ?? "",
       field_lessons_learned: data.attributes?.field_lessons_learned?.value ?? data.attributes?.field_lessons_learned ?? "",
       // Integraciones
-      field_integrations: data.attributes?.field_integrations?.value ?? data.attributes?.field_integrations ?? "",
+      field_integrations: Array.isArray(data.attributes?.field_integrations)
+        ? data.attributes.field_integrations
+        : data.attributes?.field_integrations?.value
+          ? (Array.isArray(data.attributes.field_integrations.value) 
+              ? data.attributes.field_integrations.value 
+              : [data.attributes.field_integrations.value])
+          : data.attributes?.field_integrations
+            ? (typeof data.attributes.field_integrations === 'string' 
+                ? [data.attributes.field_integrations] 
+                : [])
+            : undefined,
       // Enlaces y Recursos
       field_project_url: data.attributes?.field_project_url?.uri ?? data.attributes?.field_project_url ?? "",
       field_repository_url: data.attributes?.field_repository_url?.uri ?? data.attributes?.field_repository_url ?? "",

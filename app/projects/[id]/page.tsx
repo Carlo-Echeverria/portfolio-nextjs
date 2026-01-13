@@ -350,7 +350,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               )}
 
               {/* Características Principales */}
-              {project.attributes.field_features && (
+              {project.attributes.field_features && project.attributes.field_features.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -359,18 +359,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div
-                      className="prose dark:prose-invert max-w-none"
-                      dangerouslySetInnerHTML={{
-                        __html: sanitizeHtml(project.attributes.field_features),
-                      }}
-                    />
+                    <ul className="list-disc pl-5 space-y-2">
+                      {project.attributes.field_features.map((feature, idx) => (
+                        <li key={idx} className="text-muted-foreground">
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
               )}
 
               {/* Desafíos Técnicos */}
-              {project.attributes.field_challenges && (
+              {project.attributes.field_challenges && project.attributes.field_challenges.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -379,18 +380,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div
-                      className="prose dark:prose-invert max-w-none"
-                      dangerouslySetInnerHTML={{
-                        __html: sanitizeHtml(project.attributes.field_challenges),
-                      }}
-                    />
+                    <ul className="list-disc pl-5 space-y-2">
+                      {project.attributes.field_challenges.map((challenge, idx) => (
+                        <li key={idx} className="text-muted-foreground">
+                          {challenge}
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
               )}
 
               {/* Soluciones Implementadas */}
-              {project.attributes.field_solutions && (
+              {project.attributes.field_solutions && project.attributes.field_solutions.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -399,12 +401,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div
-                      className="prose dark:prose-invert max-w-none"
-                      dangerouslySetInnerHTML={{
-                        __html: sanitizeHtml(project.attributes.field_solutions),
-                      }}
-                    />
+                    <ul className="list-disc pl-5 space-y-2">
+                      {project.attributes.field_solutions.map((solution, idx) => (
+                        <li key={idx} className="text-muted-foreground">
+                          {solution}
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
               )}
@@ -430,7 +433,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               )}
 
               {/* Integraciones */}
-              {project.attributes.field_integrations && (
+              {project.attributes.field_integrations && project.attributes.field_integrations.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -439,12 +442,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div
-                      className="prose dark:prose-invert max-w-none"
-                      dangerouslySetInnerHTML={{
-                        __html: sanitizeHtml(project.attributes.field_integrations),
-                      }}
-                    />
+                    <ul className="list-disc pl-5 space-y-2">
+                      {project.attributes.field_integrations.map((integration, idx) => (
+                        <li key={idx} className="text-muted-foreground">
+                          {integration}
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
               )}
@@ -540,7 +544,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               )}
 
               {/* Responsabilidades */}
-              {project.attributes.field_responsibilities && (
+              {project.attributes.field_responsibilities && project.attributes.field_responsibilities.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -549,12 +553,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div
-                      className="prose dark:prose-invert max-w-none"
-                      dangerouslySetInnerHTML={{
-                        __html: sanitizeHtml(project.attributes.field_responsibilities),
-                      }}
-                    />
+                    <ul className="list-disc pl-5 space-y-2">
+                      {project.attributes.field_responsibilities.map((responsibility, idx) => (
+                        <li key={idx} className="text-muted-foreground">
+                          {responsibility}
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
               )}
