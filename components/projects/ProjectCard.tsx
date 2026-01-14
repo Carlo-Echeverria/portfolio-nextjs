@@ -42,13 +42,14 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     >
       <Card className="overflow-hidden h-full flex flex-col group hover:shadow-lg transition-shadow duration-300">
         <Link href={projectUrl} className="block">
-          <div className="relative h-48 w-full overflow-hidden">
+          <div className="relative w-full aspect-video overflow-hidden bg-muted">
             <Image
               src={thumbnailUrl}
               alt={project.attributes.title}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-110"
-              quality={75}
+              quality={80}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
             {/* Badge de estado en la esquina superior */}
             {project.attributes.field_project_status && (
