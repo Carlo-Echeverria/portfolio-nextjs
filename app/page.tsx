@@ -17,11 +17,25 @@ export default async function Home() {
   const experiences: Experience[] = profile?.relationships?.field_experiences?.data || []
   const projects: Project[] = profile?.relationships?.field_projects?.data || []
 
+  // Ordenar experiencias por fecha de término (las actuales primero, luego por fecha descendente)
+  const sortedExperiences = [...experiences].sort((a, b) => {
+    // Las experiencias actuales van primero
+    if (a.attributes.field_is_current && !b.attributes.field_is_current) return -1
+    if (!a.attributes.field_is_current && b.attributes.field_is_current) return 1
+    
+    // Si ambas son actuales o ambas terminaron, ordenar por fecha de término
+    const dateA = a.attributes.field_end_date || a.attributes.field_start_date
+    const dateB = b.attributes.field_end_date || b.attributes.field_start_date
+    
+    // Ordenar descendente (más recientes primero)
+    return new Date(dateB).getTime() - new Date(dateA).getTime()
+  })
+
   return (
     <main className="overflow-x-hidden md:overflow-x-auto">
       <HeroSection profile={profile} />
       <AboutSection profile={profile} />
-      <ExperienceSection experiences={experiences} />
+      <ExperienceSection experiences={sortedExperiences} />
       <ProjectsSection projectsProps={projects} />
       <SkillsSection skills={skills} />
       {/* <BlogSection /> */}
