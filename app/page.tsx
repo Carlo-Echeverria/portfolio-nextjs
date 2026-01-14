@@ -9,6 +9,7 @@ import { SkillsSection } from "@/components/sections/SkillsSection"
 import { BlogSection } from "@/components/sections/BlogSection"
 import { ContactSection } from "@/components/sections/ContactSection"
 import { getProfile } from "@/services/profileService"
+import { log } from "node:console"
 
 export default async function Home() {
   // Obtener datos del perfil
