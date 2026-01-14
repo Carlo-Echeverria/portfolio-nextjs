@@ -15,7 +15,21 @@ async function getProjects(): Promise<Project[]> {
 export default async function ProjectsPage() {
   const projects = await getProjects()
 
-  return <AnimatedProjectsPage projects={projects} />
+  // Ordenar proyectos por fecha de término (los actuales primero, luego por fecha descendente)
+  const sortedProjects = [...projects].sort((a, b) => {
+    // Los proyectos actuales van primero
+    if (a.attributes.field_is_current && !b.attributes.field_is_current) return -1
+    if (!a.attributes.field_is_current && b.attributes.field_is_current) return 1
+    
+    // Si ambos son actuales o ambos terminaron, ordenar por fecha de término
+    const dateA = a.attributes.field_end_date || a.attributes.field_start_date
+    const dateB = b.attributes.field_end_date || b.attributes.field_start_date
+    
+    // Ordenar descendente (más recientes primero)
+    return new Date(dateB).getTime() - new Date(dateA).getTime()
+  })
+
+  return <AnimatedProjectsPage projects={sortedProjects} />
 }
 
 export const metadata = {
