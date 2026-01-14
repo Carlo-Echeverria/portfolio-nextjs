@@ -167,9 +167,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container px-4 md:px-6 py-24">
+      {/* Banner Hero Fullwidth */}
+      <div className="relative w-full h-96 md:h-[500px] mt-20">
+        <Image
+          src={heroImageUrl}
+          alt={project.attributes.title}
+          fill
+          className="object-cover"
+          priority
+          quality={75}
+        />
+      </div>
+
+      {/* Contenido del proyecto */}
+      <div className="container px-4 md:px-6 py-12">
         <div className="mx-auto max-w-6xl">
-          {/* Navegación */}
+          {/* Botón Volver a proyectos */}
           <div className="mb-8">
             <Button asChild variant="ghost" className="gap-2 p-0 px-3 h-9">
               <Link href="/projects">
@@ -294,18 +307,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 )}
               </div>
             )}
-          </div>
-
-          {/* Imagen principal (Hero o Thumbnail) */}
-          <div className="relative h-96 w-full rounded-lg overflow-hidden mb-12">
-            <Image
-              src={heroImageUrl}
-              alt={project.attributes.title}
-              fill
-              className="object-cover"
-              priority
-              quality={75}
-            />
           </div>
 
           {/* Información del proyecto */}

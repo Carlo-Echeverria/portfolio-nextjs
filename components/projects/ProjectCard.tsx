@@ -21,7 +21,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const backendStack = project.relationships.field_backend_stack?.data.map((tech) => tech.attributes.name) || []
   const frontendStack = project.relationships.field_frontend_stack?.data.map((tech) => tech.attributes.name) || []
   const projectTypes = project.relationships.field_project_types.data.map((type) => type.attributes.name)
-  
+
   const thumbnailData = project.relationships.field_thumbnail.data as unknown as ImageData
   const thumbnailUrl = (thumbnailData && 'attributes' in thumbnailData)
     ? thumbnailData.attributes?.uri?.url || "/placeholder.webp"
@@ -76,9 +76,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         
         <CardContent className="flex flex-col flex-grow p-6">
           <div className="mb-2">
-            <Link href={projectUrl} className="block group-hover:text-primary transition-colors">
+          <Link href={projectUrl} className="block group-hover:text-primary transition-colors">
               <h3 className="text-xl font-bold mb-2">{project.attributes.title}</h3>
-            </Link>
+          </Link>
             {/* Sector */}
             {project.attributes.field_sector && (
               <div className="flex items-center gap-1 text-xs text-muted-foreground mb-2">
@@ -92,7 +92,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           {summary && (
             <p className="mb-4 text-muted-foreground line-clamp-3 text-sm">
               {summary}
-            </p>
+          </p>
           )}
 
           {/* Tipos de proyecto */}
@@ -141,12 +141,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               )}
               {techStacks.length > 0 && backendStack.length === 0 && frontendStack.length === 0 && (
                 <div className="flex flex-wrap gap-1">
-                  {techStacks.slice(0, 3).map((tech, idx) => (
+              {techStacks.slice(0, 3).map((tech, idx) => (
                     <Badge key={idx} variant="secondary" className="text-xs">
-                      {tech}
-                    </Badge>
-                  ))}
-                  {techStacks.length > 3 && (
+                  {tech}
+                </Badge>
+              ))}
+              {techStacks.length > 3 && (
                     <Badge variant="outline" className="text-xs">+{techStacks.length - 3}</Badge>
                   )}
                 </div>
@@ -172,13 +172,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <div className="mt-auto text-xs text-muted-foreground mb-4 flex items-center gap-1">
             <Calendar className="h-3 w-3" />
             <span>
-              {formatDate(project.attributes.field_start_date)} - {
-                project.attributes.field_is_current 
-                  ? "Presente" 
+            {formatDate(project.attributes.field_start_date)} - {
+              project.attributes.field_is_current 
+                ? "Presente" 
                   : project.attributes.field_end_date
                     ? formatDate(project.attributes.field_end_date)
                     : "En curso"
-              }
+            }
             </span>
           </div>
 
