@@ -19,8 +19,13 @@ export const generateDrupalToken = async (): Promise<string> => {
     return tokenCache.token;
   }
 
+  const drupalBaseUrl = process.env.NEXT_PUBLIC_DRUPAL_BASE_URL;
+  if (!drupalBaseUrl) {
+    throw new Error('NEXT_PUBLIC_DRUPAL_BASE_URL is not configured');
+  }
+
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/token`, {
+    const response = await fetch(`${drupalBaseUrl}/oauth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

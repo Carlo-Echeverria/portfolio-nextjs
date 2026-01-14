@@ -13,7 +13,7 @@ interface AnimatedProjectsPageProps {
 
 export function AnimatedProjectsPage({ projects }: AnimatedProjectsPageProps) {
   return (
-    <div className="container px-4 md:px-6 py-24">
+    <div className="container px-4 md:px-6 pt-32 pb-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
