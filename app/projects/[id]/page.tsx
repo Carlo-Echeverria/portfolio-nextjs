@@ -783,7 +783,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
 
           {/* Navegación inferior */}
-          <div className="mt-12 pt-8 border-t">
+          <div className="mt-12 pt-8">
             <div className="flex justify-center">
               <Button asChild variant="outline">
                 <Link href="/projects">
