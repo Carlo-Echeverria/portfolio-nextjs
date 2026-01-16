@@ -1,5 +1,59 @@
-import { supabase } from '../supabase';
+import { supabase, supabaseAdmin } from '../supabase';
 import { Article } from "@/types/blog"
+
+// Función para validar la conexión a Supabase
+export async function validateSupabaseConnection(): Promise<{ success: boolean; error?: string; details?: any }> {
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseServiceKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!supabaseUrl) {
+      return { 
+        success: false, 
+        error: 'NEXT_PUBLIC_SUPABASE_URL is not set',
+        details: { hasUrl: false, hasServiceKey: !!supabaseServiceKey }
+      };
+    }
+
+    if (!supabaseServiceKey) {
+      return { 
+        success: false, 
+        error: 'NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY is not set',
+        details: { hasUrl: true, hasServiceKey: false }
+      };
+    }
+
+    // Intentar hacer una consulta simple a la tabla articles
+    const { data, error } = await (supabaseAdmin as any)
+      .from('articles')
+      .select('id')
+      .limit(1);
+
+    if (error) {
+      return { 
+        success: false, 
+        error: `Supabase connection error: ${error.message}`,
+        details: { code: error.code, hint: error.hint, details: error.details }
+      };
+    }
+
+    return { 
+      success: true, 
+      details: { 
+        url: supabaseUrl,
+        hasServiceKey: !!supabaseServiceKey,
+        tableExists: true,
+        articleCount: data?.length ?? 0
+      }
+    };
+  } catch (error: any) {
+    return { 
+      success: false, 
+      error: `Validation error: ${error.message}`,
+      details: error
+    };
+  }
+}
 
 // Obtener artículos de DEV.to
 export async function fetchDevToArticles(username : string): Promise<Article[]> {
@@ -111,8 +165,8 @@ export async function syncArticlesFromDev(username : string): Promise<number> {
 
     for (const article of devToArticles) {
       try {
-        // Buscar si el artículo ya existe
-        const { data: existingArticle, error: findError } = await supabase
+        // Buscar si el artículo ya existe (usar supabaseAdmin para operaciones del servidor)
+        const { data: existingArticle, error: findError } = await (supabaseAdmin as any)
           .from('articles')
           .select('id')
           .eq('id', article.id.toString())
@@ -148,8 +202,8 @@ export async function syncArticlesFromDev(username : string): Promise<number> {
         
         let savedArticle;
         if (existingArticle) {
-          // Actualizar artículo existente
-          const { data: updated, error: updateError } = await supabase
+          // Actualizar artículo existente (usar supabaseAdmin para operaciones del servidor)
+          const { data: updated, error: updateError } = await (supabaseAdmin as any)
             .from('articles')
             .update(articleData)
             .eq('id', existingArticle.id)
@@ -159,8 +213,8 @@ export async function syncArticlesFromDev(username : string): Promise<number> {
           savedArticle = updated;
           updatedCount++;
         } else {
-          // Crear nuevo artículo
-          const { data: created, error: insertError } = await supabase
+          // Crear nuevo artículo (usar supabaseAdmin para operaciones del servidor)
+          const { data: created, error: insertError } = await (supabaseAdmin as any)
             .from('articles')
             .insert([articleData])
             .select()
@@ -190,23 +244,45 @@ export async function syncArticlesFromDev(username : string): Promise<number> {
 
 // Obtener todos los artículos
 export async function getArticles() {
-  const { data, error } = await supabase
-    .from('articles')
-    .select('*')
-    .order('published_at', { ascending: false });
+  try {
+    // Usar supabaseAdmin para operaciones del servidor
+    const { data, error } = await (supabaseAdmin as any)
+      .from('articles')
+      .select('*')
+      .order('published_at', { ascending: false });
 
-  if (error) throw error;
-  return data;
+    if (error) {
+      console.error('Error fetching articles from Supabase:', error);
+      throw error;
+    }
+
+    console.log(`Successfully fetched ${data?.length || 0} articles from Supabase`);
+    return data || [];
+  } catch (error) {
+    console.error('Error in getArticles():', error);
+    throw error;
+  }
 }
 
 // Obtener un artículo por slug
 export async function getArticleBySlug(slug: string) {
-  const { data, error } = await supabase
-    .from('articles')
-    .select('*')
-    .eq('slug', slug)
-    .single();
+  try {
+    // Usar supabaseAdmin para operaciones del servidor
+    const { data, error } = await (supabaseAdmin as any)
+      .from('articles')
+      .select('*')
+      .eq('slug', slug)
+      .single();
 
-  if (error) throw error;
-  return data;
+    if (error) {
+      console.error(`Error fetching article by slug "${slug}" from Supabase:`, error);
+      throw error;
+    }
+
+    console.log(`Successfully fetched article "${slug}" from Supabase`);
+    return data;
+  } catch (error) {
+    console.error(`Error in getArticleBySlug("${slug}"):`, error);
+    throw error;
+  }
 }
