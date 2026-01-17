@@ -52,7 +52,7 @@ export default async function Home() {
       <ExperienceSection experiences={sortedExperiences} />
       <ProjectsSection projectsProps={sortedProjects} />
       <SkillsSection skills={skills} />
-      {/* <BlogSection /> */}
+      <BlogSection />
       <ContactSection profile={profile} />
     </main>
   )

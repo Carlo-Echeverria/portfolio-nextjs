@@ -66,6 +66,9 @@ export interface AuthResponse {
   token?: string
 }
 
+// Importar tipo Article para la tabla articles
+import { Article } from './blog'
+
 // Tipos para Supabase Database
 export interface Database {
   public: {
@@ -84,6 +87,11 @@ export interface Database {
         Row: PasswordReset
         Insert: Omit<PasswordReset, 'id' | 'created_at'>
         Update: Partial<Omit<PasswordReset, 'id' | 'created_at'>>
+      }
+      articles: {
+        Row: Article
+        Insert: Article
+        Update: Partial<Article>
       }
     }
   }

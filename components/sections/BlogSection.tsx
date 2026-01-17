@@ -1,19 +1,15 @@
 import { AnimatedBlogSection } from "./AnimatedBlogSection"
 import { Article } from "@/types/blog"
 
+// Función para obtener artículos en el servidor
 async function getArticles(): Promise<Article[]> {
   try {
+    // Usar directamente el servicio en lugar de la API (más eficiente en Server Components)
+    const { getArticles } = await import('@/lib/api/articles-service')
     
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const articles = await getArticles()
     
-    const response = await fetch(`${baseUrl}/api/articles`)
-    
-    if (!response.ok) {
-      throw new Error('Error fetching articles')
-    }
-    
-    const articles: Article[] = await response.json()
-    
+    // Mapear los artículos para asegurar el formato correcto
     return articles.map(article => ({
       id: article.id,
       title: article.title,
@@ -29,10 +25,10 @@ async function getArticles(): Promise<Article[]> {
       published_at: article.published_at,
       last_comment_at: article.last_comment_at,
       reading_time_minutes: article.reading_time_minutes,
-      tag_list: article.tag_list,
+      tag_list: article.tag_list || [],
     }))
   } catch (error) {
-    console.error('Error fetching articles:', error)
+    console.error('Error fetching articles in BlogSection:', error)
     return [] // Retornar array vacío en caso de error
   }
 }
